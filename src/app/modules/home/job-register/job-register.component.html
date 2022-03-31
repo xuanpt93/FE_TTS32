@@ -1,0 +1,45 @@
+<form class="needs-validation" >
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label >Tên công việc</label>
+      <input type="text" class="form-control" placeholder="Tên công việc" id="jobName" formControlName="jobName">
+    </div>
+    <div class="col-md-4 mb-3">
+      <label >Mức lương tối thiểu</label>
+      <input type="text" class="form-control" id="salarymin" formControlName="salaryMin" placeholder="Mức lương tối thiểu"
+             required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label >Mức lương tối đa</label>
+      <input type="text" class="form-control" id="salarymax" formControlName="salaryMax" placeholder="Mức lương tối đa"
+             required>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit" style="margin-left: 549px;">Tìm
+    kiếm</button>
+</form>
+<table id="tb-view" class="table table-bordered table-sm table-hover table-striped" style="margin-top: 30px;">
+  <thead>
+  <tr>
+    <th>Tên công việc</th>
+    <th>Vị trí tuyển dụng</th>
+    <th>Mức lương đề xuất</th>
+    <th>Hạn nộp hồ sơ</th>
+    <th>Trạng thái</th>
+    <th>View</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let items of datas">
+    <td>{{items.id}}</td>
+    <td>{{items.addressInterview}}</td>
+    <td>{{items.mediaType}}VNĐ</td>
+    <td>{{items.statusJobRegister_id}}</td>
+    <td>{{items.mediaType}}</td>
+    <td>{{items.user_id}}</td>
+    <td class="text-nowrap" style="width: 1px;">
+      <button type="button" class="btn btn-danger" style="margin-right: 1px;">Chi tiết</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -9,6 +9,7 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 import { AuthGuard } from './@core/guards/auth.guard';
+import {JobRegisterComponent} from './modules/home/job-register/job-register.component';
 
 
 

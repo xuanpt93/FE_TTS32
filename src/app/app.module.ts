@@ -23,6 +23,7 @@ import {
 } from '@nebular/theme';
 
 import { AuthInterceptor } from './@core/interceptor/auth.interceptor';
+import { JobRegisterComponent } from './modules/home/job-register/job-register.component';
 
 
 const configToast: any = {

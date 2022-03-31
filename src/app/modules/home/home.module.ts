@@ -8,6 +8,7 @@ import { JobComponent } from './job/job.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { JobAddComponent } from './job-add/job-add.component';
+import {JobRegisterComponent} from './job-register/job-register.component';
 
 const routes: Routes = [{
   path: '',
@@ -29,12 +30,15 @@ const routes: Routes = [{
       path: 'user',
       // loadChildren: () => import('./user/user.module').then(m => m.UserModule)
     },
+
+    {path: 'jobRegister', component:JobRegisterComponent},
   ],
 }];
 
 @NgModule({
   declarations: [
-    HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,
+
+    HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,JobRegisterComponent
   ],
   imports: [
     CommonModule,
