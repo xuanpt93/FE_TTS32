@@ -1,0 +1,51 @@
+<form class="needs-validation" [formGroup]="searchForm" (ngSubmit)="onSearchJob()">
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label >Tên công việc</label>
+      <input type="text" class="form-control" placeholder="Tên công việc" id="jobName" formControlName="jobName">
+    </div>
+    <div class="col-md-4 mb-3">
+      <label >Mức lương tối thiểu</label>
+      <input type="text" class="form-control" id="salarymin" formControlName="salaryMin" placeholder="Mức lương tối thiểu"
+             required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label >Mức lương tối đa</label>
+      <input type="text" class="form-control" id="salarymax" formControlName="salaryMax" placeholder="Mức lương tối đa"
+             required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label >Trạng thái công việc</label>
+      <input type="text" class="form-control" id="statusJob" formControlName="statusJob" placeholder="Trạng thái công việc"
+             required>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit" style="margin-left: 549px;" (click)="onSearchJob">Tìm
+    kiếm</button>
+</form>
+<table id="tb-view" class="table table-bordered table-sm table-hover table-striped" style="margin-top: 30px;">
+  <thead>
+  <tr>
+    <th>Tên công việc</th>
+    <th>Vị trí tuyển dụng</th>
+    <th>Mức lương đề xuất</th>
+    <th>Hạn nộp hồ sơ</th>
+    <th>Trạng thái</th>
+    <th>View</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of jobs ">
+    <td>{{item.name}}</td>
+    <td>{{item.jobRequirement}}</td>
+    <td>{{item.salaryMax}}VNĐ</td>
+    <td>{{item.dueDate| date:'fullDate'}}</td>
+    <td>{{item.statusJob.name}}</td>
+    <td>{{item.views}}</td>
+    <td class="text-nowrap" style="width: 1px;">
+      <button type="button" class="btn btn-danger" style="margin-right: 1px;"
+              routerLink="/home/job-detail/{{item.id}}">Chi tiết</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

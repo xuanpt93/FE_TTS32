@@ -11,6 +11,8 @@ import {
 import { AuthGuard } from './@core/guards/auth.guard';
 import {JobRegisterComponent} from './modules/home/job-register/job-register.component';
 
+
+
 export const routes: Routes = [
   {
     path: 'auth',

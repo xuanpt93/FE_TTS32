@@ -35,6 +35,7 @@ export class AuthComponent implements OnInit {
     this.formLogin = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
+      rememberMe: false
     });
   }
 
