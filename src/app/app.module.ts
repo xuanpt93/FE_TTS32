@@ -24,6 +24,7 @@ import {
 
 import { AuthInterceptor } from './@core/interceptor/auth.interceptor';
 
+
 const configToast: any = {
   timeOut: 3000,
   positionClass: 'toast-top-right',
@@ -50,7 +51,7 @@ const configToast: any = {
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
-    ThemeModule.forRoot(),
+    ThemeModule.forRoot(  ),
     ToastrModule.forRoot(configToast),
   ],
   bootstrap: [AppComponent],

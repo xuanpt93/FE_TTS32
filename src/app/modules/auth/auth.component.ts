@@ -33,8 +33,9 @@ export class AuthComponent implements OnInit {
 
   initForm() {
     this.formLogin = this.fb.group({
-      email: ['', Validators.required],
+      userName: ['', Validators.required],
       password: ['', Validators.required],
+      rememberMe: false
     });
   }
 
@@ -49,9 +50,9 @@ export class AuthComponent implements OnInit {
       this.authService.login(this.formLogin.value).subscribe(
         data => {
           this.isLoggedIn = true;
-          this.tokenService.saveToken(data.data.token);
-          this.tokenService.saveUser(data.data.user);
-          this.roles = this.tokenService.getUser().roles;
+          this.tokenService.saveToken(data.token);
+          // this.tokenService.saveUser(data.data.user);
+          // this.roles = this.tokenService.getUser().roles;
           this.router.navigate(['/home/']);
         }
       );

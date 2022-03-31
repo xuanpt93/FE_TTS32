@@ -9,7 +9,7 @@ import { MENU_ITEMS } from './pages-menu';
     <router-outlet></router-outlet>
   </ngx-one-column-layout>
 `,
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
 
