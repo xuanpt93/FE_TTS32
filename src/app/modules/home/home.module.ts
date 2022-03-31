@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NbMenuModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
+import {JobRegisterComponent} from './job-register/job-register.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,13 +18,13 @@ const routes: Routes = [{
       path: 'user',
       // loadChildren: () => import('./user/user.module').then(m => m.UserModule)
     },
-
+    {path: 'jobRegister', component:JobRegisterComponent},
   ],
 }];
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    HomeComponent,JobRegisterComponent,
   ],
   imports: [
     CommonModule,
