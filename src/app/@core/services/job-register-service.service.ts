@@ -15,4 +15,8 @@ export class JobRegisterServiceService {
   getAll():Observable<jobRegisterModel[]>{
     return this.http.get<jobRegisterModel[]>(this.baseUrl).pipe();
   }
+
+  getById(id:number):Observable<jobRegisterModel>{
+    return this.http.get<jobRegisterModel>(`http://localhost:9090/api/public/jobRegister/` + `${id}`).pipe();
+  }
 }
