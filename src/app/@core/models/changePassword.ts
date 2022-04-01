@@ -1,6 +1,6 @@
 export class ChangePassword {
-  currentPassword!: string;
+  email!: string;
   newPassword!: string;
   otp: string;
-  verifyNewPassword!: string;
+  //verifyNewPassword!: string;
  }

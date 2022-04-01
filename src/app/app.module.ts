@@ -24,8 +24,13 @@ import {
 } from '@nebular/theme';
 
 import { AuthInterceptor } from './@core/interceptor/auth.interceptor';
+
 import { ConfirmMailComponent } from './modules/forgot-pass/confirm-mail/confirm-mail.component';
 import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pass.component';
+
+import { JobRegisterComponent } from './modules/home/job-register/job-register.component';
+
+
 
 const configToast: any = {
   timeOut: 3000,
@@ -55,7 +60,7 @@ const configToast: any = {
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
-    ThemeModule.forRoot(),
+    ThemeModule.forRoot(  ),
     ToastrModule.forRoot(configToast),
   ],
   bootstrap: [AppComponent],

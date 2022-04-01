@@ -21,7 +21,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'globe-2-outline',
     link: '/home/product'
   },
-  
+  {
+    title: 'Tin tuyen dung',
+    icon: 'globe-2-outline',
+    link: '/home/job',
+  },
+
   // {
   //   title: 'Auth',
   //   icon: 'lock-outline',

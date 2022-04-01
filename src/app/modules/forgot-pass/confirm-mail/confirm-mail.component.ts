@@ -45,6 +45,7 @@ export class ConfirmMailComponent implements OnInit {
       this.put(this.url, this.user)
           .then((data) => {
             // this.data.success('Employee is save');
+            this.data.setMail(this.user.email);
           alert('Vui lòng check email để lấy mã OTP để đổi mật khẩu!');
           this.router.navigate(['/change-pass']);
           this.btnDisable = false;
