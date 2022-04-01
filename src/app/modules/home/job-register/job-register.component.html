@@ -1,7 +1,4 @@
-<button type="button" class="btn btn-danger" style="margin-right: 1px;"
-        routerLink="/home/job-add">Thêm mới tin tuyển dụng</button>
-<br>
-<form class="needs-validation" style="padding-top: 24px" [formGroup]="searchForm" (ngSubmit)="onSearchJob()">
+<form class="needs-validation" >
   <div class="form-row">
     <div class="col-md-4 mb-3">
       <label >Tên công việc</label>
@@ -17,15 +14,9 @@
       <input type="text" class="form-control" id="salarymax" formControlName="salaryMax" placeholder="Mức lương tối đa"
              required>
     </div>
-    <div class="col-md-4 mb-3">
-      <label >Trạng thái công việc</label>
-      <input type="text" class="form-control" id="statusJob" formControlName="statusJob" placeholder="Trạng thái công việc"
-             required>
-    </div>
   </div>
-  <button class="btn btn-primary" type="submit" style="margin-left: 549px;" (click)="onSearchJob">Tìm
+  <button class="btn btn-primary" type="submit" style="margin-left: 549px;">Tìm
     kiếm</button>
-
 </form>
 <table id="tb-view" class="table table-bordered table-sm table-hover table-striped" style="margin-top: 30px;">
   <thead>
@@ -39,20 +30,16 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let item of jobs ">
-    <td>{{item.name}}</td>
-    <td>{{item.jobRequirement}}</td>
-    <td>{{item.salaryMax}}VNĐ</td>
-    <td>{{item.dueDate| date:'fullDate'}}</td>
-    <td>{{item.statusJob.name}}</td>
-    <td>{{item.views}}</td>
+  <tr *ngFor="let items of datas">
+    <td>{{items.id}}</td>
+    <td>{{items.addressInterview}}</td>
+    <td>{{items.mediaType}}VNĐ</td>
+    <td>{{items.statusJobRegister_id}}</td>
+    <td>{{items.mediaType}}</td>
+    <td>{{items.user_id}}</td>
     <td class="text-nowrap" style="width: 1px;">
-      <button type="button" class="btn btn-danger" style="margin-right: 1px;"
-              routerLink="/home/job-detail/{{item.id}}">Chi tiết</button>
+      <button type="button" class="btn btn-danger" style="margin-right: 1px;">Chi tiết</button>
     </td>
   </tr>
   </tbody>
 </table>
-
-
-

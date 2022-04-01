@@ -5,6 +5,8 @@ import {environment} from '../../../environments/environment';
 import {tap} from 'rxjs/operators';
 import {Job} from '../models/Job';
 import {SearchJob} from '../models/searchJob';
+import {JobDTO} from '../models/jobDTO';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -37,6 +39,13 @@ export class JobService {
   public findJob(name, statusJob, salaryMin, salaryMax,page,size): Observable<any> {
     // eslint-disable-next-line max-len
     return this.http.get<any>(`${this.apiServerUrl}`+'public/user/job/searchesT?'+'name='+name+'&statusJob='+statusJob+'&salaryMin='+salaryMin+'&salaryMax='+salaryMax+'&page='+page+'&size='+size).pipe(
+      tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
+    );
+  }
+
+  public addJob(job: JobDTO): Observable<any> {
+    console.log('day la add');
+    return this.http.post(`${this.apiServerUrl}`+'public/user/job/add-job',job).pipe(
       tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
     );
   }

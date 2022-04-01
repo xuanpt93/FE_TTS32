@@ -13,6 +13,13 @@ export class JobComponent implements OnInit {
 
   public job: any;
   public jobs: Job[];
+  selectedName: any;
+  selectedSalaryMin: any;
+  selectedSalaryMax: any;
+  sortNumber: number;
+  totalRecords: number;
+  selectedStatusJobAdvanced: any;
+  statusJob: any[];
   searchForm: FormGroup = this.cost.group({
     jobName: new FormControl(''),
     salaryMax: new FormControl(''),
@@ -29,6 +36,16 @@ export class JobComponent implements OnInit {
   ngOnInit(): void {
     this.getJop();
     this.onSearchJob();
+    this.getInnitData();
+  }
+
+  getInnitData() {
+    this.selectedName = '';
+    this.selectedStatusJobAdvanced = {id: 1, code: 'Chờ duyệt'};
+    this.selectedSalaryMin = 0;
+    this.selectedSalaryMax = 500000000;
+    this.totalRecords = 5;
+    this.sortNumber = 1;
   }
   getJop(){
     this.jobService.getJob().subscribe((data: any[])=>{

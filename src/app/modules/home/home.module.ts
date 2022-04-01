@@ -9,6 +9,11 @@ import { JobDetailComponent } from './job-detail/job-detail.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { JobAddComponent } from './job-add/job-add.component';
 
+import {JobRegisterComponent} from './job-register/job-register.component';
+import {CalendarModule} from 'primeng/calendar';
+import { JobUpdateComponent } from './job-update/job-update.component';
+
+
 const routes: Routes = [{
   path: '',
   component: HomeComponent,
@@ -22,6 +27,10 @@ const routes: Routes = [{
       component: JobDetailComponent,
     },
     {
+      path: 'job-add',
+      component: JobAddComponent,
+    },
+    {
       path: 'dashboard',
       // loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
     },
@@ -29,19 +38,24 @@ const routes: Routes = [{
       path: 'user',
       // loadChildren: () => import('./user/user.module').then(m => m.UserModule)
     },
+
+    {path: 'jobRegister', component:JobRegisterComponent},
   ],
 }];
 
 @NgModule({
   declarations: [
-    HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,
+
+    HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,JobRegisterComponent, JobUpdateComponent,
+
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ThemeModule,
-    NbMenuModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ThemeModule,
+        NbMenuModule,
+        ReactiveFormsModule,
+        CalendarModule,
+    ],
 })
 export class HomeModule { }

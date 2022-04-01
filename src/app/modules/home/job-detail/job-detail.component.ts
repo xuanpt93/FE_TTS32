@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./job-detail.component.scss'],
 })
 export class JobDetailComponent implements OnInit {
-  public  job: any;
+  public  job: Job;
 
   constructor(
     public jobService: JobService,
