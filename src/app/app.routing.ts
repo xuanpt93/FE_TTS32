@@ -9,6 +9,8 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 import { AuthGuard } from './@core/guards/auth.guard';
+import { ConfirmMailComponent } from './modules/forgot-pass/confirm-mail/confirm-mail.component';
+import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pass.component';
 
 export const routes: Routes = [
   {
@@ -18,7 +20,15 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
+  },
+  {
+    path: 'confirm-mail',
+    component: ConfirmMailComponent,
+  },
+  {
+    path: 'change-pass',
+    component: ChangePassComponent,
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
