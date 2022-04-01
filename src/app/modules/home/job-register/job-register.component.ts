@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import {jobRegisterModel} from '../../../@core/models/jobRegister.model';
-import {JobRegisterServiceService} from "../../../@core/services/job-register-service.service";
+import {JobRegisterServiceService} from '../../../@core/services/job-register-service.service';
 
 @Component({
   selector: 'ngx-job-register',
