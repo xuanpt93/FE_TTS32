@@ -20,16 +20,14 @@
         />
         <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
           <div *ngIf="email?.errors?.['required']">
-            Email không được để trông
+            Email không được để trống
           </div>
           <div *ngIf="email?.errors?.['email']">
             Email phải đúng định dạng
           </div>
         </div>
         </div>
-
-
-        <button type="submit" class="btn btn-primary"  (click)="confirmMail()">Send OTP</button>
+        <button type="submit" class="btn btn-primary" [disabled]=!this.confirmForm.valid  (click)="confirmMail()">Send OTP</button>
       </form>
     </div>
   </div>

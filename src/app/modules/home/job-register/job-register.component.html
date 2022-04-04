@@ -1,3 +1,4 @@
+
 <form class="needs-validation" >
   <div class="form-row">
     <div class="col-md-4 mb-3">
@@ -21,24 +22,104 @@
 <table id="tb-view" class="table table-bordered table-sm table-hover table-striped" style="margin-top: 30px;">
   <thead>
   <tr>
-    <th>Tên công việc</th>
+    <th>Tên ứng viên</th>
     <th>Vị trí tuyển dụng</th>
-    <th>Mức lương đề xuất</th>
-    <th>Hạn nộp hồ sơ</th>
+    <th>Thời gian ứng tuyển</th>
+    <th>Phương thức phỏng vấn</th>
+    <th>Địa điểm</th>
     <th>Trạng thái</th>
-    <th>View</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody>
+
   <tr *ngFor="let items of datas">
-    <td>{{items.id}}</td>
-    <td>{{items.addressInterview}}</td>
-    <td>{{items.mediaType}}VNĐ</td>
-    <td>{{items.statusJobRegister_id}}</td>
-    <td>{{items.mediaType}}</td>
-    <td>{{items.user_id}}</td>
+    <td routerLink="/home/jobRegister/{{items.id}}">{{items.userName}}</td>
+    <td routerLink="/home/jobRegister/{{items.id}}">{{items.jobPosition}}</td>
+    <td routerLink="/home/jobRegister/{{items.id}}">{{items.dateInterview| date:'dd-MM-yyyy'}}</td>
+    <td routerLink="/home/jobRegister/{{items.id}}">{{items.methodInterview}}</td>
+    <td routerLink="/home/jobRegister/{{items.id}}">{{items.addressInterview}}</td>
+    <td routerLink="/home/jobRegister/{{items.id}}">{{items.statusJobName}}</td>
     <td class="text-nowrap" style="width: 1px;">
-      <button type="button" class="btn btn-danger" style="margin-right: 1px;">Chi tiết</button>
+<!--      <button type="button" class="btn btn-success" style="margin-right: 1px;"-->
+<!--              routerLink="/home/jobRegister/{{items.id}}">Chi tiết</button>-->
+
+      <button type="button" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
+
+      <div *ngIf="items.statusJobRegisterName === 'ứng viên bị từ chối' || items.statusJobRegisterName === 'ứng viê đã hủy ứng tuyển'">
+        <button  type="button" (click)="openPopup()" class="btn btn-dark" style="margin-right: 1px;">Xem lý do</button>
+
+        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Lý do từ chối</h4>
+              </div>
+              <div class="modal-body">
+                <p>{{items.reason}}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div *ngIf="items.statusJobRegisterName === 'chờ phỏng vấn'">
+        <button type="button" (click)="openPopup1(items)" class="btn btn-info" style="margin-right: 1px;">Đặt lịch phỏng vấn</button>
+
+        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle1}">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Đặt lịch phỏng vấn</h4>
+              </div>
+              <div class="modal-body">
+                <form (ngSubmit)="onSubmit()" [formGroup]="formInterview">
+                  <input type="hidden" formControlName="userId" value="{{items.user_id}}" />
+                  <input type="hidden" formControlName="jobRegisterId" value="{{items.id}}" />
+                  <div class="col-md-12">
+                    <label >Thời gian phỏng vấn:</label>
+                    <input type="datetime-local" class="form-control" id="dateinterview"
+                           formControlName="date" >
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <label >Hình thức phỏng vấn:</label>
+                    <mat-radio-group aria-label="Select an option" >
+                      <mat-radio-button formControlName="method" value="offline" style="margin-right: 5px;" (change) ="closeCombobox()">Offline</mat-radio-button>
+                      <mat-radio-button formControlName="method" value="online" (change) ="openCombobox()">Online</mat-radio-button>
+                      <div [ngStyle]="{'display': licensed}">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" formControlName="tools" >
+                          <option value="Skype">Skype</option>
+                          <option value="Google meet">Google meet</option>
+                          <option value="Classroom">Classroom</option>
+                        </select>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+
+                  <div class="text-center text-lg-start mt-4 pt-2">
+                    <button  class="btn btn-primary" (click)="closePopup1()" type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup1()">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </td>
   </tr>
   </tbody>

@@ -5,6 +5,7 @@ import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SessionService } from '../../../@core/services/session.service';
+import { TokenService } from '../../../@core/services/token.service';
 
 @Component({
   selector: 'ngx-header',
@@ -45,14 +46,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private themeService: NbThemeService,
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private tokenService: TokenService) {
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
 
-    this.user = this.sessionService.getItem('auth-user');
-    
+    this.user = this.tokenService.getUser();
+
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(

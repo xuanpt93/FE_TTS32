@@ -10,11 +10,11 @@ const httpOptions = {
     'Content-Type': 'application/json',
     // 'Access-Control-Allow-Origin':'*',
     //'Access-Control-Allow-Origin':'http://localhost:9090'
-  })
+  }),
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly baseUrl = `${environment.apiUrl}auth/`;

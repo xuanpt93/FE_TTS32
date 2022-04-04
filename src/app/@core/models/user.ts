@@ -21,14 +21,21 @@ import { Role } from './Role';
 
 export class User {
   id: string;
-  fullName: string;
+  name: string;
   email: string;
   userName: string;
+
   username: string;
   birthday: Date;
   isDelete: number;
   roles: Role[];
   active: number;
+
+  birthDay: Date;
+  delete: boolean;
+  role: Role;
+  activate: boolean;
+
   avatarName: string;
 }
 

@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import {jobRegisterModel} from '../../../@core/models/jobRegister.model';
 import {JobRegisterServiceService} from '../../../@core/services/job-register-service.service';
+import {jobRegisterModel} from '../../../@core/models/jobRegister.model';
+import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
 
 @Component({
-  selector: 'ngx-job-register',
-  templateUrl: './job-register.component.html',
-  styleUrls: ['./job-register.component.scss'],
+  selector: 'ngx-job-register-detail',
+  templateUrl: './job-register-detail.component.html',
+  styleUrls: ['./job-register-detail.component.scss'],
 })
-export class JobRegisterComponent implements OnInit {
-  datas: jobRegisterModel[]=[];
+
+export class JobRegisterDetailComponent implements OnInit {
+  data: jobRegisterModel;
   formInterview: FormGroup;
-  isSubmitted = false;
+  formChangeStatus: FormGroup;
 
   constructor(
+    private router: ActivatedRoute,
     private jobRegisterService: JobRegisterServiceService,
     private fb: FormBuilder,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.getAll();
+    this.getById(this.router.snapshot.params['id']);
     this.formInterview = this.fb.group({
       jobRegisterId: ['', Validators.required],
       userId: ['', Validators.required],
@@ -29,13 +30,25 @@ export class JobRegisterComponent implements OnInit {
       method:['', Validators.required],
       tools:['', Validators.required],
     });
+    this.formChangeStatus = this.fb.group({
+      status: ['chờ phỏng vấn', Validators.required],
+    });
   }
 
-  getAll(){
-    this.jobRegisterService.getAll().subscribe((res: any)=>{
+  getById(id: any){
+    this.jobRegisterService.getById(id).subscribe((res: any)=>{
       console.log(res);
-      this.datas = res;
+      this.data=res;
     });
+  }
+
+  onChangeStatus(id: any){
+    this.jobRegisterService.changeStatus(id, this.formChangeStatus.value).subscribe(
+      data => {
+        console.log(data);
+        this.getById(id);
+      },
+    );
   }
 
   displayStyle = "none";
@@ -67,16 +80,12 @@ export class JobRegisterComponent implements OnInit {
     this.licensed = "none";
   }
 
-  innitForm(){
-  }
-
   onSubmit(){
     console.log(this.formInterview.value);
-      this.jobRegisterService.sendEmailInterview(this.formInterview.value).subscribe(
-        data => {
-          console.log(data);
-        },
-      );
+    this.jobRegisterService.sendEmailInterview(this.formInterview.value).subscribe(
+      data => {
+        console.log(data);
+      },
+    );
   }
-
 }
