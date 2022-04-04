@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,6 +9,8 @@ import { JobDetailComponent } from './job-detail/job-detail.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { JobAddComponent } from './job-add/job-add.component';
 import {JobRegisterComponent} from './job-register/job-register.component';
+import { UserComponent } from './user/user.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
 const routes: Routes = [{
   path: '',
@@ -28,17 +30,34 @@ const routes: Routes = [{
     },
     {
       path: 'user',
+      component: UserComponent,
+      // loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+    },{
+      path: 'user-detail/:id',
+      component: UserDetailComponent,
       // loadChildren: () => import('./user/user.module').then(m => m.UserModule)
     },
 
-    {path: 'jobRegister', component:JobRegisterComponent},
+    {
+      path: 'jobRegister',
+      component:JobRegisterComponent,
+    },
   ],
 }];
 
 @NgModule({
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA,
+  ],
   declarations: [
-
-    HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,JobRegisterComponent
+    HomeComponent,
+    JobComponent,
+    JobDetailComponent,
+    JobAddComponent,
+    JobRegisterComponent,
+    UserComponent,
+    UserDetailComponent,
   ],
   imports: [
     CommonModule,

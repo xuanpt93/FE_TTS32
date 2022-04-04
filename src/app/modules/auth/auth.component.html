@@ -32,14 +32,20 @@
                             pInputText>
                         <label for="p-inputtext-lg">UserName</label>
                     </div>
-
+                    <div class="col alert alert-danger" role="alert"
+                      *ngIf="formLogin.controls.userName?.errors?.required && formLogin.controls.userName?.touched">
+                      password is required!
+                    </div>
                     <!-- Password input -->
                     <div class="p-float-label custom-input mb-3">
                         <input id="p-inputtext-lg" class="custom-input" formControlName="password" type="password"
                             pInputText />
                         <label for="p-inputtext-lg">Password</label>
                     </div>
-
+                    <div class="col alert alert-danger" role="alert"
+                      *ngIf="formLogin.controls.password?.errors?.required && formLogin.controls.password?.touched">
+                      password is required!
+                    </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <!-- Checkbox -->
                         <div class="form-check mb-0">
