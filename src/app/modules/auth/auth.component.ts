@@ -7,7 +7,7 @@ import { TokenService } from '../../@core/services/token.service';
 @Component({
   selector: 'ngx-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
 
@@ -35,9 +35,11 @@ export class AuthComponent implements OnInit {
     this.formLogin = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
+      rememberMe: false
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   get f() {
     return this.formLogin.controls;
   }
@@ -53,7 +55,7 @@ export class AuthComponent implements OnInit {
           // this.tokenService.saveUser(data.data.user);
           // this.roles = this.tokenService.getUser().roles;
           this.router.navigate(['/home/']);
-        }
+        },
       );
     }
   }

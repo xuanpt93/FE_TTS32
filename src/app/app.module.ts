@@ -12,6 +12,7 @@ import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app.routing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -23,7 +24,14 @@ import {
 } from '@nebular/theme';
 
 import { AuthInterceptor } from './@core/interceptor/auth.interceptor';
+
+import { ConfirmMailComponent } from './modules/forgot-pass/confirm-mail/confirm-mail.component';
+import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pass.component';
+
 import { JobRegisterComponent } from './modules/home/job-register/job-register.component';
+import {CommonModule} from "@angular/common";
+
+
 
 const configToast: any = {
   timeOut: 3000,
@@ -35,8 +43,11 @@ const configToast: any = {
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ConfirmMailComponent, ChangePassComponent],
   imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -51,7 +62,7 @@ const configToast: any = {
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
-    ThemeModule.forRoot(),
+    ThemeModule.forRoot(  ),
     ToastrModule.forRoot(configToast),
   ],
   bootstrap: [AppComponent],

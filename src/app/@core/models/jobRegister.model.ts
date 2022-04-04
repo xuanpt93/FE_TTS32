@@ -2,22 +2,23 @@ export interface jobRegisterModel {
   id: number;
   job_id: number;
   user_id: number;
-  userName: String;
+  userName: string;
   dateRegister: Date;
   dateInterview: Date;
-  methodInterview: String;
-  addressInterview: String;
-  statusJobRegister_id: Number;
-  cv: String;
-  mediaType: String;
-  reason: String;
-  jobPosition: String;
-  jobName: String;
-  statusJob: String;
+  methodInterview: string;
+  addressInterview: string;
+  statusJobRegister_id: number;
+  cv: string;
+  mediaType: string;
+  reason: string;
+  jobPosition: string;
+  jobName: string;
+  statusJob: string;
 
   qtyPerson: number;
   minSalary: number;
   maxSalary: number;
-  rankName: String;
-  statusJobName: String;
+  rankName: string;
+  statusJobName: string;
+  statusJobRegisterName: string;
 }

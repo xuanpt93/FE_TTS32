@@ -1,4 +1,99 @@
 <div class="container">
+  <div class="d-flex">
+    <button type="button" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
+
+    <div *ngIf="data.statusJobRegisterName === 'chờ duyệt'">
+      <form (ngSubmit)="onChangeStatus(data.id)" [formGroup]="formChangeStatus">
+        <input formControlName="status" value="chờ phỏng vấn"/>
+        <button type="submit" class="btn btn-success" style="margin-right: 1px;">Xét duyệt</button>
+      </form>
+    </div>
+
+    <div *ngIf="data.statusJobRegisterName !== 'ứng viên bị từ chối'">
+      <button type="button" class="btn btn-success" style="margin-right: 1px;">Từ chối ứng viên</button>
+    </div>
+
+    <div *ngIf="data.statusJobRegisterName === 'ứng viên bị từ chối' || data.statusJobRegisterName === 'ứng viên đã hủy ứng tuyển'">
+      <button  type="button" (click)="openPopup()" class="btn btn-success" style="margin-right: 1px;">Xem lý do</button>
+
+      <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Lý do từ chối</h4>
+            </div>
+            <div class="modal-body">
+              <p>{{data.reason}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" (click)="closePopup()">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="data.statusJobRegisterName === 'chờ phỏng vấn'">
+      <button type="button" (click)="openPopup1(data)" class="btn btn-success" style="margin-right: 1px;">Đặt lịch phỏng vấn</button>
+
+      <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle1}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Đặt lịch phỏng vấn</h4>
+            </div>
+            <div class="modal-body">
+              <form (ngSubmit)="onSubmit()" [formGroup]="formInterview">
+                <input type="hidden" formControlName="userId" value="{{data.user_id}}" />
+                <input type="hidden" formControlName="jobRegisterId" value="{{data.id}}" />
+                <div class="col-md-12">
+                  <label >Thời gian phỏng vấn:</label>
+                  <input type="datetime-local" class="form-control" id="dateinterview"
+                         formControlName="date" >
+                </div>
+
+
+                <div class="col-md-6">
+                  <label >Hình thức phỏng vấn:</label>
+                  <mat-radio-group aria-label="Select an option" >
+                    <mat-radio-button formControlName="method" value="offline" style="margin-right: 5px;" (change) ="closeCombobox()">Offline</mat-radio-button>
+                    <mat-radio-button formControlName="method" value="online" (change) ="openCombobox()">Online</mat-radio-button>
+                    <div [ngStyle]="{'display': licensed}">
+                      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" formControlName="tools" >
+                        <option value="Skype">Skype</option>
+                        <option value="Google meet">Google meet</option>
+                        <option value="Classroom">Classroom</option>
+                      </select>
+                    </div>
+                  </mat-radio-group>
+                </div>
+
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <button  class="btn btn-primary" (click)="closePopup1()" type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" (click)="closePopup1()">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="data.statusJobRegisterName === 'đang phỏng vấn'">
+      <button type="button" (click)="openPopup1(data)" class="btn btn-success" style="margin-right: 1px;">Tuyển thành công</button>
+    </div>
+
+
+  </div>
+
   <strong style="font-size: larger">Thông tin chung</strong>
   <div class="box-main d-flex justify-content-between p-5">
     <div>
