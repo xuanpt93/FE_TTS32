@@ -1,21 +1,23 @@
 <form class="needs-validation" [formGroup]="searchUserForm" (ngSubmit)="onSearch()">
   <div class="form-row">
-    <div class="col-md-4 mb-3 pr-5">
+    <div class="col-md-3 mb-3">
       <label >Full name</label>
       <input type="text" class="form-control" placeholder="Search by fullName" id="fullName" formControlName="fullName">
     </div>
-    <div class="col-md-4 mb-3 pr-5">
+    <div class="col-md-3 mb-3">
       <label >email</label>
       <input type="text" class="form-control" id="email" formControlName="email" placeholder="Search by email"
              required>
     </div>
-    <div class="col-md-4 mb-3 pr-5">
+    <div class="col-md-3 mb-3">
       <label >User name</label>
       <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Search by userName"
              required>
     </div>
+    <button class="btn btn-primary mb-3 mt-4" type="submit" style="" (click)="onSearch()">Search</button>
   </div>
-  <button class="btn btn-primary" type="submit" style="" (click)="onSearch()">Search</button>
+  <button class="btn btn-primary mr-5" type="submit" style="" (click)="onSearch()">add</button>
+
 
 </form>
 <div  class="">
@@ -26,8 +28,8 @@
     <th>Email</th>
     <th>User name</th>
     <th>Birthday</th>
+    <th>Phone number</th>
     <th>Is active</th>
-    <th>Is delete</th>
   </tr>
   </thead>
   <tbody>
@@ -35,9 +37,12 @@
     <td>{{item.name}}</td>
     <td>{{item.email}}</td>
     <td>{{item.userName}}</td>
-    <td>{{item.birthday}}</td>
-    <td>{{item.activate}}</td>
-    <td>{{item.delete}}</td>
+    <td>{{item.birthDay | date:'dd-MM-yyyy'}}  </td>
+    <td>{{item.phoneNumber}}</td>
+    <td>
+      <ng-template [ngIf]="item.activate">Đang hoạt động</ng-template>
+      <ng-template [ngIf]="!item.activate">Ngừng hoạt động</ng-template>
+    </td>
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-success" style="margin-right: 1px;"
               routerLink="/home/user-detail/{{item.id}}">Chi tiết</button>

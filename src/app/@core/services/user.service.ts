@@ -14,12 +14,24 @@ export class UserService{
 
   constructor(private http: HttpClient){
   }
+
   public getUser(): Observable<User[]>{
     return this.http.get<any>(`${this.apiServerUrl}public/user`);
     // .pipe(
     //   tap(user => console.log(`receiveduser=${JSON.stringify(user)}`)),
     // );
   }
+
+  getDecodedAccessToken(): any {
+    const token = sessionStorage.getItem('auth-token');
+    try {
+      console.log(jwt_decode(token));
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
+  }
+  
   public search(s: any): Observable<User[]>{
     return this.http.post<any>(`${this.apiServerUrl}public/user/search`,s);
   }
