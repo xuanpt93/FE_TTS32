@@ -12,6 +12,7 @@ import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app.routing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -23,7 +24,12 @@ import {
 } from '@nebular/theme';
 
 import { AuthInterceptor } from './@core/interceptor/auth.interceptor';
+
+import { ConfirmMailComponent } from './modules/forgot-pass/confirm-mail/confirm-mail.component';
+import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pass.component';
+
 import { JobRegisterComponent } from './modules/home/job-register/job-register.component';
+
 
 
 const configToast: any = {
@@ -36,8 +42,10 @@ const configToast: any = {
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ConfirmMailComponent, ChangePassComponent],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

@@ -12,7 +12,7 @@ export interface JobDTO{
   dueDate: Date;
   skills: string;
   description: string;
-  benefits: string;
+  interrest: string;
   jobRequirement: string;
   salaryMax: number;
   salaryMin: number;

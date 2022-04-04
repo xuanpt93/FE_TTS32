@@ -12,11 +12,17 @@
 
     <div class="form-group">
       <label for="example-text-input">Vị Trí Công Việc</label>
-      <input class="form-control" formControlName="jobPositionId" type="text"  placeholder="Nhập vị trí công việc">
     </div>
-    <div class="col alert alert-danger" role="alert"
-         *ngIf="rfContact.get('jobPositionId')?.errors?.required && rfContact.get('jobPositionId')?.touched">
-      JobPosition is required!
+    <div class="col alert alert-danger" role="alert">
+      <select
+        class="custom-select mb-3"
+        formControlName="jobPositionId"
+      >
+        <option value="">Choose vị trí công việc</option>
+        <option *ngFor="let jobPosition of jobPositions" [ngValue]="jobPosition.id">
+          {{ jobPosition.code }}
+        </option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -30,11 +36,17 @@
 
     <div class="form-group">
       <label for="example-text-input">Hình Thức Làm Việc</label>
-      <input class="form-control" formControlName="workingFormId" type="text"  placeholder="Nhập hình thức làm việc">
     </div>
-    <div class="col alert alert-danger" role="alert"
-         *ngIf="rfContact.get('workingFormId')?.errors?.required && rfContact.get('workingFormId')?.touched">
-      workingFormId is required!
+    <div class="col alert alert-danger" role="alert">
+      <select
+        class="custom-select mb-3"
+        formControlName="workingFormId"
+      >
+        <option value="">chọn Hình Thức làm việc</option>
+        <option *ngFor="let workingForm of workingForms" [ngValue]="workingForm.id">
+          {{ workingForm.code }}
+        </option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -48,11 +60,17 @@
 
     <div class="form-group">
       <label for="example-text-input">Trình Độ Học Vấn</label>
-      <input class="form-control" formControlName="academicLevelId" type="text"  placeholder="Nhập trình độ yêu cầu">
     </div>
-    <div class="col alert alert-danger" role="alert"
-         *ngIf="rfContact.get('academicLevelId')?.errors?.required && rfContact.get('academicLevelId')?.touched">
-      AcademicLevelId is required!
+    <div class="col alert alert-danger" role="alert">
+      <select
+        class="custom-select mb-3"
+        formControlName="academicLevelId"
+      >
+        <option value="">Chọn trình độ học vấn</option>
+        <option *ngFor="let academicLevel of academicLevels" [ngValue]="academicLevel.id">
+          {{ academicLevel.name }}
+        </option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -66,11 +84,17 @@
 
     <div class="form-group">
       <label for="example-text-input">Vị trí Ứng Tuyển</label>
-      <input class="form-control" formControlName="rankId" type="text"   placeholder="Nhập vị trí">
     </div>
-    <div class="col alert alert-danger" role="alert"
-         *ngIf="rfContact.get('rankId')?.errors?.required && rfContact.get('rankId')?.touched">
-      RankId is required!
+    <div class="col alert alert-danger" role="alert">
+      <select
+        class="custom-select mb-3"
+        formControlName="rankId"
+      >
+        <option value="">chọn Lever</option>
+        <option *ngFor="let rank of ranks" [ngValue]="rank.id">
+          {{ rank.code }}
+        </option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -106,7 +130,7 @@
       <input class="form-control" formControlName="benefits" type="text" placeholder="Nhập quyền lợi">
     </div>
     <div class="col alert alert-danger" role="alert"
-         *ngIf="rfContact.get('benefits')?.errors?.required && rfContact.get('benefits')?.touched">
+         *ngIf="rfContact.get('interrest')?.errors?.required && rfContact.get('interrest')?.touched">
       Benefits is required!
     </div>
 
@@ -145,8 +169,8 @@
       <input class="form-control" formControlName="contactId" type="text" placeholder="Nhập thông tin liên hệ">
     </div>
     <div class="col alert alert-danger" role="alert"
-         *ngIf="rfContact.get('contactId')?.errors?.required && rfContact.get('contactId')?.touched">
-      contactId is required!
+             *ngIf="rfContact.get('contactId')?.errors?.required && rfContact.get('contactId')?.touched">
+          contactId is required!
     </div>
 
 
