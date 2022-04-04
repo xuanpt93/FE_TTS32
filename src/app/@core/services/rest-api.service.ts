@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { USERNAME_KEY, USER_ID_KEY, USER_ROLE_KEY } from "../models/config/local-storage-keys";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { USERNAME_KEY, USER_ID_KEY, USER_ROLE_KEY } from '../models/config/local-storage-keys';
 
 @Injectable({
   providedIn: 'root',

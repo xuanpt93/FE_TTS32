@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
     this.formLogin = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
-      rememberMe: false
+      rememberMe: false,
     });
   }
 
@@ -44,7 +44,6 @@ export class AuthComponent implements OnInit {
     return this.formLogin.controls;
   }
 
-
   onSubmit() {
     this.isSubmitted = true;
     if (this.formLogin.valid) {
@@ -52,8 +51,9 @@ export class AuthComponent implements OnInit {
         data => {
           this.isLoggedIn = true;
           this.tokenService.saveToken(data.token);
-          // this.tokenService.saveUser(data.data.user);
-          // this.roles = this.tokenService.getUser().roles;
+          this.tokenService.saveUser(data);
+          console.log('data from server'+data.token);
+          this.roles = this.tokenService.getUser();
           this.router.navigate(['/home/']);
         },
       );
