@@ -1,0 +1,59 @@
+<form class="needs-validation" [formGroup]="searchUserForm" (ngSubmit)="onSearch()">
+  <div class="form-row">
+    <div class="col-md-4 mb-3 pr-5">
+      <label >Full name</label>
+      <input type="text" class="form-control" placeholder="Search by fullName" id="fullName" formControlName="fullName">
+    </div>
+    <div class="col-md-4 mb-3 pr-5">
+      <label >email</label>
+      <input type="text" class="form-control" id="email" formControlName="email" placeholder="Search by email"
+             required>
+    </div>
+    <div class="col-md-4 mb-3 pr-5">
+      <label >User name</label>
+      <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Search by userName"
+             required>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit" style="" (click)="onSearch()">Search</button>
+
+</form>
+<div  class="">
+  <table id="tb-view" class="table table-bordered table-sm table-hover table-striped" style="margin-top: 30px;">
+  <thead>
+  <tr>
+    <th>Full name</th>
+    <th>Email</th>
+    <th>User name</th>
+    <th>Birthday</th>
+    <th>Is active</th>
+    <th>Is delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of users ">
+    <td>{{item.name}}</td>
+    <td>{{item.email}}</td>
+    <td>{{item.userName}}</td>
+    <td>{{item.birthday}}</td>
+    <td>{{item.activate}}</td>
+    <td>{{item.delete}}</td>
+    <td class="text-nowrap" style="width: 1px;">
+      <button type="button" class="btn btn-success" style="margin-right: 1px;"
+              routerLink="/home/user-detail/{{item.id}}">Chi tiết</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+<p-paginator [rows]="5" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5,10,15]"></p-paginator>
+
+<div class="mt-3">
+  Items per Page:
+  <select (change)="handlePageSizeChange($event)">
+    <option *ngFor="let size of pageSizes" [ngValue]="size">
+      {{ size }}
+    </option>
+  </select>
+</div>
