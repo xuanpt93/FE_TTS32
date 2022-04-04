@@ -24,10 +24,18 @@ export class User {
   name: string;
   email: string;
   userName: string;
+
+  username: string;
+  birthday: Date;
+  isDelete: number;
+  roles: Role[];
+  active: number;
+
   birthDay: Date;
   delete: boolean;
   role: Role;
   activate: boolean;
+
   avatarName: string;
 }
 

@@ -6,14 +6,18 @@ import { NbMenuModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { JobComponent } from './job/job.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { JobAddComponent } from './job-add/job-add.component';
 import {JobRegisterComponent} from './job-register/job-register.component';
+import {CalendarModule} from 'primeng/calendar';
+import { JobUpdateComponent } from './job-update/job-update.component';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {DropdownModule} from 'primeng/dropdown';
+import {PaginatorModule} from 'primeng/paginator';
 import { JobRegisterDetailComponent } from './job-register-detail/job-register-detail.component';
 import {MaterialModule} from '../../shared/material.module';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
-
 
 const routes: Routes = [{
   path: '',
@@ -26,6 +30,14 @@ const routes: Routes = [{
     {
       path: 'job-detail/:id',
       component: JobDetailComponent,
+    },
+    {
+      path: 'job-add',
+      component: JobAddComponent,
+    },
+    {
+      path: 'job-update/:id',
+      component: JobUpdateComponent,
     },
     {
       path: 'dashboard',
@@ -49,6 +61,10 @@ const routes: Routes = [{
 }];
 
 @NgModule({
+
+
+    // HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,JobRegisterComponent, JobUpdateComponent,
+
 
   // declarations: [HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,
   //   JobRegisterComponent, JobRegisterDetailComponent],
@@ -74,6 +90,7 @@ const routes: Routes = [{
     UserComponent,
     UserDetailComponent,
     JobRegisterDetailComponent,
+    JobUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -81,6 +98,11 @@ const routes: Routes = [{
     ThemeModule,
     NbMenuModule,
     ReactiveFormsModule,
+    CalendarModule,
+    AutoCompleteModule,
+    FormsModule,
+    DropdownModule,
+    PaginatorModule,
     MaterialModule,
   ],
 })

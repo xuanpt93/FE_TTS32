@@ -1,3 +1,31 @@
+<ng-template [ngIf]="job && user">
+  <div class="mb-5">
+    <ng-template [ngIf]="user.roles[0].code === 'ROLE_ADMIN' || user.roles[0].code === 'ROLE_JE'">
+      <p-button label="Cập nhật"  class="mr-2" (click)="onUpdate(job.id)"></p-button>
+    </ng-template>
+    <ng-template [ngIf]="user.roles[0].code === 'ROLE_ADMIN' || user.roles[0].code === 'ROLE_JE' ">
+      <p-button label="Xem trước"  class="mr-2"></p-button>
+    </ng-template>
+    <ng-template [ngIf]="user.roles[0].code === 'ROLE_ADMIN' && job.statusJob.name === 'cho xet duyet'">
+      <p-button label="Xét duyệt"   class="mr-2"></p-button>
+    </ng-template>
+    <ng-template [ngIf]="user.roles[0].code === 'ROLE_ADMIN' && job.statusJob.name === 'cho xet duyet'">
+      <p-button label="Từ chối duyệt"   class="mr-2"></p-button>
+    </ng-template>
+    <ng-template [ngIf]="job.statusJob.name === 'chua dang tuyen'">
+      <p-button label="Đăng tuyển"   class="mr-2"></p-button>
+    </ng-template>
+    <ng-template [ngIf]="job.statusJob.name === 'dang tuyen'">
+      <p-button label="Dừng tuyển"   class="mr-2"></p-button>
+    </ng-template>
+    <ng-template [ngIf]="job.statusJob.name === 'dang tuyen' || job.statusJob.name === 'chưa dang tuyen'">
+      <p-button label="Đóng" class="mr-2"></p-button>
+    </ng-template>
+    <ng-template [ngIf]="user.roles[0].code === 'ROLE_ADMIN' && job.statusJob.name === 'da tu choi' ||job.statusJob.name === 'da dong' ">
+      <p-button label="Xóa"  class="mr-2"></p-button>
+    </ng-template>
+  </div>
+</ng-template>
 <form>
   <div class="form-row">
     <div class="form-group col-md-12">
@@ -8,79 +36,79 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="inputEmail4">Mô tả công việc</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.description}}" disabled>
+      <input type="text" class="form-control"  value="{{job.description}}" disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="inputEmail4">Đãi ngộ</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.interrest}}" disabled>
+      <input type="text" class="form-control"  value="{{job.interrest}}" disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="inputEmail4">Địa chỉ làm việc</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.addressWork}}" disabled>
+      <input type="text" class="form-control"  value="{{job.addressWork}}" disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Số năm kinh nghiệm</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.numberExperience}}" disabled>
+      <input type="text" class="form-control"  value="{{job.numberExperience}} năm" disabled>
     </div>
     <div class="form-group col-md-6">
       <label for="inputEmail4">Số lượng người cần tuyển</label>
-      <input type="email" class="form-control" id="inputEmail4" value="{{job.qtyPerson}}" disabled>
+      <input type="email" class="form-control"  value="{{job.qtyPerson}} (người)" disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Lương</label>
-      <input type="email" class="form-control" id="inputEmail4" value="{{job.salaryMin}} đến {{job.salaryMax}}" disabled>
+      <input type="email" class="form-control"  value="{{job.salaryMin}} đến {{job.salaryMax}} (USD)" disabled>
     </div>
     <div class="form-group col-md-6">
       <label for="inputEmail4">View</label>
-      <input type="email" class="form-control" id="inputEmail4" value="{{job.views}}" disabled>
+      <input type="email" class="form-control"  value="{{job.views}}" disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Người liên hệ</label>
-      <input type="email" class="form-control" id="inputEmail4" value="{{job.contact.fullName}}" disabled>
+      <input type="email" class="form-control"  value="{{job.contact.userName}}" disabled>
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Người tạo tin</label>
-      <input type="text" class="form-control" id="inputPassword4" value="{{job.creater.fullName}}" disabled>
+      <input type="text" class="form-control"  value="{{job.creater.userName}}" disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Trạng thái tin tuyển dụng</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.statusJob.description}}" disabled>
+      <input type="text" class="form-control"  value="{{job.statusJob.name}}" disabled>
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Phương thức làm việc</label>
-      <input type="text" class="form-control" id="inputPassword4" value="{{job.method_work.description}}"  disabled>
+      <input type="text" class="form-control" id="inputPassword4"  value="{{job.workingForm.code}}"  disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="inputEmail4">Vị trí cần tuyển</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.jobPosition.description}}" disabled>
+      <input type="text" class="form-control"  value="{{job.jobPosition.description}}" disabled>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputEmail4">Ngày tạo tin</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.createDate | date: 'dd-MM-yyyy'}}" disabled>
+      <input type="text" class="form-control"  value="{{job.createDate | date: 'dd-MM-yyyy'}}" disabled>
     </div>
     <div class="form-group col-md-4">
       <label for="inputEmail4">Ngày bắt đầu đăng</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.startRecruitmentDate | date: 'dd-MM-yyyy'}}" disabled>
+      <input type="text" class="form-control"  value="{{job.startRecruitmentDate | date: 'dd-MM-yyyy'}}" disabled>
     </div>
     <div class="form-group col-md-4">
       <label for="inputEmail4">Hạn</label>
-      <input type="text" class="form-control" id="inputEmail4" value="{{job.dueDate | date: 'dd-MM-yyyy'}}" disabled>
+      <input type="text" class="form-control"  value="{{job.dueDate | date: 'dd-MM-yyyy'}}" disabled>
     </div>
   </div>
 </form>
