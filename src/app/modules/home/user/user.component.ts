@@ -48,16 +48,23 @@ export class UserComponent implements OnInit {
   }
 
   onSearch(){
-    let search = {
-      name: this.sName,
-      userName: this.sUserName,
-      email: this.sEmail,
+    const search = {
+      name: this.searchUserForm.controls.fullName.value,
+      userName: this.searchUserForm.controls.userName.value,
+      email: this.searchUserForm.controls.email.value,
       pageNumber: this.sPageNumber,
       pageSize: this.sPageSize};
     this.userService.search(search).subscribe((data: any[]) =>{
       this.users = data;
-      console.log('data: '+JSON.stringify(data));
     });
+  }
+
+  onActive(username: string){
+    this.userService.active(username).subscribe((data: any) => {
+      console.log(data);
+      this.onSearch();
+    });
+
   }
 
   paginate(event: any) {

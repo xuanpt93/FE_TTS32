@@ -1,22 +1,21 @@
 <form class="needs-validation" [formGroup]="searchUserForm" (ngSubmit)="onSearch()">
   <div class="form-row">
     <div class="col-md-3 mb-3">
-      <label >Full name</label>
-      <input type="text" class="form-control" placeholder="Search by fullName" id="fullName" formControlName="fullName">
+      <label >Tên đầy đủ</label>
+      <input type="text" class="form-control" placeholder="Tìm theo tên đầy đủ" id="fullName" (input)="onSearch()" formControlName="fullName">
     </div>
     <div class="col-md-3 mb-3">
       <label >email</label>
-      <input type="text" class="form-control" id="email" formControlName="email" placeholder="Search by email"
+      <input type="text" class="form-control" id="email" formControlName="email" (input)="onSearch()" placeholder="Tìm theo email"
              required>
     </div>
     <div class="col-md-3 mb-3">
       <label >User name</label>
-      <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Search by userName"
+      <input type="text" class="form-control" id="userName" formControlName="userName" (input)="onSearch()" placeholder="Tìm theo userName"
              required>
     </div>
-    <button class="btn btn-primary mb-3 mt-4" type="submit" style="" (click)="onSearch()">Search</button>
   </div>
-  <button class="btn btn-primary mr-5" type="submit" style="" (click)="onSearch()">add</button>
+  <button class="btn btn-primary mr-5" type="submit" style="" routerLink="/home/user-add">add</button>
 
 
 </form>
@@ -24,12 +23,12 @@
   <table id="tb-view" class="table table-bordered table-sm table-hover table-striped" style="margin-top: 30px;">
   <thead>
   <tr>
-    <th>Full name</th>
+    <th>Tên đầy đủ</th>
     <th>Email</th>
     <th>User name</th>
-    <th>Birthday</th>
-    <th>Phone number</th>
-    <th>Is active</th>
+    <th>Ngày sinh</th>
+    <th>Số DT</th>
+    <th>Trạng thái</th>
   </tr>
   </thead>
   <tbody>
@@ -46,6 +45,12 @@
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-success" style="margin-right: 1px;"
               routerLink="/home/user-detail/{{item.id}}">Chi tiết</button>
+    </td>
+    <td class="text-nowrap" style="width: 1px;">
+      <button type="button" class="btn btn-primary" style="margin-right: 1px;" (click)="onActive(item.userName)">
+                <ng-template [ngIf]="!item.activate">Kích hoạt</ng-template>
+                <ng-template [ngIf]="item.activate">Hủy kích hoạt</ng-template>
+              </button>
     </td>
   </tr>
   </tbody>

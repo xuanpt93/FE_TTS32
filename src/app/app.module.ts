@@ -30,8 +30,6 @@ import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pa
 
 import { JobRegisterComponent } from './modules/home/job-register/job-register.component';
 
-
-
 const configToast: any = {
   timeOut: 3000,
   positionClass: 'toast-top-right',
@@ -39,7 +37,6 @@ const configToast: any = {
   progressBar: true,
   progressAnimation: 'increasing',
 };
-
 
 @NgModule({
   declarations: [AppComponent, ConfirmMailComponent, ChangePassComponent],

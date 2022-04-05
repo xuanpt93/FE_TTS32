@@ -11,6 +11,7 @@ import { JobAddComponent } from './job-add/job-add.component';
 import {JobRegisterComponent} from './job-register/job-register.component';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
 
 const routes: Routes = [{
   path: '',
@@ -42,6 +43,10 @@ const routes: Routes = [{
       path: 'jobRegister',
       component:JobRegisterComponent,
     },
+    {
+      path: 'user-add',
+      component:UserAddComponent,
+    },
   ],
 }];
 
@@ -58,6 +63,7 @@ const routes: Routes = [{
     JobRegisterComponent,
     UserComponent,
     UserDetailComponent,
+    UserAddComponent,
   ],
   imports: [
     CommonModule,
