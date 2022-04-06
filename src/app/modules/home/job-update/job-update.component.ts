@@ -24,10 +24,10 @@ export class JobUpdateComponent implements OnInit {
   workingForms: WorkingForm[];
   academicLevels: AcademicLevel[];
   ranks: Rank[];
-  jes: User[];
-  job: Job;
-  jobDto: JobDTO;
 
+  jobDto: JobDTO;
+  jes: any[];
+  job: Job;
   name: any;
   jobPosition: any;
   numberExperience: any;
@@ -81,7 +81,7 @@ export class JobUpdateComponent implements OnInit {
     this.getAcademicLevel();
     this.getWorkingForm();
     this.getRank();
-    // this.getJe();
+    this.getJe();
     this.getJobById();
   }
   public getInitData(){
@@ -147,16 +147,13 @@ export class JobUpdateComponent implements OnInit {
     );
   }
 
-  // public getJe() {
-  //   this.userService.getJe().subscribe(
-  //     (data: any) => {
-  //       this.jes = data;
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       alert(error.message);
-  //     },
-  //   );
-  // }
+  public getJe(){
+    this.userService.getJe().subscribe(
+      (data: any) => {
+        this.jes = data;
+      },
+    );
+  }
 
 
   public getJobById(): void {

@@ -13,7 +13,7 @@
     <div class="form-group">
       <label for="example-text-input">Vị Trí Công Việc</label>
     </div>
-    <div class="col alert alert-danger" role="alert">
+    <div class="form-group" role="alert">
       <select
         class="custom-select mb-3"
         formControlName="jobPositionId"
@@ -37,7 +37,7 @@
     <div class="form-group">
       <label for="example-text-input">Hình Thức Làm Việc</label>
     </div>
-    <div class="col alert alert-danger" role="alert">
+    <div class="form-group" role="alert">
       <select
         class="custom-select mb-3"
         formControlName="workingFormId"
@@ -61,7 +61,7 @@
     <div class="form-group">
       <label for="example-text-input">Trình Độ Học Vấn</label>
     </div>
-    <div class="col alert alert-danger" role="alert">
+    <div class="form-group" role="alert">
       <select
         class="custom-select mb-3"
         formControlName="academicLevelId"
@@ -85,7 +85,7 @@
     <div class="form-group">
       <label for="example-text-input">Vị trí Ứng Tuyển</label>
     </div>
-    <div class="col alert alert-danger" role="alert">
+    <div class="form-group" role="alert">
       <select
         class="custom-select mb-3"
         formControlName="rankId"
@@ -165,19 +165,29 @@
 
 
     <div class="form-group">
-      <label for="example-text-input">Thông Tin Liên Hệ</label>
-      <input class="form-control" formControlName="contactId" type="text" placeholder="Nhập thông tin liên hệ">
+      <label for="example-text-input" class="col-md-2 col-form-label">Người liên hệ</label>
+      <div class="form-group">
+        <select
+          class="custom-select mb-3"
+          formControlName="contactId"
+        >
+          <option value="contact.id">chọn người liên hệ</option>
+          <option *ngFor="let je of jes" [ngValue]="je.id">
+            {{ je.name }}
+          </option>
+        </select>
+      </div>
     </div>
     <div class="col alert alert-danger" role="alert"
-             *ngIf="rfContact.get('contactId')?.errors?.required && rfContact.get('contactId')?.touched">
-          contactId is required!
+         *ngIf="rfContact.get('contactId')?.errors?.required && rfContact.get('contactId')?.touched">
+      contact is required!
     </div>
 
 
 
     <div class="form-group row">
       <div class="col-md-10 offset-md-2">
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" >Submit</button>
       </div>
     </div>
   </div>

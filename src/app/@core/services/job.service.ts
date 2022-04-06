@@ -36,9 +36,10 @@ export class JobService {
     return this.http.get<any>(url);
   }
 
-  public findJob(name, statusJob, salaryMin, salaryMax,page,size): Observable<any> {
+  public findJob(searchJob: SearchJob, page: number, size: number): Observable<any> {
+    // console.log(searchJob);
     // eslint-disable-next-line max-len
-    return this.http.get<any>(`${this.apiServerUrl}`+'public/user/job/searchesT?'+'name='+name+'&statusJob='+statusJob+'&salaryMin='+salaryMin+'&salaryMax='+salaryMax+'&page='+page+'&size='+size).pipe(
+    return this.http.put<any>(`${this.apiServerUrl}`+'public/user/job/search?'+'size='+size+'&page='+page,searchJob).pipe(
       tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
     );
   }
@@ -54,9 +55,9 @@ export class JobService {
     );
   }
 
-  public sortByName(name, statusJob, salaryMin, salaryMax,page,size): Observable<any> {
+  public sortByName(mess,page,size): Observable<any> {
     // eslint-disable-next-line max-len
-    return this.http.get<any>(`${this.apiServerUrl}`+'public/user/job/sortByName?'+'name='+name+'&statusJob='+statusJob+'&salaryMin='+salaryMin+'&salaryMax='+salaryMax+'&page='+page+'&size='+size).pipe(
+    return this.http.get<any>(`${this.apiServerUrl}`+'public/user/job/sort?'+'mess='+mess+'&page='+page+'&size='+size).pipe(
       tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
     );
   }

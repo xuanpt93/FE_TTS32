@@ -36,7 +36,7 @@ export class UserService{
 
 
   public getJe(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiServerUrl}`+'public/user/role').pipe(
+    return this.http.get<any>(`${this.apiServerUrl}`+'public/user/role=2').pipe(
       tap(jobPositions => console.log(`academicLevels=${JSON.stringify(jobPositions)}`)),
     );
   }
