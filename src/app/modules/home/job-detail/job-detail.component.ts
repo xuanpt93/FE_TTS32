@@ -5,6 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../../@core/models/user';
 import {UserService} from '../../../@core/services/user.service';
+import {JobDTO} from '../../../@core/models/jobDTO';
 
 @Component({
   selector: 'ngx-job-detail',
@@ -14,6 +15,7 @@ import {UserService} from '../../../@core/services/user.service';
 export class JobDetailComponent implements OnInit {
   public  job: Job;
   user: User;
+  jobDTO: JobDTO;
 
   constructor(
     public jobService: JobService,
@@ -57,7 +59,101 @@ this.getUser();
     this.getUserByUserName(token.sub);
   }
 
+  convertData(){
+    this.jobDTO = {
+      id: 0,
+      name: '',
+      jobPositionId: 0,
+      numberExperience: 0,
+      workingFormId: 0,
+      addressWork: '',
+      academicLevelId: 0,
+      rankId: 0,
+      qtyPerson: 0,
+      startRecruitmentDate: undefined,
+      dueDate: undefined,
+      skills: '',
+      description: '',
+      interrest: '',
+      jobRequirement: '',
+      salaryMax: 0,
+      salaryMin: 0,
+      contactId: 0,
+      creatorId: 0,
+      createDate: undefined,
+      updateUserId: 0,
+      updateDate: undefined,
+      statusJobId: 0,
+      views: 0,
+    };
+      this.jobDTO.id = this.job.id;
+      this.jobDTO.name = this.job.name;
+      this.jobDTO.jobPositionId = this.job.jobPosition.id;
+      this.jobDTO.numberExperience = this.job.numberExperience;
+      this.jobDTO.addressWork = this.job.addressWork;
+      this.jobDTO.academicLevelId = this.job.academicLevel.id;
+      this.jobDTO.workingFormId=this.job.workingForm.id;
+      this.jobDTO.rankId = this.job.rank.id;
+      this.jobDTO.qtyPerson = this.job.qtyPerson;
+      this.jobDTO.createDate = this.job.createDate;
+      this.jobDTO.dueDate = this.job.dueDate;
+      this.jobDTO.skills = this.job.skills;
+      this.jobDTO.startRecruitmentDate = this.job.startRecruitmentDate;
+      this.jobDTO.description = this.job.description;
+      this.jobDTO.interrest = this.job.interrest;
+      this.jobDTO.salaryMin = this.job.salaryMin;
+      this.jobDTO.salaryMax = this.job.salaryMax;
+      this.jobDTO.contactId = this.job.contact.id;
+      this.jobDTO.statusJobId = this.job.statusJob.id;
+      this.jobDTO.views = this.job.views;
+      this.jobDTO.creatorId = this.job.creater.id;
+      this.jobDTO.isDelete = this.job.isDelete;
+      this.jobDTO.jobRequirement = this.job.jobRequirement;
+  }
+
   onUpdate(id: number) {
     this.router.navigate(['/home/job-update',id]);
+  }
+
+  public updateStatusJob(jobDto: JobDTO){
+    this.jobService.updateJob(jobDto).subscribe(
+      (data: any) => {
+        this.job.statusJob =data.statusJob;
+        alert('Update thành công');
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      },
+    );
+  }
+
+  onBrowse() {
+    this.convertData();
+    this.jobDTO.statusJobId = 2;
+    this.updateStatusJob(this.jobDTO);
+  }
+
+  onUp() {
+    this.convertData();
+    this.jobDTO.statusJobId = 1;
+    this.updateStatusJob(this.jobDTO);
+  }
+
+  onStop() {
+    this.convertData();
+    this.jobDTO.statusJobId = 6;
+    this.updateStatusJob(this.jobDTO);
+  }
+
+  onClose() {
+    this.convertData();
+    this.jobDTO.statusJobId = 5;
+    this.updateStatusJob(this.jobDTO);
+  }
+
+  onDelete() {
+    this.convertData();
+    this.jobDTO.statusJobId = 10;
+    this.updateStatusJob(this.jobDTO);
   }
 }

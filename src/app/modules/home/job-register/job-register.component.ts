@@ -75,6 +75,7 @@ export class JobRegisterComponent implements OnInit {
       this.jobRegisterService.sendEmailInterview(this.formInterview.value).subscribe(
         data => {
           console.log(data);
+          this.getAll();
         },
       );
   }

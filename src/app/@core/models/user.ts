@@ -20,7 +20,7 @@ import { Role } from './Role';
 //  };
 
 export class User {
-  id: string;
+  id: number;
   name: string;
   email: string;
   userName: string;

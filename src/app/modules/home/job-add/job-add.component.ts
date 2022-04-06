@@ -9,6 +9,7 @@ import {Rank} from '../../../@core/models/rank';
 import {AcademicLevel} from '../../../@core/models/academicLevel';
 import {User} from '../../../@core/models/user';
 import {UserService} from '../../../@core/services/user.service';
+import {Job} from '../../../@core/models/job';
 
 @Component({
   selector: 'ngx-job-add',
@@ -25,8 +26,9 @@ export class JobAddComponent implements OnInit {
   workingForms: WorkingForm[];
   academicLevels: AcademicLevel[];
   ranks: Rank[];
-  jes: User[];
+  jes: any[];
 
+  public  job: Job;
   rfContact: FormGroup;
   constructor(private fb: FormBuilder,
               private jobService: JobService,
@@ -68,13 +70,14 @@ export class JobAddComponent implements OnInit {
     this.jobDto.updateDate = new Date();
     this.jobDto.statusJobId =1;
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    this.jobDto.skills ='';
+    this.jobDto.skills ='java';
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let i=0 ;i<this.rfContact.value.skills.length;i++){
-      this.jobDto.skills += this.rfContact.value.skills[i]+',';
-    }
+    // for (let i=0 ;i<this.rfContact.value.skills.length;i++){
+    //   this.jobDto.skills += this.rfContact.value.skills[i]+',';
+    // }
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     this.jobDto.views =0;
+    this.jobDto.interrest= 'khong';
     // eslint-disable-next-line max-len
     this.jobService.addJob(this.jobDto).subscribe(
       (data: any) => {
@@ -126,4 +129,5 @@ export class JobAddComponent implements OnInit {
     console.log(this.rfContact.value);
     this.addJob();
   }
+
 }
