@@ -34,7 +34,10 @@ export class ChangePassComponent implements OnInit {
    }
 
    ngOnInit() {
-     this.email = this.data.getMail();
+    this.email = this.data.getMail();
+    if(this.email === undefined){
+      this.router.navigate(['/confirm-mail']);
+    }
     this.changePassForm = this.fb.group({
       newPass: this.fb.control('',
         [Validators.required,
@@ -49,10 +52,6 @@ export class ChangePassComponent implements OnInit {
     });
    }
 
-  validate() {
-    return true;
-  }
-
   onSubmit(){
     this.changePassword.email = this.data.getMail();
     this.changePassword.newPassword = this.changePassForm.controls.newPass.value;
@@ -65,53 +64,15 @@ export class ChangePassComponent implements OnInit {
     //this.btnDisable = true;
     this.post(this.url, this.changePassword)
       .subscribe(
-        (data)=>{
-          console.log(data);
+        (data: any) => {
+          console.log('data'+ data.message);
+          if(data.message === 'false'){
+            window.alert('Thay đổi mật khẩu thất bại, kiểm tra lại mã OTP hoặc thử lại sau');
+            return;
+          };
+          window.alert('Thay đổi mật khẩu thành công');
           this.router.navigate(['/auth']);
         });
-        // (data) => {
-      //   console.log(data);
-      //   // let value = data as{employeeId:string, token: string};
-      //   // localStorage.getItem('token');
-      //  // await this.data.getProfile();
-      //   let otp = prompt("Mã OTP:");
-
-      //   this.rests.put(this.urlOtp,{
-      //     otpCode:otp,
-      //     password:this.changePassword.newPassword
-      //    }).then((data)=>{
-      //      alert("Doi mat khau thanh cong!")
-      //    }).catch((error)=>{
-      //      alert("Doi mat khau that bai")
-      //    })
-
-      //   // this.router.navigate(['user/otp'])
-      // }
-
-      // ,(data) => {
-      //   console.log(data);
-      //   let value = data as{employeeId:string, token: string};
-      //   localStorage.getItem('token');
-      //  await this.data.getProfile();
-      //  this.router.navigate(['/authen/otp']);
-      //   let otp = prompt("Mã OTP:");
-
-      //   this.rests.put(this.urlOtp,{
-      //     otpCode:otp,
-      //     password:this.changePassword.newPassword
-      //    }).then((data)=>{
-      //      alert("Doi mat khau thất bại!")
-      //    }).catch((error)=>{
-      //      alert("Doi mat khau thanh cong")
-
-      //    })
-
-      //   this.router.navigate(['user/otp'])
-      // });
-      // .catch((error) => {
-      //   this.data.error(error['error']);
-      //   this.btnDisable = false;
-      // });
  }
  post(link: string,body: any){
    let headers = this.rests.getHeaders();

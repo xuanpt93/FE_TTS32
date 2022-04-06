@@ -30,8 +30,7 @@ import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pa
 
 import { JobRegisterComponent } from './modules/home/job-register/job-register.component';
 import {CommonModule} from "@angular/common";
-
-
+import { UserRegisterComponent } from './modules/public/user-register/user-register.component';
 
 const configToast: any = {
   timeOut: 3000,
@@ -41,9 +40,8 @@ const configToast: any = {
   progressAnimation: 'increasing',
 };
 
-
 @NgModule({
-  declarations: [AppComponent, ConfirmMailComponent, ChangePassComponent],
+  declarations: [AppComponent, ConfirmMailComponent, ChangePassComponent, UserRegisterComponent],
   imports: [
     CommonModule,
     FormsModule,

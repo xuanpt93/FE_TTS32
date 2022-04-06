@@ -14,19 +14,23 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'User',
     icon: 'person-outline',
-    link: '/home/user'
+    link: '/home/user',
   },
   {
     title: 'Product',
     icon: 'globe-2-outline',
-    link: '/home/product'
+    link: '/home/product',
   },
   {
     title: 'Tin tuyen dung',
     icon: 'globe-2-outline',
     link: '/home/job',
   },
-
+  {
+    title: 'Công việc ứng tuyển',
+    icon: 'globe-2-outline',
+    link: '/home/jobRegister',
+  },
   // {
   //   title: 'Auth',
   //   icon: 'lock-outline',

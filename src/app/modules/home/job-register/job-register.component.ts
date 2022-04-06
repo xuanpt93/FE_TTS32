@@ -3,6 +3,8 @@ import {jobRegisterModel} from '../../../@core/models/jobRegister.model';
 import {JobRegisterServiceService} from '../../../@core/services/job-register-service.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {CvService} from '../../../@core/services/cv.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'ngx-job-register',
@@ -18,6 +20,7 @@ export class JobRegisterComponent implements OnInit {
     private jobRegisterService: JobRegisterServiceService,
     private fb: FormBuilder,
     private router: Router,
+    private cv: CvService,
   ) { }
 
   ngOnInit(): void {
@@ -39,12 +42,7 @@ export class JobRegisterComponent implements OnInit {
   }
 
   displayStyle = "none";
-  openPopup() {
-    this.displayStyle = "block";
-  }
-  closePopup() {
-    this.displayStyle = "none";
-  }
+
   displayStyle1 = "none";
   openPopup1(item: jobRegisterModel) {
     this.formInterview = this.fb.group({
@@ -78,6 +76,12 @@ export class JobRegisterComponent implements OnInit {
           this.getAll();
         },
       );
+  }
+
+  downloadCV(fileName: any): void {
+    this.cv.download(fileName).subscribe(
+      data => saveAs(data, fileName),
+    );
   }
 
 }

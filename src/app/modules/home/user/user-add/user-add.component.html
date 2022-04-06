@@ -1,0 +1,85 @@
+<form novalidate (ngSubmit)="onSubmit()" [formGroup]="addUserForm" class="row justify-content-md-center container">
+  <div class="col-md-12">
+    <div class="form-group row">
+      <label for="example-text-input" class="col-md-2 col-form-label">Họ tên:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" formControlName="fullName">
+      </div>(*)
+    </div>
+    <div class="col alert alert-danger" role="alert"
+      *ngIf="addUserForm.controls.fullName?.errors?.required && addUserForm.controls.fullName?.touched">
+      Tên không được để trống!
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-md-2 col-form-label">Email:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="email" formControlName="email">
+      </div>(*)
+    </div>
+    <div class="col alert alert-danger" role="alert"
+      *ngIf="addUserForm.controls.email?.errors?.required && addUserForm.controls.email?.touched">
+      Email không được để trống!
+    </div>
+    <div class="col alert alert-danger" role="alert"
+      *ngIf="addUserForm.controls.email?.errors?.email && addUserForm.controls.email?.touched">
+      email chưa đúng định dạng!
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-md-2 col-form-label">Phone:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" formControlName="phoneNumber">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-md-2 col-form-label">Giới tính:</label>
+      <div class="col-md-9">
+        <select
+          class="custom-select mb-3"
+          formControlName="gender">
+          <option value="">Chọn giới tính</option>
+          <option value="male">Nam</option>
+          <option value="female">Nữ</option>
+          <option value="other">khác</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-md-2 col-form-label">Ngày sinh:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="date" formControlName="birthDay">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-md-2 col-form-label">User name:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" formControlName="userName">
+      </div>(*)
+    </div>
+    <div class="col alert alert-danger" role="alert"
+      *ngIf="addUserForm.controls.userName?.errors?.required && addUserForm.controls.userName?.touched">
+      UserName không được để trống!
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-md-2 col-form-label">Pasword:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="password" formControlName="password">
+      </div>(*)
+    </div>
+    <div class="col alert alert-danger" role="alert"
+      *ngIf="addUserForm.controls.password?.errors?.required && addUserForm.controls.password?.touched">
+      password không được để trống!
+    </div>
+    <div class="col alert alert-danger" role="alert"
+      *ngIf="addUserForm.controls.password?.errors?.pattern && addUserForm.controls.password?.touched">
+      password chưa đúng định dạng!
+    </div>
+    <div class="col-md-9 offset-md-2">
+      Mục (*) không được để trống
+    </div>
+    <div class="form-group row">
+      <div class="col-md-9 offset-md-2 mt-2">
+        <button  class="btn btn-primary" type="submit"  [disabled]=!this.addUserForm.valid>Thêm User</button>
+      </div>
+    </div>
+  </div>
+</form>

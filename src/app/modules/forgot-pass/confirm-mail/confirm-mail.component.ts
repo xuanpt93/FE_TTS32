@@ -53,7 +53,6 @@ export class ConfirmMailComponent implements OnInit {
           // eslint-disable-next-line @typescript-eslint/no-shadow
           .catch((error)=>{
             alert('Gửi mã OTP thất bại vui lòng kiểm tra lại email!');
-
           this.data.error(error['message']);
           this.btnDisable = false;
           });

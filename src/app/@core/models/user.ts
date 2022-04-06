@@ -33,6 +33,7 @@ export class User {
 
   birthDay: Date;
   delete: boolean;
+  phoneNumber: string;
   role: Role;
   activate: boolean;
 
