@@ -3,6 +3,8 @@ import {JobRegisterServiceService} from '../../../@core/services/job-register-se
 import {jobRegisterModel} from '../../../@core/models/jobRegister.model';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {saveAs} from 'file-saver';
+import {CvService} from '../../../@core/services/cv.service';
 
 @Component({
   selector: 'ngx-job-register-detail',
@@ -19,6 +21,7 @@ export class JobRegisterDetailComponent implements OnInit {
     private router: ActivatedRoute,
     private jobRegisterService: JobRegisterServiceService,
     private fb: FormBuilder,
+    private cv: CvService,
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +34,8 @@ export class JobRegisterDetailComponent implements OnInit {
       tools:['', Validators.required],
     });
     this.formChangeStatus = this.fb.group({
-      status: ['chờ phỏng vấn', Validators.required],
+      status: ['', Validators.required],
+      reason: ['', Validators.required],
     });
   }
 
@@ -42,7 +46,12 @@ export class JobRegisterDetailComponent implements OnInit {
     });
   }
 
-  onChangeStatus(id: any){
+  onChangeStatus(id: any, event: any){
+    this.formChangeStatus = this.fb.group({
+      status: [event.target.status.value],
+      reason: [event.target.reason.value],
+    });
+    console.log(this.formChangeStatus.value);
     this.jobRegisterService.changeStatus(id, this.formChangeStatus.value).subscribe(
       data => {
         console.log(data);
@@ -86,6 +95,12 @@ export class JobRegisterDetailComponent implements OnInit {
       data => {
         console.log(data);
       },
+    );
+  }
+
+  downloadCV(fileName: any): void {
+    this.cv.download(fileName).subscribe(
+      data => saveAs(data, fileName),
     );
   }
 }

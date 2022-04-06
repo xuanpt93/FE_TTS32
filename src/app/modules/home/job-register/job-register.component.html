@@ -27,7 +27,6 @@
     <th>Thời gian ứng tuyển</th>
     <th>Phương thức phỏng vấn</th>
     <th>Địa điểm</th>
-    <th>Trạng thái</th>
     <th>Action</th>
   </tr>
   </thead>
@@ -35,33 +34,37 @@
 
   <tr *ngFor="let items of datas">
     <td routerLink="/home/jobRegister/{{items.id}}">{{items.userName}}</td>
-    <td routerLink="/home/jobRegister/{{items.id}}">{{items.jobPosition}}</td>
+<!--    <td routerLink="/home/jobRegister/{{items.id}}">{{items.jobPosition}}</td>-->
     <td routerLink="/home/jobRegister/{{items.id}}">{{items.dateInterview| date:'dd-MM-yyyy'}}</td>
     <td routerLink="/home/jobRegister/{{items.id}}">{{items.methodInterview}}</td>
     <td routerLink="/home/jobRegister/{{items.id}}">{{items.addressInterview}}</td>
-    <td routerLink="/home/jobRegister/{{items.id}}">{{items.statusJobName}}</td>
+    <td routerLink="/home/jobRegister/{{items.id}}">{{items.statusJobRegisterName}}</td>
     <td class="text-nowrap" style="width: 1px;">
 <!--      <button type="button" class="btn btn-success" style="margin-right: 1px;"-->
 <!--              routerLink="/home/jobRegister/{{items.id}}">Chi tiết</button>-->
 
-      <button type="button" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
+      <button type="button" (click)="downloadCV(items.cv)" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
 
       <div *ngIf="items.statusJobRegisterName === 'ứng viên bị từ chối' || items.statusJobRegisterName === 'ứng viê đã hủy ứng tuyển'">
-        <button  type="button" (click)="openPopup()" class="btn btn-dark" style="margin-right: 1px;">Xem lý do</button>
+        <button  type="button" data-bs-toggle="modal" data-bs-target="#modalReason" class="btn btn-dark" style="margin-right: 1px;">Xem lý do</button>
 
-        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-          <div class="modal-dialog" role="document">
+        <div class="modal" id="modalReason">
+          <div class="modal-dialog">
             <div class="modal-content">
+              <!-- Modal Header -->
               <div class="modal-header">
                 <h4 class="modal-title">Lý do từ chối</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
+              <!-- Modal body -->
               <div class="modal-body">
-                <p>{{items.reason}}</p>
+                <div class="col-auto">
+                  <h1>{{items.reason}}</h1>
+                </div>
               </div>
+              <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" (click)="closePopup()">
-                  Close
-                </button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -80,7 +83,7 @@
                 <h4 class="modal-title">Đặt lịch phỏng vấn</h4>
               </div>
               <div class="modal-body">
-                <form (ngSubmit)="onSubmit()" [formGroup]="formInterview">
+                <form  [formGroup]="formInterview">
                   <input type="hidden" formControlName="userId" value="{{items.user_id}}" />
                   <input type="hidden" formControlName="jobRegisterId" value="{{items.id}}" />
                   <div class="col-md-12">
@@ -104,13 +107,10 @@
                       </div>
                     </mat-radio-group>
                   </div>
-
-                  <div class="text-center text-lg-start mt-4 pt-2">
-                    <button  class="btn btn-primary" (click)="closePopup1()" type="submit">Submit</button>
-                  </div>
                 </form>
               </div>
               <div class="modal-footer">
+                <button  class="btn btn-primary" (click)="onSubmit()" type="submit">Submit</button>
                 <button type="button" class="btn btn-danger" (click)="closePopup1()">
                   Close
                 </button>
