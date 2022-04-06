@@ -18,6 +18,7 @@ import { JobRegisterDetailComponent } from './job-register-detail/job-register-d
 import {MaterialModule} from '../../shared/material.module';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
 
 const routes: Routes = [{
   path: '',
@@ -53,6 +54,10 @@ const routes: Routes = [{
       // loadChildren: () => import('./user/user.module').then(m => m.UserModule)
     },
 
+    {
+      path: 'user-add',
+      component:UserAddComponent,
+    },
 
     {path: 'jobRegister', component:JobRegisterComponent},
     {path: 'jobRegister/:id', component:JobRegisterDetailComponent},
@@ -89,6 +94,7 @@ const routes: Routes = [{
     JobRegisterComponent,
     UserComponent,
     UserDetailComponent,
+    UserAddComponent,
     JobRegisterDetailComponent,
     JobUpdateComponent,
   ],

@@ -1,8 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../../@core/models/user';
 import { AuthService } from '../../@core/services/auth.service';
 import { TokenService } from '../../@core/services/token.service';
+import { UserService } from '../../@core/services/user.service';
 
 @Component({
   selector: 'ngx-auth',
@@ -15,10 +18,12 @@ export class AuthComponent implements OnInit {
   isSubmitted = false;
   roles: string[] = [];
   isLoggedIn = false;
+  user: User;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
+    private userService: UserService,
     private router: Router,
   ) { }
 
@@ -26,9 +31,7 @@ export class AuthComponent implements OnInit {
     this.initForm();
     if (this.tokenService.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenService.getUser().roles;
     }
-
   }
 
   initForm() {
@@ -51,12 +54,21 @@ export class AuthComponent implements OnInit {
         data => {
           this.isLoggedIn = true;
           this.tokenService.saveToken(data.token);
-          this.tokenService.saveUser(data);
-          console.log('data from server'+data.token);
-          this.roles = this.tokenService.getUser();
-          this.router.navigate(['/home/']);
-        },
-      );
+          const token = this.userService.getDecodedAccessToken();
+          this.userService.getUserByUserName(token.sub).subscribe((item)=>{
+            if(item.activate === true){
+              if(token.auth ==='ROLE_ADMIN' || token.auth === 'ROLE_JE'){
+              this.router.navigate(['/home/']);
+              }else{
+              this.router.navigate(['/register']);
+              }
+            }else{
+              alert('Tài khoản chưa được kích hoạt');
+            }
+          });
+        },(error: HttpErrorResponse)=>{
+          alert('đăng nhập thất bại'+ error.message);
+        });
     }
   }
 
