@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,10 +42,10 @@ export class UserAddComponent implements OnInit {
       userName: this.addUserForm.controls.userName.value,
       password: this.addUserForm.controls.password.value,
       birthDay: this.addUserForm.controls.birthDay.value,
-      phone_number: this.addUserForm.controls.phoneNumber.value,
+      phoneNumber: this.addUserForm.controls.phoneNumber.value,
       homeTown: this.addUserForm.controls.hometown.value,
       role: 'ROLE_JE',
-    }
+    };
     this.userService.addUser(user).subscribe((data)=>{
       if(data === false){
         alert('Thêm user không thành công');
@@ -52,7 +53,8 @@ export class UserAddComponent implements OnInit {
         alert('Thêm user thành công');
       }
       this.route.navigate(['/home/user']);
-
+    },(error: HttpErrorResponse)=>{
+      alert(error.message);
     });
   }
 }

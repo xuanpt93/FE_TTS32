@@ -15,7 +15,7 @@
              required>
     </div>
   </div>
-  <button class="btn btn-primary mr-5" type="submit" style="" routerLink="/home/user-add">add</button>
+  <button class="btn btn-primary mr-5" type="submit" style="" routerLink="/home/user-add">Thêm user</button>
 
 
 </form>
@@ -57,13 +57,5 @@
 </table>
 </div>
 
-<p-paginator [rows]="5" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5,10,15]"></p-paginator>
+<p-paginator id="paging" [rows]="5" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5,10,15]" pageLinkSize="3" (onPageChange)="handlePageSizeChange($event)"></p-paginator>
 
-<div class="mt-3">
-  Items per Page:
-  <select (change)="handlePageSizeChange($event)">
-    <option *ngFor="let size of pageSizes" [ngValue]="size">
-      {{ size }}
-    </option>
-  </select>
-</div>

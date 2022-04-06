@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../../@core/models/user';
 import { UserService } from '../../../@core/services/user.service';
-import {PaginatorModule} from 'primeng/paginator';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-user',
@@ -21,15 +22,21 @@ export class UserComponent implements OnInit {
   public sPageSize: number;
   totalRecords: number;
   search: any;
-  pageSizes = [3, 6, 9];
+  first = 0;
+  btnDisable: true;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private routes: Router,
   ) { }
 
   ngOnInit(): void {
-    //this.getUser();
+    const role = this.userService.getDecodedAccessToken().auth;
+    if(role !== 'ROLE_ADMIN'){
+      alert('Bạn không thể sử dụng chức năng này');
+      this.routes.navigate(['/home/']);
+    }
     this.searchUserForm = this.fb.group({
       fullName: this.fb.control(''),
       email: this.fb.control(''),
@@ -37,6 +44,7 @@ export class UserComponent implements OnInit {
     });
     this.initData();
     this.onSearch();
+
   }
 
   initData(){
@@ -44,7 +52,7 @@ export class UserComponent implements OnInit {
     this.sUserName = '';
     this.sEmail = '';
     this.sPageNumber = 1;
-    this.sPageSize = 3;
+    this.sPageSize = 5;
   }
 
   onSearch(){
@@ -56,15 +64,22 @@ export class UserComponent implements OnInit {
       pageSize: this.sPageSize};
     this.userService.search(search).subscribe((data: any[]) =>{
       this.users = data;
+      if(data.length === this.sPageSize){
+        this.totalRecords = (this.sPageNumber+1) * this.sPageSize;
+      }else{
+        this.totalRecords = (this.sPageNumber) * this.sPageSize;
+      }
+    },(error: HttpErrorResponse)=>{
+      alert(error.message);
     });
   }
 
   onActive(username: string){
     this.userService.active(username).subscribe((data: any) => {
-      console.log(data);
       this.onSearch();
+    },(error: HttpErrorResponse)=>{
+      alert(error.message);
     });
-
   }
 
   paginate(event: any) {
@@ -72,26 +87,18 @@ export class UserComponent implements OnInit {
     this.sPageSize = event.rows;
   }
 
-  // getUser(){
-  //   this.userService.getUser().subscribe((data: any[])=>{
-  //     this.users = data;
-  //     this.totalRecords = data.length;
-  //   });
-  // }
-  retrieveTutorials() {
-    this.onSearch();
-    // this.search(this.search)
-    //   .subscribe((data: any[]) =>{
-    //     this.users = data;
-    //   });
+  getUser(){
+    this.userService.getUser().subscribe((data: any[])=>{
+      this.users = data;
+      this.totalRecords = data.length;
+    },(error: HttpErrorResponse)=>{
+      alert(error.message);
+    });
   }
-  handlePageChange(event) {
-    this.sPageNumber = event;
-    this.retrieveTutorials();
-  }
+
   handlePageSizeChange(event) {
-    this.sPageSize = event.target.value;
-    this.sPageNumber = 1;
-    this.retrieveTutorials();
+    this.sPageSize = event.rows;
+    this.sPageNumber = event.page+1;
+    this.onSearch();
   }
 }

@@ -14,6 +14,7 @@ import { ConfirmMailComponent } from './modules/forgot-pass/confirm-mail/confirm
 import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pass.component';
 
 import {JobRegisterComponent} from './modules/home/job-register/job-register.component';
+import { UserRegisterComponent } from './modules/public/user-register/user-register.component';
 
 export const routes: Routes = [
   {
@@ -34,8 +35,14 @@ export const routes: Routes = [
     component: ChangePassComponent,
   },
 
+  {
+    path: 'register',
+    component: UserRegisterComponent,
+  },
+
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
+
 ];
 
 const config: ExtraOptions = {

@@ -1,40 +1,52 @@
 
-<form>
+<form [formGroup]="userDetailForm">
   <div class="form-row">
-    <div class="form-group col-md-12">
-      <label for="inputUserName">Full name</label>
-      <input type="text" class="form-control" id="inputUserName" value="{{selectedUser.name}}" disabled>
+    <div class="form-group col-md-5">
+      <label for="inputUserName">Họ tên</label>
+      <input type="text" class="form-control" id="inputUserName" formControlName="fullName">
     </div>
   </div>
+  <div class="col alert alert-danger" role="alert"
+      *ngIf="userDetailForm.controls.fullName?.errors?.required && userDetailForm.controls.fullName?.touched">
+      Họ tên không được để trống!
+    </div>
   <div class="form-row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-5">
       <label for="inputUserName">User name</label>
-      <input type="text" class="form-control" id="inputUserName" value="{{selectedUser.userName}}" disabled>
+      <input type="text" class="form-control" id="inputUserName" formControlName="userName" >
     </div>
-    <div class="form-group col-md-4">
-      <label for="inputBirthday">Birthday</label>
-      <input type="date" class="form-control" id="inputBirthday" value="{{selectedUser.birthday}}" disabled>
+  </div>
+  <div class="col alert alert-danger" role="alert"
+      *ngIf="userDetailForm.controls.userName?.errors?.required && userDetailForm.controls.userName?.touched">
+      userName không được để trống!
     </div>
-    <div class="form-group col-md-4">
-      <label for="inputEmail">Email</label>
-      <input type="email" class="form-control" id="inputEmail" value="{{selectedUser.email}}" disabled>
+  <div class="form-row">
+    <div class="form-group col-md-5">
+      <label for="inputBirthday">Ngày sinh</label>
+      <input type="date" class="form-control" id="inputBirthday" formControlName="birthDay" >
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-4">
-      <label for="inputRole">Roles</label>
-      <input type="text" class="form-control" id="inputRole" value="{{selectedUser.role}}" disabled>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputActive">Is active</label>
-      <input type="text" class="form-control" id="inputActive" value="{{selectedUser.active}}" disabled>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputDelete">Is delete</label>
-      <input type="text" class="form-control" id="inputDelete" value="{{selectedUser.delete}}" disabled>
-    </div>
-    <div class="form-row">
-      <button class="btn btn-primary" type="" style="">Save</button>
+    <div class="form-group col-md-5">
+      <label for="inputEmail">Địa chỉ email</label>
+      <input type="email" class="form-control" id="inputEmail" formControlName="email">
     </div>
   </div>
+  <div class="col alert alert-danger" role="alert"
+      *ngIf="userDetailForm.controls.email?.errors?.required && userDetailForm.controls.email?.touched">
+      email không được để trống!
+  </div>
+  <div class="col alert alert-danger" role="alert"
+    *ngIf="userDetailForm.controls.email?.errors?.email && userDetailForm.controls.email?.touched">
+    email chưa đúng định dạng!
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-5">
+      <label for="inputPhone">Số điện thoại</label>
+      <input type="number" class="form-control" id="inputPhone" formControlName="phoneNumber" >
+    </div>
+  </div>
+  <div class="form-row">
+      <button class="btn btn-primary" type="submit" [disabled]=!this.userDetailForm.valid>Update</button>
+    </div>
 </form>

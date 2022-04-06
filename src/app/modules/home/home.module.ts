@@ -6,9 +6,16 @@ import { NbMenuModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { JobComponent } from './job/job.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { JobAddComponent } from './job-add/job-add.component';
 import {JobRegisterComponent} from './job-register/job-register.component';
+import {CalendarModule} from 'primeng/calendar';
+import { JobUpdateComponent } from './job-update/job-update.component';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {DropdownModule} from 'primeng/dropdown';
+import {PaginatorModule} from 'primeng/paginator';
+import { JobRegisterDetailComponent } from './job-register-detail/job-register-detail.component';
+import {MaterialModule} from '../../shared/material.module';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
@@ -26,6 +33,14 @@ const routes: Routes = [{
       component: JobDetailComponent,
     },
     {
+      path: 'job-add',
+      component: JobAddComponent,
+    },
+    {
+      path: 'job-update/:id',
+      component: JobUpdateComponent,
+    },
+    {
       path: 'dashboard',
       // loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
     },
@@ -40,17 +55,33 @@ const routes: Routes = [{
     },
 
     {
-      path: 'jobRegister',
-      component:JobRegisterComponent,
-    },
-    {
       path: 'user-add',
       component:UserAddComponent,
     },
+
+    {path: 'jobRegister', component:JobRegisterComponent},
+    {path: 'jobRegister/:id', component:JobRegisterDetailComponent},
+
   ],
 }];
 
 @NgModule({
+
+
+    // HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,JobRegisterComponent, JobUpdateComponent,
+
+
+  // declarations: [HomeComponent, JobComponent, JobDetailComponent, JobAddComponent,
+  //   JobRegisterComponent, JobRegisterDetailComponent],
+  //   imports: [
+  //       CommonModule,
+  //       RouterModule.forChild(routes),
+  //       ThemeModule,
+  //       NbMenuModule,
+  //       ReactiveFormsModule,
+  //       MaterialModule,
+  //   ],
+
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA,
@@ -64,6 +95,8 @@ const routes: Routes = [{
     UserComponent,
     UserDetailComponent,
     UserAddComponent,
+    JobRegisterDetailComponent,
+    JobUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -71,6 +104,12 @@ const routes: Routes = [{
     ThemeModule,
     NbMenuModule,
     ReactiveFormsModule,
+    CalendarModule,
+    AutoCompleteModule,
+    FormsModule,
+    DropdownModule,
+    PaginatorModule,
+    MaterialModule,
   ],
 })
 export class HomeModule { }

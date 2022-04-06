@@ -6,6 +6,8 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SessionService } from '../../../@core/services/session.service';
 import { TokenService } from '../../../@core/services/token.service';
+import { UserService } from '../../../@core/services/user.service';
+import { User } from '../../../@core/models/user';
 
 @Component({
   selector: 'ngx-header',
@@ -15,9 +17,12 @@ import { TokenService } from '../../../@core/services/token.service';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
-  userPictureOnly: boolean = false;
-  user: any;
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  userPictureOnly = false;
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  user: User;
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   themes = [
     {
       value: 'default',
@@ -37,8 +42,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   currentTheme = 'default';
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 
   constructor(private sidebarService: NbSidebarService,
@@ -47,14 +54,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
               private sessionService: SessionService,
-              private tokenService: TokenService) {
+              private tokenService: TokenService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-
-    this.user = this.tokenService.getUser();
-
+    const userName = this.userService.getDecodedAccessToken().sub;
+    this.userService.getUserByUserName(userName).subscribe((data)=>{
+      this.user = data;
+    });
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(

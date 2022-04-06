@@ -1,28 +1,39 @@
-<form class="needs-validation" [formGroup]="searchForm" (ngSubmit)="onSearchJob()">
+<button type="button" class="btn btn-danger" style="margin-right: 1px;"
+        routerLink="/home/job-add">Thêm mới tin tuyển dụng</button>
+<br>
+<form class="needs-validation" style="padding-top: 24px"  (ngSubmit)="onSearch()">
   <div class="form-row">
     <div class="col-md-4 mb-3">
       <label >Tên công việc</label>
-      <input type="text" class="form-control" placeholder="Tên công việc" id="jobName" formControlName="jobName">
+      <input [(ngModel)]="selectedName" type="text" class="form-control" placeholder="Tên công việc" id="jobName" formControlName="selectedName">
     </div>
     <div class="col-md-4 mb-3">
       <label >Mức lương tối thiểu</label>
-      <input type="text" class="form-control" id="salarymin" formControlName="salaryMin" placeholder="Mức lương tối thiểu"
+      <input type="text" class="form-control" id="salarymin" [(ngModel)]="selectedSalaryMin" formControlName="selectedSalaryMin" placeholder="Mức lương tối thiểu"
              required>
     </div>
     <div class="col-md-4 mb-3">
       <label >Mức lương tối đa</label>
-      <input type="text" class="form-control" id="salarymax" formControlName="salaryMax" placeholder="Mức lương tối đa"
+      <input type="text" class="form-control" id="salarymax" [(ngModel)]="selectedSalaryMax" formControlName="selectedSalaryMax" placeholder="Mức lương tối đa"
              required>
     </div>
     <div class="col-md-4 mb-3">
       <label >Trạng thái công việc</label>
-      <input type="text" class="form-control" id="statusJob" formControlName="statusJob" placeholder="Trạng thái công việc"
-             required>
+      <p-autoComplete class="mr-5" [(ngModel)]="selectedStatusJobAdvanced" placeholder="Trạng thái công việc..." [suggestions]="filteredStatusJobs"
+                      (completeMethod)="filterStatusJob($event)" field="name" [dropdown]="true">
+        <ng-template let-statusJob pTemplate="item">
+          <div class="statusJob-item">
+            <div>{{statusJob.name}}</div>
+          </div>
+        </ng-template>
+      </p-autoComplete>
     </div>
   </div>
-  <button class="btn btn-primary" type="submit" style="margin-left: 549px;" (click)="onSearchJob">Tìm
+  <button class="btn btn-primary" type="button" style="margin-left: 549px;" (click)="onSearch()">Tìm
     kiếm</button>
+
 </form>
+<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="sắp xếp" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
 <table id="tb-view" class="table table-bordered table-sm table-hover table-striped" style="margin-top: 30px;">
   <thead>
   <tr>
@@ -37,8 +48,8 @@
   <tbody>
   <tr *ngFor="let item of jobs ">
     <td>{{item.name}}</td>
-    <td>{{item.jobRequirement}}</td>
-    <td>{{item.salaryMax}}VNĐ</td>
+    <td>{{item.jobPosition.code}}</td>
+    <td>{{item.salaryMax}} USD</td>
     <td>{{item.dueDate| date:'fullDate'}}</td>
     <td>{{item.statusJob.name}}</td>
     <td>{{item.views}}</td>
@@ -46,6 +57,22 @@
       <button type="button" class="btn btn-danger" style="margin-right: 1px;"
               routerLink="/home/job-detail/{{item.id}}">Chi tiết</button>
     </td>
+    <td class="text-nowrap" style="width: 1px;">
+      <ng-template>
+        <button type="button" class="btn btn-danger" style="margin-right: 1px;">xem trước</button>
+      </ng-template>
+    </td>
   </tr>
   </tbody>
 </table>
+<div class="grid align-items-center">
+  <div class="col-1">
+  </div>
+  <div class="col-10">
+    <p-paginator  [rows]="4" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"
+                 [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+  </div>
+</div>
+
+
+
