@@ -26,7 +26,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'globe-2-outline',
     link: '/home/job',
   },
-
+  {
+    title: 'Công việc ứng tuyển',
+    icon: 'globe-2-outline',
+    link: '/home/jobRegister',
+  },
   // {
   //   title: 'Auth',
   //   icon: 'lock-outline',

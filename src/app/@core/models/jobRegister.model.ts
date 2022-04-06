@@ -11,7 +11,7 @@ export interface jobRegisterModel {
   cv: string;
   mediaType: string;
   reason: string;
-  jobPosition: string;
+  // jobPosition: string;
   jobName: string;
   statusJob: string;
 

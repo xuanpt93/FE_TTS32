@@ -1,16 +1,49 @@
 <div class="container">
   <div class="d-flex">
-    <button type="button" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
+
+    <button type="button" (click)="downloadCV(data.cv)" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
 
     <div *ngIf="data.statusJobRegisterName === 'chờ duyệt'">
-      <form (ngSubmit)="onChangeStatus(data.id)" [formGroup]="formChangeStatus">
-        <input formControlName="status" value="chờ phỏng vấn"/>
+      <form (ngSubmit)="onChangeStatus(data.id, $event)" [formGroup]="formChangeStatus">
+        <input type="hidden" name="status" value="chờ phỏng vấn" />
+        <input type="hidden" value="" name="reason"/>
         <button type="submit" class="btn btn-success" style="margin-right: 1px;">Xét duyệt</button>
       </form>
     </div>
 
     <div *ngIf="data.statusJobRegisterName !== 'ứng viên bị từ chối'">
-      <button type="button" class="btn btn-success" style="margin-right: 1px;">Từ chối ứng viên</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-success" style="margin-right: 1px;">Từ chối ứng viên</button>
+
+      <form (ngSubmit)="onChangeStatus(data.id, $event)" [formGroup]="formChangeStatus">
+
+        <input type="hidden" name="status" value="ứng viên bị từ chối" />
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Lý do từ chối</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div class="col-auto">
+                  <label for="inputPassword6" class="col-form-label">Lý do</label>
+                </div>
+                <div class="col-auto">
+                  <input type="text" name="reason" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" style="margin-right: 1px;">submit</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
     </div>
 
     <div *ngIf="data.statusJobRegisterName === 'ứng viên bị từ chối' || data.statusJobRegisterName === 'ứng viên đã hủy ứng tuyển'">
@@ -46,7 +79,7 @@
               <h4 class="modal-title">Đặt lịch phỏng vấn</h4>
             </div>
             <div class="modal-body">
-              <form (ngSubmit)="onSubmit()" [formGroup]="formInterview">
+              <form [formGroup]="formInterview">
                 <input type="hidden" formControlName="userId" value="{{data.user_id}}" />
                 <input type="hidden" formControlName="jobRegisterId" value="{{data.id}}" />
                 <div class="col-md-12">
@@ -70,13 +103,10 @@
                     </div>
                   </mat-radio-group>
                 </div>
-
-                <div class="text-center text-lg-start mt-4 pt-2">
-                  <button  class="btn btn-primary" (click)="closePopup1()" type="submit">Submit</button>
-                </div>
               </form>
             </div>
             <div class="modal-footer">
+              <button  class="btn btn-primary" (click)="onSubmit()" type="submit">Submit</button>
               <button type="button" class="btn btn-danger" (click)="closePopup1()">
                 Close
               </button>
