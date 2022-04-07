@@ -186,7 +186,7 @@ export class JobUpdateComponent implements OnInit {
   onSubmit(){
     this.updateJob();
   // Do something awesome
-  this.router.navigate(['/home/list-job']).then(r => console.log(r));
+  // this.router.navigate(['/home/job']).then(r => console.log(r));
   }
 
   private updateJob() {

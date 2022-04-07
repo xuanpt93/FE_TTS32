@@ -67,6 +67,11 @@
           <p-button label="đăng tuyển" routerLink="/home/job-detail/{{item.id}}" ></p-button>
         </ng-template>
       </ng-template>
+      <ng-template [ngIf]="item">
+        <ng-template [ngIf]="item.statusJob.id === 1">
+          <p-button label="Export JD" (onClick)="onExportJD(item.id)"></p-button>
+        </ng-template>
+      </ng-template>
     </td>
   </tr>
   </tbody>
