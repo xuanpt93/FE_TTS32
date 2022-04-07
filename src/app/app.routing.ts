@@ -22,9 +22,14 @@ export const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
   },
   {
+    path: 'admin',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+  },
+  {
     path: 'home',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('./modules/webpublic/webpublic.module').then(m => m.WebpublicModule),
   },
   {
     path: 'confirm-mail',
