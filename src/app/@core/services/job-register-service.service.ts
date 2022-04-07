@@ -27,4 +27,9 @@ export class JobRegisterServiceService {
   changeStatus(id: number, form: any): Observable<jobRegisterModel>{
     return this.http.post<jobRegisterModel>(`http://localhost:9090/api/public/jobRegister/` + `${id}`, form);
   }
+
+  search(form: any, page, size): Observable<jobRegisterModel>{
+    return this.http.post<jobRegisterModel>(`${this.baseUrl}` + 'search?pageIndex='+page+'&pageSize='+size
+      ,form).pipe();
+  }
 }
