@@ -1,19 +1,25 @@
 
-<form class="needs-validation" >
+<form class="needs-validation" [formGroup]="formSearch" (ngSubmit)="search()">
   <div class="form-row">
     <div class="col-md-4 mb-3">
-      <label >Tên công việc</label>
-      <input type="text" class="form-control" placeholder="Tên công việc" id="jobName" formControlName="jobName">
+      <label >Tên ứng viên</label>
+      <input type="text" class="form-control" placeholder="Tên ứng viên" id="jobName" formControlName="fullName">
     </div>
     <div class="col-md-4 mb-3">
-      <label >Mức lương tối thiểu</label>
-      <input type="text" class="form-control" id="salarymin" formControlName="salaryMin" placeholder="Mức lương tối thiểu"
+      <label >Vị trí ứng tuyển</label>
+      <input type="text" class="form-control" formControlName="jobName" placeholder="Vị trí ứng tuyển"
              required>
     </div>
-    <div class="col-md-4 mb-3">
-      <label >Mức lương tối đa</label>
-      <input type="text" class="form-control" id="salarymax" formControlName="salaryMax" placeholder="Mức lương tối đa"
-             required>
+    <div class="col-md-4 ">
+      <label >Trạng thái</label>
+      <select formControlName="idStatusJobRegister" class="form-select" aria-label="Default select example">
+        <option value="1">Chờ duyệt</option>
+        <option value="2">Chờ phỏng vấn</option>
+        <option value="3">Đang phỏng vấn</option>
+        <option value="4">Đã tuyển</option>
+        <option value="5">Ứng viên bị từ chối</option>
+        <option value="6">Ứng viên đã hủy ứng tuyển</option>
+      </select>
     </div>
   </div>
   <button class="btn btn-primary" type="submit" style="margin-left: 549px;">Tìm
@@ -33,15 +39,15 @@
   <tbody>
 
   <tr *ngFor="let items of datas">
-    <td routerLink="/home/jobRegister/{{items.id}}">{{items.userName}}</td>
+    <td >{{items.userName}}</td>
 <!--    <td routerLink="/home/jobRegister/{{items.id}}">{{items.jobPosition}}</td>-->
-    <td routerLink="/home/jobRegister/{{items.id}}">{{items.dateInterview| date:'dd-MM-yyyy'}}</td>
-    <td routerLink="/home/jobRegister/{{items.id}}">{{items.methodInterview}}</td>
-    <td routerLink="/home/jobRegister/{{items.id}}">{{items.addressInterview}}</td>
-    <td routerLink="/home/jobRegister/{{items.id}}">{{items.statusJobRegisterName}}</td>
+    <td >{{items.jobName}}</td>
+    <td >{{items.dateInterview| date:'dd-MM-yyyy'}}</td>
+    <td >{{items.methodInterview}}</td>
+    <td >{{items.addressInterview}}</td>
     <td class="text-nowrap" style="width: 1px;">
-<!--      <button type="button" class="btn btn-success" style="margin-right: 1px;"-->
-<!--              routerLink="/home/jobRegister/{{items.id}}">Chi tiết</button>-->
+      <button type="button" class="btn btn-danger" style="margin-right: 1px;"
+              routerLink="/admin/jobRegister/{{items.id}}">Chi tiết</button>
 
       <button type="button" (click)="downloadCV(items.cv)" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
 
@@ -88,10 +94,12 @@
                   <input type="hidden" formControlName="jobRegisterId" value="{{items.id}}" />
                   <div class="col-md-12">
                     <label >Thời gian phỏng vấn:</label>
-                    <input type="datetime-local" class="form-control" id="dateinterview"
-                           formControlName="date" >
+                    <p-calendar formControlName="date" [showTime]="true" [showIcon]="true" [minDate]="currentDate" inputId="time"></p-calendar>
                   </div>
-
+                  <div class="col alert alert-danger" role="alert"
+                       *ngIf="formInterview.get('date')?.errors?.required && formInterview.get('date')?.touched">
+                    Date is required!
+                  </div>
 
                   <div class="col-md-6">
                     <label >Hình thức phỏng vấn:</label>
@@ -124,3 +132,4 @@
   </tr>
   </tbody>
 </table>
+<p-paginator (onPageChange)="paginate($event)" [rows]="2" [totalRecords]="20" [rowsPerPageOptions]="[2,4,6,8]"></p-paginator>
