@@ -9,6 +9,10 @@ import {JobSearch, SearchJob} from '../../../@core/models/searchJob';
 import {User} from '../../../@core/models/user';
 import {JobDTO} from '../../../@core/models/jobDTO';
 import {FormBuilder} from '@angular/forms';
+import {saveAs} from 'file-saver';
+import * as http from 'http';
+import * as fs from 'file-saver';
+
 
 @Component({
   selector: 'ngx-job',
@@ -48,7 +52,11 @@ export class JobComponent implements OnInit {
 
   chooseOptions: SelectItem[];
 
-  constructor(public jobService: JobService, private readonly router: Router, public route: ActivatedRoute,public fb: FormBuilder) {
+  constructor(public jobService: JobService,
+              private readonly router: Router,
+              public route: ActivatedRoute,
+              public fb: FormBuilder,
+              private jd: JobService) {
   }
 
   ngOnInit(): void {
@@ -66,7 +74,7 @@ export class JobComponent implements OnInit {
       {label: 'đã từ chối', value: '4'},
       {label: 'đã đóng', value: '5'},
       {label: 'không dang tuyển', value: '6'},
-    ]
+    ];
   }
 
   private createFromForm(): SearchJob {
@@ -166,4 +174,17 @@ export class JobComponent implements OnInit {
       this.onSortByName();
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  onExportJD(id: any) {
+    this.jobService.getExportJD(id).subscribe(data => {
+      const fileName = 'Job.pdf';
+      const mediaType = 'application/pdf';
+      const blob = new Blob([data], { type: mediaType });
+      fs.saveAs(URL.createObjectURL(blob), fileName);
+
+    });
+  }
+
+
 }
