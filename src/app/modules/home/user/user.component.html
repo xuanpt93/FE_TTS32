@@ -15,7 +15,7 @@
              required>
     </div>
   </div>
-  <button class="btn btn-primary mr-5" type="submit" routerLink="/home/user-add/{{0}}">Thêm user</button>
+  <button class="btn btn-primary mr-5" type="submit" routerLink="/admin/user-add/{{0}}">Thêm user</button>
 
 </form>
 <div  class="">
@@ -43,7 +43,7 @@
     </td>
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-success" style="margin-right: 1px;"
-              routerLink="/home/user-add/{{item.id}}">Chi tiết</button>
+              routerLink="/admin/user-add/{{item.id}}">Chi tiết</button>
     </td>
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-primary" style="margin-right: 1px;" (click)="onActive(item.userName)">
