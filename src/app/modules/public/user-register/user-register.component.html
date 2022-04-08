@@ -121,6 +121,10 @@
                   <label class="form-label" for="form3Example99">Sô điện thoại</label>
                   <input type="text" id="form3Example99"  formControlName="phoneNumber" class="form-control form-control-lg" />
                 </div>
+                <div class="col alert alert-danger" role="alert"
+                  *ngIf="registerForm.controls.phoneNumber?.errors?.pattern && registerForm.controls.password?.touched">
+                  Số điện thoại chưa đúng định dạng!
+                </div>
                 <div class="form-outline mb-3">
                   <label class="form-label" for="form3Example99">Ảnh đại diện</label>
                   <!-- <input #fileInput class="" type="file" id="form3Example99"  formControlName="avatarName" class="form-control form-control-lg" /> -->
