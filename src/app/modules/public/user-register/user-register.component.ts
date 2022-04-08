@@ -1,5 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/member-ordering */
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../../@core/services/user.service';
@@ -12,11 +14,22 @@ import { UserService } from '../../../@core/services/user.service';
 export class UserRegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  unitTrustsPnl: string;
+  @ViewChild('labelImport')
+  labelImport: ElementRef;
+  fileToUpload: File = null;
+  dbImage: any;
+  postResponse: any;
+  successResponse: string;
+  image: any;
   constructor(
+    private httpClient: HttpClient,
     public userService: UserService,
     public route: Router,
     private fb: FormBuilder,
-  ) { }
+  ) {
+    this.unitTrustsPnl = 'female';
+  }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -28,7 +41,7 @@ export class UserRegisterComponent implements OnInit {
       birthDay: this.fb.control(''),
       password: this.fb.control('',[Validators.required,
         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
-      phoneNumber: this.fb.control(''),
+      phoneNumber: this.fb.control('',[Validators.pattern('(84|0[3|5|7|8|9])+([0-9]{8})')]),
     });
   }
 
@@ -44,7 +57,7 @@ export class UserRegisterComponent implements OnInit {
       gender: this.registerForm.controls.gender.value,
       avatarName: '',
     };
-    console.log(user);
+  console.log(user);
     this.userService.register(user).subscribe((data)=>{
       if(data === false){
         alert('Đăng ký không thành công');
@@ -56,6 +69,43 @@ export class UserRegisterComponent implements OnInit {
     },(error: HttpErrorResponse)=>{
       alert(error.message);
     });
+
+    this.imageUploadAction();
   }
 
+  onSelect(file: File){
+    this.labelImport.nativeElement.innerText = file[0].name;
+    this.fileToUpload = file[0];
+    var reader = new FileReader();
+      reader.readAsDataURL(file[0]); // read file as data url
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.dbImage = event.target.result;
+      };
+  }
+
+  imageUploadAction() {
+    const imageFormData = new FormData();
+    imageFormData.append('image', this.fileToUpload, this.fileToUpload.name);
+
+    this.httpClient.post('http://localhost:9090/api/public/upload/image/', imageFormData, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.postResponse = response;
+          this.successResponse = this.postResponse.body.message;
+        } else {
+          this.successResponse = 'Image not uploaded due to some error!';
+        }
+      },
+      );
+    }
+
+  viewImage() {
+    this.httpClient.get('http://localhost:9090/get/image/info/' + this.image)
+      .subscribe(
+        res => {
+          this.postResponse = res;
+          this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
+        },
+      );
+  }
 }
