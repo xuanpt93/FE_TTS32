@@ -99,9 +99,13 @@ export class JobRegisterComponent implements OnInit {
     console.log(this.formInterview.value);
       this.jobRegisterService.sendEmailInterview(this.formInterview.value).subscribe(
         data => {
-          console.log(data);
+          alert("Đặt lịch phỏng vấn thành công");
+          this.closePopup1();
           this.getAll();
         },
+        error => {
+          alert("đặt lịch phỏng vấn thất bại" + error);
+        }
       );
   }
 
