@@ -59,9 +59,9 @@ export class AuthComponent implements OnInit {
           this.userService.getUserByUserName(token.sub).subscribe((item)=>{
             if(item.activate === true){
               if(token.auth ==='ROLE_ADMIN' || token.auth === 'ROLE_JE'){
-              this.router.navigate(['/home/']);
+              this.router.navigate(['/admin/']);
               }else{
-              this.router.navigate(['/register']);
+              this.router.navigate(['/home/']);
               }
             }else{
               alert('Tài khoản chưa được kích hoạt');

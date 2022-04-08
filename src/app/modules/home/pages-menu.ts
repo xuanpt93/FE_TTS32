@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Dashboard',
     icon: 'home-outline',
-    link: '/home/dashboard',
+    link: '/admin/dashboard',
     home: true,
   },
   {
@@ -14,22 +14,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'User',
     icon: 'person-outline',
-    link: '/home/user',
+    link: '/admin/user',
   },
-  {
-    title: 'Product',
-    icon: 'globe-2-outline',
-    link: '/home/product',
-  },
+  // {
+  //   title: 'Product',
+  //   icon: 'globe-2-outline',
+  //   link: '/admin/product',
+  // },
   {
     title: 'Tin tuyen dung',
     icon: 'globe-2-outline',
-    link: '/home/job',
+    link: '/admin/job',
   },
   {
     title: 'Công việc ứng tuyển',
     icon: 'globe-2-outline',
-    link: '/home/jobRegister',
+    link: '/admin/jobRegister',
   },
   // {
   //   title: 'Auth',
