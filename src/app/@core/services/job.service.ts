@@ -17,9 +17,7 @@ export class JobService {
   constructor(private http: HttpClient) { }
 
   public getJob(): Observable<Job[]> {
-    return this.http.get<any>(`${this.apiServerUrl}public/user/job/getall`).pipe(
-      tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
-    );
+    return this.http.get<Job[]>(`${this.apiServerUrl}public/user/job/getall`).pipe();
   }
 
   public getJobById(id: number): Observable<any> {
@@ -28,8 +26,6 @@ export class JobService {
       tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
     );
   }
-
-
 
   public getJobAd(id: number): Observable<any> {
     const url = `${this.apiServerUrl}` + 'public/user/job/detail/' + `${id}`;
@@ -90,6 +86,10 @@ export class JobService {
     return this.http.get<any>(`${this.apiServerUrl}`+'public/user/job/statusJobs').pipe(
       tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
     );
+  }
+
+  public getJobHome(id: number, page: number, size: number): Observable<Job[]> {
+    return this.http.get<Job[]>( `${this.apiServerUrl}public/user/job/home/` + `${id}`+'?pageIndex='+page+'&pageSize='+size).pipe();
   }
 
 

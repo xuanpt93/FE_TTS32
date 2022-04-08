@@ -28,7 +28,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./modules/webpublic/webpublic.module').then(m => m.WebpublicModule),
   },
   {
