@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
   },
   {
@@ -46,7 +46,7 @@ export const routes: Routes = [
   },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' },
+  //{ path: '**', redirectTo: 'home' },
 
 ];
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {tap} from 'rxjs/operators';
@@ -51,6 +51,11 @@ export class JobService {
     );
   }
 
+  public getDeleteJob(id: any): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/public/user/job/delete-job/` + id);
+    alert('đã xóa công việc');
+  }
+
   public sortByName(mess,page,size): Observable<any> {
     // eslint-disable-next-line max-len
     return this.http.get<any>(`${this.apiServerUrl}`+'public/user/job/sort?'+'mess='+mess+'&page='+page+'&size='+size).pipe(
@@ -92,5 +97,40 @@ export class JobService {
     return this.http.get<Job[]>( `${this.apiServerUrl}public/user/job/home/` + `${id}`+'?pageIndex='+page+'&pageSize='+size).pipe();
   }
 
+  public getExportJD(id: any): Observable<any>{
+    return this.http.get(`http://localhost:9090/api/public/user/job/exportJD/`+ id,{responseType: 'blob'});
+  }
+
+  // public getExportJD(id: number): Observable<Blob> {
+  //   const url = `${this.apiServerUrl}` + 'public/user/job/exportJD/' + `${id}`;
+  //   return this.http.get<any>(url);
+  // }
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // public getExportJD<blod, T>( url: string, id: number): any {
+  //   // eslint-disable-next-line @typescript-eslint/naming-convention
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/pdf', responseType: 'blob' });
+  //   const absoluteUrl = this.http.get('public/user/job/exportJD/' + `${id}`);
+  //   // @ts-ignore
+  //   return this.http.get(absoluteUrl, {
+  //     headers,
+  //     responseType: 'blob' as 'pdf',
+  //     observe: 'response',
+  //   });
+  // }
+
+
+
+
+  // download(file: any | undefined): Observable<Blob> {
+  //   return this.http.get(`${this.apiServerUrl}/download/${file}`, {
+  //     responseType: 'blob',
+  //   });
+  // }
+
+
+  // public getExcel(): void {
+  //   this.http.get<any>(`http://localhost:9090/api/public/user/job/excel2`);
+  // }
 
 }
