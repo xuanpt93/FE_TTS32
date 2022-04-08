@@ -31,6 +31,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'globe-2-outline',
     link: '/admin/jobRegister',
   },
+  {
+    title: 'Thông tin công ty',
+    icon: 'globe-2-outline',
+    link: '/admin/company',
+  },
   // {
   //   title: 'Auth',
   //   icon: 'lock-outline',

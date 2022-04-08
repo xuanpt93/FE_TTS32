@@ -121,7 +121,7 @@ this.getUser();
   }
 
   onUpdate(id: number) {
-    this.router.navigate(['/home/job-update',id]);
+    this.router.navigate(['/admin/job-update',id]);
   }
 
   public updateStatusJob(jobDto: JobDTO){
@@ -160,33 +160,17 @@ this.getUser();
     this.updateStatusJob(this.jobDTO);
   }
 
+  onReason(){
+    this.convertData();
+    this.jobDTO.statusJobId= 4;
+    this.updateStatusJob(this.jobDTO);
+  }
+
   onDelete(id: number) {
     this.jobService.getDeleteJob(id).subscribe(() =>{
     });
     alert('Đã xóa công việc');
   }
 
-  public updateReason(){
-    this.jobService.updateReason(this.reasonDto).subscribe(
-      (data: any) => {
-        this.job.statusJob =data.statusJob;
-        alert('Update thành công');
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      },
-    );
-  }
 
-  onRefuse() {
-    console.log('reasonDto',this.reasonDto);
-    this.reasonDto.jobId = this.job.id;
-    this.reasonDto.statusId = 5;
-    this.updateReason();
-  }
-
-  showPositionDialog(position: string) {
-    this.position = position;
-    this.displayPosition = true;
-  }
 }

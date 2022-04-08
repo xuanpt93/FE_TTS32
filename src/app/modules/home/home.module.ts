@@ -19,7 +19,10 @@ import {MaterialModule} from '../../shared/material.module';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
-import { JobReasonComponent } from './job-reason/job-reason.component';
+import {DialogModule} from "primeng/dialog";
+import { CompanyComponent } from './company/company.component';
+import {AvatarModule} from "primeng/avatar";
+import { CompanyUpdateComponent } from './company-update/company-update.component';
 
 const routes: Routes = [{
   path: '',
@@ -41,6 +44,15 @@ const routes: Routes = [{
       path: 'job-update/:id',
       component: JobUpdateComponent,
     },
+    {
+      path: 'company',
+      component: CompanyComponent,
+    },
+    {
+      path: 'update-company',
+      component: CompanyUpdateComponent,
+    },
+
     {
       path: 'dashboard',
       // loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
@@ -98,7 +110,8 @@ const routes: Routes = [{
     UserAddComponent,
     JobRegisterDetailComponent,
     JobUpdateComponent,
-    JobReasonComponent,
+    CompanyComponent,
+    CompanyUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -112,6 +125,8 @@ const routes: Routes = [{
     DropdownModule,
     PaginatorModule,
     MaterialModule,
+    DialogModule,
+    AvatarModule,
   ],
 })
 export class HomeModule { }
