@@ -6,6 +6,8 @@ import { ListJobHomepageComponent } from './list-job-homepage/list-job-homepage.
 import {MatTabsModule} from '@angular/material/tabs';
 import { DetailJobComponent } from './detail-job/detail-job.component';
 import { HomewebComponent } from './homeweb/homeweb.component';
+import {FileUploadModule} from "primeng/fileupload";
+import {PaginatorModule} from "primeng/paginator";
 
 const routes: Routes = [{
   path: '',
@@ -34,10 +36,12 @@ const routes: Routes = [{
     DetailJobComponent,
     HomewebComponent,
   ],
-  imports: [
-    MatTabsModule,
-    CommonModule,
-    RouterModule.forChild(routes),
-  ],
+    imports: [
+        MatTabsModule,
+        CommonModule,
+        RouterModule.forChild(routes),
+        FileUploadModule,
+        PaginatorModule,
+    ],
 })
 export class WebpublicModule { }
