@@ -147,7 +147,7 @@
     <div class="form-group">
       <label for="example-text-input" >Mô tả công việc:</label>
       <div class="form-group">
-        <input [(ngModel)]="description" class="form-control" type="text" formControlName="description">
+        <textarea [(ngModel)]="description" class="form-control" type="text" formControlName="description"></textarea>
       </div>
     </div>
     <div class="col alert alert-danger" role="alert"
@@ -158,7 +158,7 @@
     <div class="form-group">
       <label for="example-text-input">Quyền lợi được hưởng:</label>
       <div class="form-group">
-        <input [(ngModel)]="interrest" class="form-control" type="text" formControlName="interrest">
+        <textarea  [(ngModel)]="interrest" class="form-control" type="text" formControlName="interrest"></textarea>
       </div>
     </div>
     <div class="col alert alert-danger" role="alert"
@@ -207,8 +207,9 @@
         <select
           class="custom-select mb-3"
           formControlName="contactId"
+          [ngModel]="contact.name"
         >
-          <option value="contact.id">chọn người liên hệ</option>
+          <option value="contact.id">{{contact.name}}</option>
           <option *ngFor="let je of jes" [ngValue]="je.id">
             {{ je.name }}
           </option>
@@ -234,7 +235,7 @@
 <!--    </div>-->
     <div class="form-group row">
       <div class="col-md-10 offset-md-2">
-        <button  class="btn btn-primary" type="submit" [disabled]=!this.rfContact.valid>Submit</button>
+        <button  class="btn btn-primary" type="submit" routerLink="/home/job" [disabled]=!this.rfContact.valid>Submit</button>
       </div>
     </div>
   </div>

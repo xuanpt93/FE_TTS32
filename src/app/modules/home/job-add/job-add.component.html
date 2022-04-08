@@ -118,7 +118,8 @@
 
     <div class="form-group">
       <label for="example-text-input">Mô Tả Công Việc</label>
-      <input class="form-control" formControlName="description" type="text" placeholder="Nhập mô tả công việc">
+      <textarea class="form-control" formControlName="description" type="text" placeholder="Nhập mô tả công việc"></textarea>
+
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('description')?.errors?.required && rfContact.get('description')?.touched">
@@ -127,7 +128,7 @@
 
     <div class="form-group">
       <label for="example-text-input">Quyền Lợi</label>
-      <input class="form-control" formControlName="benefits" type="text" placeholder="Nhập quyền lợi">
+      <textarea class="form-control" formControlName="benefits" type="text" placeholder="Nhập quyền lợi"></textarea>
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('interrest')?.errors?.required && rfContact.get('interrest')?.touched">

@@ -151,9 +151,9 @@ this.getUser();
     this.updateStatusJob(this.jobDTO);
   }
 
-  onDelete() {
-    this.convertData();
-    this.jobDTO.statusJobId = 10;
-    this.updateStatusJob(this.jobDTO);
+  onDelete(id: number) {
+    this.jobService.getDeleteJob(id).subscribe(() =>{
+    });
+    alert('Đã xóa công việc');
   }
 }

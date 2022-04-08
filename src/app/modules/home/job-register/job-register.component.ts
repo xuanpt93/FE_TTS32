@@ -14,6 +14,10 @@ import { saveAs } from 'file-saver';
 export class JobRegisterComponent implements OnInit {
   datas: jobRegisterModel[]=[];
   formInterview: FormGroup;
+  formSearch: FormGroup;
+  page: number;
+  size: number;
+  totalRecords: number;
   isSubmitted = false;
 
   constructor(
@@ -24,6 +28,9 @@ export class JobRegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.page = 0;
+    this.size = 2;
+    this.totalRecords = 5;
     this.getAll();
     this.formInterview = this.fb.group({
       jobRegisterId: ['', Validators.required],
@@ -31,6 +38,26 @@ export class JobRegisterComponent implements OnInit {
       date: ['', Validators.required],
       method:['', Validators.required],
       tools:['', Validators.required],
+    });
+    this.formSearch = this.fb.group({
+      fullName: '',
+      jobName: '',
+      idStatusJobRegister: '',
+    })
+  }
+
+  paginate(event) {
+    this.page = event.page;
+    this.size = event.rows;
+    console.log(this.page);
+    console.log(this.size);
+    this.search();
+  }
+
+  search() {
+    this.jobRegisterService.search(this.formSearch.value, this.page, this.size).subscribe((res: any)=>{
+      console.log(res);
+      this.datas = res;
     });
   }
 
@@ -84,4 +111,5 @@ export class JobRegisterComponent implements OnInit {
     );
   }
 
+  currentDate= new Date();
 }

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {JobRegisterServiceService} from '../../../@core/services/job-register-service.service';
 import {jobRegisterModel} from '../../../@core/models/jobRegister.model';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {saveAs} from 'file-saver';
 import {CvService} from '../../../@core/services/cv.service';
+import {Observable} from 'rxjs';
+import {HttpEventType, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'ngx-job-register-detail',
@@ -13,6 +15,11 @@ import {CvService} from '../../../@core/services/cv.service';
 })
 
 export class JobRegisterDetailComponent implements OnInit {
+  selectedFiles: FileList;
+  currentFile: File;
+  progress = 0;
+  message = '';
+  fileInfos: Observable<any>;
   data: jobRegisterModel;
   formInterview: FormGroup;
   formChangeStatus: FormGroup;
@@ -102,5 +109,24 @@ export class JobRegisterDetailComponent implements OnInit {
     this.cv.download(fileName).subscribe(
       data => saveAs(data, fileName),
     );
+  }
+
+  upload() {
+    this.progress = 0;
+    this.currentFile = this.selectedFiles.item(0);
+    this.cv.upload(this.currentFile).subscribe(
+      event => {
+        if(event.type === HttpEventType.UploadProgress){
+          this.progress = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message = event.body.message;
+        }
+      },
+      err => {
+        this.progress = 0;
+        this.message = 'Could not upload the file!';
+        this.currentFile = undefined;
+      });
+    this.selectedFiles = undefined;
   }
 }
