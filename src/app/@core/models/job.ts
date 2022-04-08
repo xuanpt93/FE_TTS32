@@ -31,5 +31,6 @@ export interface Job {
   creater: User;
   updateUser: User;
   isDelete: number;
+  reason: string;
 
 }

@@ -1,0 +1,63 @@
+
+<ng-template [ngIf]="company">
+  <form>
+    <div class="form-row" style="display: flex">
+      <div class="form-group col-md-12" style="display: flex; padding-left: 5px">
+        <img src="assets/images/itsol.png">
+        <div style="font-size: 60px; padding-left: 27px; padding-top: 100px;font-family: fantasy">
+          {{company.name}}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Email</label>
+        <input type="text" class="form-control" id="inputEmail4"  value="{{company.email}}" disabled>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Hotline</label>
+        <input type="text" class="form-control"  value="{{company.hotLine}}" disabled>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Số lượng người</label>
+        <input type="email" class="form-control"  value="{{company.numberStaff}}" disabled>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Mã số thuế</label>
+        <input type="text" class="form-control"  value="{{company.taxCode}}" disabled>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Địa chỉ chụ sở chính</label>
+        <input type="email" class="form-control"  value="{{company.headOffice}}" disabled>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Website</label>
+        <input type="email" class="form-control"  value="{{company.linkWeb}}" disabled>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Mô tả công ty</label>
+        <input type="email" class="form-control"  value="{{company.description}}" disabled>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputEmail4">Ngày thành lập</label>
+        <input type="text" class="form-control"  value="{{company.dateIncoporation | date: 'dd-MM-yyyy'}}" disabled>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputEmail4">Ngày cấp</label>
+        <input type="text" class="form-control"  value="{{company.taxDate | date: 'dd-MM-yyyy'}}" disabled>
+      </div>
+    </div>
+  </form>
+  <p-button label="Cập nhật"  class="mr-2" (click)="onUpdate()"></p-button>
+</ng-template>
+
+

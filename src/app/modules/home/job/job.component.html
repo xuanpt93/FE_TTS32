@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-danger" style="margin-right: 1px;"
-        routerLink="/home/job-add">Thêm mới tin tuyển dụng</button>
+        routerLink="/admin/job-add">Thêm mới tin tuyển dụng</button>
 <br>
 <!--(ngSubmit)="onSearch()-->
 <form class="needs-validation" style="padding-top: 24px"  [formGroup]="formSeachJob" >
@@ -56,7 +56,7 @@
     <td>{{item.views}}</td>
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-danger" style="margin-right: 1px;"
-              routerLink="/home/job-detail/{{item.id}}">Chi tiết</button>
+              routerLink="/admin/job-detail/{{item.id}}">Chi tiết</button>
       <ng-template [ngIf]="item">
         <ng-template [ngIf]="item.statusJob.id === 1 || item.statusJob.id === 2">
           <p-button  label="xem trước" ></p-button>
@@ -64,7 +64,7 @@
       </ng-template>
       <ng-template [ngIf]="item">
         <ng-template [ngIf]="item.statusJob.id === 2">
-          <p-button label="đăng tuyển" routerLink="/home/job-detail/{{item.id}}" ></p-button>
+          <p-button label="đăng tuyển" routerLink="/admin/job-detail/{{item.id}}" ></p-button>
         </ng-template>
       </ng-template>
       <ng-template [ngIf]="item">

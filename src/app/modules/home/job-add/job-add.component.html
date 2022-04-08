@@ -75,11 +75,15 @@
 
     <div class="form-group">
       <label for="example-text-input">Số Lượng Nhân Sự Cần Tuyển</label>
-      <input class="form-control" formControlName="qtyPerson" type="text"   placeholder="Nhập số lượng">
+      <input class="form-control" formControlName="qtyPerson" type="number"   placeholder="Nhập số lượng">
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('qtyPerson')?.errors?.required && rfContact.get('qtyPerson')?.touched">
       QtyPerson is required!
+    </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('qtyPerson')?.errors?.pattern && rfContact.get('qtyPerson')?.touched">
+      số lượng nhân sự không đúng định dạng!
     </div>
 
     <div class="form-group">
@@ -146,21 +150,29 @@
 
     <div class="form-group">
       <label for="example-text-input">Mức Lương Thấp Nhất</label>
-      <input class="form-control" formControlName="salaryMin" type="text" placeholder="Nhập mức lương">
+      <input class="form-control" formControlName="salaryMin" type="number" placeholder="Nhập mức lương">
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('salaryMin')?.errors?.required && rfContact.get('salaryMin')?.touched">
       salaryMin is required!
     </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('salaryMin')?.errors?.pattern && rfContact.get('salaryMin')?.touched">
+      salaryMin không đúng định dạng!
+    </div>
 
 
     <div class="form-group">
       <label for="example-text-input">Mức Lương Cao Nhất</label>
-      <input class="form-control" formControlName="salaryMax" type="text" placeholder="Nhập mức lương">
+      <input class="form-control" formControlName="salaryMax" type="number" placeholder="Nhập mức lương">
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('salaryMax')?.errors?.required && rfContact.get('salaryMax')?.touched">
       salaryMax is required!
+    </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('salaryMax')?.errors?.pattern && rfContact.get('salaryMax')?.touched">
+      salaryMax không đúng định dạng!
     </div>
 
 

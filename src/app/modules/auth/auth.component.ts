@@ -58,7 +58,8 @@ export class AuthComponent implements OnInit {
           localStorage.setItem('token',JSON.stringify(token));
           this.userService.getUserByUserName(token.sub).subscribe((item)=>{
             if(item.activate === true){
-              if(token.auth ==='ROLE_ADMIN' || token.auth === 'ROLE_JE'){
+              debugger
+              if(token.auth =='ROLE_ADMIN' || token.auth == 'ROLE_JE'){
               this.router.navigate(['/admin/']);
               }else{
               this.router.navigate(['/home/']);
