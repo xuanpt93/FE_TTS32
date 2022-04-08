@@ -23,12 +23,12 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
   },
   {
     path: 'home',
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     loadChildren: () => import('./modules/webpublic/webpublic.module').then(m => m.WebpublicModule),
   },
   {
@@ -46,7 +46,7 @@ export const routes: Routes = [
   },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' },
+  //{ path: '**', redirectTo: 'home' },
 
 ];
 

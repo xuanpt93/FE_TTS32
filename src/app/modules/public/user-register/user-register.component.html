@@ -85,6 +85,7 @@
                       name="gender"
                       id="femaleGender"
                       value="female"
+                      [(ngModel)]="unitTrustsPnl"
                     />
                     <label class="form-check-label" for="femaleGender">Nữ</label>
                   </div>
@@ -96,6 +97,7 @@
                       name="gender"
                       id="maleGender"
                       value="male"
+
                     />
                     <label class="form-check-label" for="maleGender">Nam</label>
                   </div>
@@ -119,6 +121,17 @@
                   <label class="form-label" for="form3Example99">Sô điện thoại</label>
                   <input type="text" id="form3Example99"  formControlName="phoneNumber" class="form-control form-control-lg" />
                 </div>
+                <div class="form-outline mb-3">
+                  <label class="form-label" for="form3Example99">Ảnh đại diện</label>
+                  <!-- <input #fileInput class="" type="file" id="form3Example99"  formControlName="avatarName" class="form-control form-control-lg" /> -->
+                  <div class="custom-file">
+                    <input type="file"  accept="image/*" class="custom-file-input" formControlName="avatarName" id="importFile" (change)="onSelect($event.target.files)">
+                                  <label class="custom-file-label" #labelImport for="importFile"><i class="fas fa-image"></i> Choose file</label>
+                  </div>
+                </div>
+                <div *ngIf=dbImage>
+                  <img [src]="dbImage" height="150">
+              </div>
                 <div class="d-flex justify-content-end pt-3">
                   <button type="button" class="btn btn-light btn-lg mr-2" >Reset all</button>
                   <button type="submit" class="btn btn-warning btn-lg ms-2" [disabled]=!this.registerForm.valid>Submit form</button>

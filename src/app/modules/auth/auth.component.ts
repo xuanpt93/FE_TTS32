@@ -55,12 +55,13 @@ export class AuthComponent implements OnInit {
           this.isLoggedIn = true;
           this.tokenService.saveToken(data.token);
           const token = this.userService.getDecodedAccessToken();
+          localStorage.setItem('token',JSON.stringify(token));
           this.userService.getUserByUserName(token.sub).subscribe((item)=>{
             if(item.activate === true){
               if(token.auth ==='ROLE_ADMIN' || token.auth === 'ROLE_JE'){
-              this.router.navigate(['/home/']);
+              this.router.navigate(['/admin/']);
               }else{
-              this.router.navigate(['/register']);
+              this.router.navigate(['/home/']);
               }
             }else{
               alert('Tài khoản chưa được kích hoạt');
