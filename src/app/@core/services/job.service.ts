@@ -99,37 +99,19 @@ export class JobService {
     return this.http.get(`http://localhost:9090/api/public/user/job/exportJD/`+ id,{responseType: 'blob'});
   }
 
-  // public getExportJD(id: number): Observable<Blob> {
-  //   const url = `${this.apiServerUrl}` + 'public/user/job/exportJD/' + `${id}`;
-  //   return this.http.get<any>(url);
-  // }
-
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  // public getExportJD<blod, T>( url: string, id: number): any {
-  //   // eslint-disable-next-line @typescript-eslint/naming-convention
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/pdf', responseType: 'blob' });
-  //   const absoluteUrl = this.http.get('public/user/job/exportJD/' + `${id}`);
-  //   // @ts-ignore
-  //   return this.http.get(absoluteUrl, {
-  //     headers,
-  //     responseType: 'blob' as 'pdf',
-  //     observe: 'response',
-  //   });
-  // }
+  public updateReason(reasonDto): Observable<any> {
+    return this.http.put(`${this.apiServerUrl}`+'public/user/job/reason',reasonDto).pipe(
+      tap(receivedJob => console.log(`receivedJob=${JSON.stringify(reasonDto)}`)),
+    );
+  }
 
 
 
 
-  // download(file: any | undefined): Observable<Blob> {
-  //   return this.http.get(`${this.apiServerUrl}/download/${file}`, {
-  //     responseType: 'blob',
-  //   });
-  // }
 
 
-  // public getExcel(): void {
-  //   this.http.get<any>(`http://localhost:9090/api/public/user/job/excel2`);
-  // }
+
+
 
 
 

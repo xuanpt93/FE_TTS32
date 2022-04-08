@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../../@core/models/user';
 import {UserService} from '../../../@core/services/user.service';
 import {JobDTO} from '../../../@core/models/jobDTO';
+import {ReasonDto} from '../../../@core/models/reasonDTO';
 
 @Component({
   selector: 'ngx-job-detail',
@@ -16,6 +17,13 @@ export class JobDetailComponent implements OnInit {
   public  job: Job;
   user: User;
   jobDTO: JobDTO;
+  reasonDto: ReasonDto;
+  displayPosition: boolean;
+  position: string;
+  displayPositionReason: boolean;
+  positionReason: string;
+  reason: string;
+
 
   constructor(
     public jobService: JobService,
@@ -85,6 +93,7 @@ this.getUser();
       updateDate: undefined,
       statusJobId: 0,
       views: 0,
+      reason: '',
     };
       this.jobDTO.id = this.job.id;
       this.jobDTO.name = this.job.name;
@@ -155,5 +164,29 @@ this.getUser();
     this.jobService.getDeleteJob(id).subscribe(() =>{
     });
     alert('Đã xóa công việc');
+  }
+
+  public updateReason(){
+    this.jobService.updateReason(this.reasonDto).subscribe(
+      (data: any) => {
+        this.job.statusJob =data.statusJob;
+        alert('Update thành công');
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      },
+    );
+  }
+
+  onRefuse() {
+    console.log('reasonDto',this.reasonDto);
+    this.reasonDto.jobId = this.job.id;
+    this.reasonDto.statusId = 5;
+    this.updateReason();
+  }
+
+  showPositionDialog(position: string) {
+    this.position = position;
+    this.displayPosition = true;
   }
 }

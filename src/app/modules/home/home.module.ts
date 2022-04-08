@@ -19,6 +19,7 @@ import {MaterialModule} from '../../shared/material.module';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
+import { JobReasonComponent } from './job-reason/job-reason.component';
 
 const routes: Routes = [{
   path: '',
@@ -97,6 +98,7 @@ const routes: Routes = [{
     UserAddComponent,
     JobRegisterDetailComponent,
     JobUpdateComponent,
+    JobReasonComponent,
   ],
   imports: [
     CommonModule,
