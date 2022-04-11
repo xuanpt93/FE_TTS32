@@ -33,10 +33,10 @@ export class JobDetailComponent implements OnInit {
     public route: ActivatedRoute,
     private userService: UserService,
     private readonly router: Router) {
-this.getUser();
 }
 
   ngOnInit(): void {
+    this.getUser();
     this.getJobById();
   }
 
@@ -57,7 +57,7 @@ this.getUser();
     this.userService.getUserByUserName(username).subscribe(
       (data: User) => {
         this.user = data;
-        console.log('role',data.roles);
+        console.log('role',data);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -67,7 +67,8 @@ this.getUser();
 
   public getUser(): void {
     // const token = this.userService.getDecodedAccessToken();
-    this.getUserByUserName(this.tokenService.getUser().userName);
+    const token = this.userService.getDecodedAccessToken();
+    this.getUserByUserName(token.sub);
   }
 
   convertData(){

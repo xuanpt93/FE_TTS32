@@ -52,14 +52,14 @@
     <td>{{item.jobPosition.code}}</td>
     <td>{{item.salaryMax}} USD</td>
     <td>{{item.dueDate| date:'fullDate'}}</td>
-    <td>{{item.statusJob.name}}</td>
+    <td>{{item.statusJob.description}}</td>
     <td>{{item.views}}</td>
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-danger" style="margin-right: 1px;"
               routerLink="/admin/job-detail/{{item.id}}">Chi tiết</button>
       <ng-template [ngIf]="item">
         <ng-template [ngIf]="item.statusJob.id === 1 || item.statusJob.id === 2">
-          <p-button  label="xem trước" ></p-button>
+          <p-button routerLink="/home/detail/{{item.id}}"  label="xem trước" ></p-button>
         </ng-template>
       </ng-template>
       <ng-template [ngIf]="item">
