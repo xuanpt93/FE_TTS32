@@ -79,7 +79,7 @@ export class UserAddComponent implements OnInit {
 
   addUser(user: any){
     this.userService.addUser(user).subscribe((data)=>{
-      if(data === false){
+      if(data == false){
         alert('Thêm user không thành công');
       }else{
         if(this.id == 0){
@@ -89,7 +89,7 @@ export class UserAddComponent implements OnInit {
         }
 
       }
-      this.route.navigate(['/home/user']);
+      this.route.navigate(['/admin/user']);
     },(error: HttpErrorResponse)=>{
       alert(error.message);
     });

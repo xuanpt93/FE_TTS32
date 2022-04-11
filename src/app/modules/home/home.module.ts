@@ -20,6 +20,7 @@ import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 const routes: Routes = [{
   path: '',
@@ -61,6 +62,11 @@ const routes: Routes = [{
     {path: 'jobRegister', component:JobRegisterComponent},
     {path: 'jobRegister/:id', component:JobRegisterDetailComponent},
 
+    {
+      path: 'user-profile',
+      component:UserProfileComponent,
+    },
+
   ],
 }];
 
@@ -97,6 +103,7 @@ const routes: Routes = [{
     JobRegisterDetailComponent,
     JobUpdateComponent,
     DashboardComponent,
+    UserProfileComponent,
   ],
   imports: [
     CommonModule,

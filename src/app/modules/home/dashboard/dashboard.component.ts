@@ -2,11 +2,12 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Chart, registerables } from 'chart.js';
+import { DashboardService } from '../../../@core/services/dashboard.service';
 
 @Component({
   selector: 'ngx-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   @ViewChild('lineCanvas') lineCanvas: ElementRef;
-  lineChart: any;
+  //lineChart: any;
 
   private pieChartLabels = ['Số ứng viên thành công', 'Số ứng viên thất bại'];
   private pieChartData = [];
@@ -25,6 +26,24 @@ export class DashboardComponent implements OnInit {
   private lineChartDataLine2 = [];
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
+  statistic = {
+    allJob: 0,
+    notDoneJob: 0,
+    totalViewJob: 0,
+    waitingForInterview: 0,
+    interviewing: 0,
+    totalApply: 0,
+    successRecruitedApplicant: 0,
+  };
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  lineChart = {
+    label: '',
+    qtyPerson: '',
+    successRecruitment: '',
+  };
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   dateRangeForm: FormGroup;
   // eslint-disable-next-line @typescript-eslint/member-ordering
   startDate: any;
@@ -32,21 +51,53 @@ export class DashboardComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private datePipe: DatePipe,
+    private dashboardService: DashboardService,
     // private homeAdminService: HomeAdminService
     ) {  }
 
-  today ='01/01/2021';
+  today ='2022-01-01';
   ngOnInit(): void {
     this.initForm();
     const date = new Date();
     this.startDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(),date.getDay()),'dd/mm/yyyy');
-    console.log(this.startDate)
+
     this.dateRangeForm.patchValue({
       fromDate: new Date(date.getFullYear(), date.getMonth(), 1),
       toDate: new Date(date.getFullYear(), date.getMonth() + 1, 0),
     });
+    const dateStatistic = {
+      fromDate: new Date('2021/01/01'),
+      toDate: new Date('2022/06/02'),
+    };
+    const dataForLineChart = {
+      fromDate: new Date('2021/01/01'),
+      toDate: new Date('2022/06/02'),
+      dateGrouptype: 'M',
+    };
+    this.getDataStatistic(dateStatistic);
+    this.getDataLineChart(dataForLineChart);
   }
 
+  getDataStatistic(date: any): any{
+    this.dashboardService.getStatistic(date).subscribe((data) =>{
+      console.log(JSON.stringify(data[0]));
+      this.statistic.allJob = data[0].allJob;
+      this.statistic.notDoneJob = data[0].notDoneJob;
+      this.statistic.totalViewJob = data[0].totalViewJob;
+      this.statistic.waitingForInterview = data[0].waitingForInterview;
+      this.statistic.interviewing = data[0].interviewing;
+      this.statistic.totalApply = data[0].totalApply;
+      this.statistic.successRecruitedApplicant = data[0].successRecruitedApplicant;
+    });
+  }
+
+  getDataLineChart(data: any): any{
+    this.dashboardService.getDataLineChart(data).subscribe((item)=>{
+      this.lineChart.label = item[0].label;
+      this.lineChart.qtyPerson = item[0].qtyPerson;
+      this.lineChart.successRecruitment = item[0].successRecruitment;
+    });
+  }
 
   // get f(){
 
@@ -57,6 +108,7 @@ export class DashboardComponent implements OnInit {
       fromDate: new FormControl(this.datePipe.transform(new Date().getDate(), 'MM/dd/yyyy')),
       toDate: new FormControl(this.datePipe.transform(new Date().getDate(), 'MM/dd/yyyy')),
     });
+
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -97,14 +149,14 @@ export class DashboardComponent implements OnInit {
     //   this.pieChartData.push(res.failApplicantQuantity);
     //   this.pieChartBrowser(this.pieChartLabels, this.pieChartData);
     // });
-    let labels:string[] = ['pie1','pie2','pie3']
-    let data:number[] = [1,2,3]
-    this.pieChartBrowser(labels,data)
+    let labels: string[] = ['Số ứng viên ứng tuyển thất bại','Số ứng viên ứng tuyển thành công'];
+    let data: number[] = [1,2];
+    this.pieChartBrowser(labels,data);
 
-    let labels2: ['line1','line2'];
-    let dataLine1: [1,2,3]
-    let dataLine2: [3,2,1]
-    this.lineChartMethod(labels2,dataLine1,dataLine2)
+    let labels2:string[] = ['Số ứng viên ứng tuyển','Số ứng viên ứng tuyển thành công'];
+    let dataLine1: [1,2,3];
+    let dataLine2: [3,2,1];
+    this.lineChartMethod(labels2,dataLine1,dataLine2);
   }
 
   pieChartBrowser(labels: string[], datas: number[]): void {
@@ -132,10 +184,10 @@ export class DashboardComponent implements OnInit {
       type: 'line',
       data: {
         // eslint-disable-next-line max-len
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'December'],
+        labels: this.lineChart.label.split(','),
         datasets: [
           {
-            label: labels,
+            label: labels[0],
             fill: false,
             // lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
@@ -153,11 +205,11 @@ export class DashboardComponent implements OnInit {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40, 10, 5, 50, 10, 15],
+            data: this.lineChart.qtyPerson.split(','),
             spanGaps: false,
           },
           {
-            label: labels,
+            label: labels[1],
             fill: false,
             // lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
@@ -175,7 +227,7 @@ export class DashboardComponent implements OnInit {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
+            data: this.lineChart.successRecruitment.split(','),
             spanGaps: false,
           },
         ],

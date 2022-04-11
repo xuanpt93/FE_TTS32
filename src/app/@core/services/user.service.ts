@@ -31,7 +31,7 @@ export class UserService{
 
   public getUserByUserName(userName: string): Observable<User> {
     return this.http.get<any>(`${this.apiServerUrl}`+'public/user/username='+userName).pipe(
-      tap(user => console.log(`user=${JSON.stringify(user)}`)),
+      tap(user => console.log(localStorage.setItem('user',JSON.stringify(user)))),
     );
   }
 
@@ -69,7 +69,6 @@ export class UserService{
   }
   public getUserById(id: number): Observable<User>{
     const url = `${this.apiServerUrl}` + 'public/user/' + `${id}`;
-    console.log('url: '+url);
     return this.http.get<User>(url);
   }
 
