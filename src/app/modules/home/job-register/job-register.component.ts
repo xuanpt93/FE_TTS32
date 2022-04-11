@@ -74,7 +74,7 @@ export class JobRegisterComponent implements OnInit {
   openPopup1(item: jobRegisterModel) {
     this.formInterview = this.fb.group({
       jobRegisterId: [item.id],
-      userId: [item.user_id],
+      userId: [item.user.id],
       date: ['', Validators.required],
       method:['', Validators.required],
       tools:['', Validators.required],

@@ -56,19 +56,5 @@ export class HomewebComponent implements OnInit {
     })
   }
 
-  onSelected(event) {
-    this.file = event.currentFiles[0];
-    console.log('day la file', this.file);
-  }
-
-  onBeforeUpload() {
-    this.cvService.upload(this.file).subscribe(
-      (data: any) => {
-        alert(data.message);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      });
-  }
 
 }
