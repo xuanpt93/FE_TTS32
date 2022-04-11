@@ -22,7 +22,7 @@ export class CompanyService{
   }
 
   public updateCompany(company: Company): Observable<any> {
-    return this.http.put(`${this.apiServerUrl}`+'public/user/job/update-company',company).pipe(
+    return this.http.put(`${this.apiServerUrl}`+'public/user/update-company',company).pipe(
       tap(receivedJob => console.log(`receivedJob=${JSON.stringify(receivedJob)}`)),
     );
   }

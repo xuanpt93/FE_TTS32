@@ -46,14 +46,25 @@
     </div>
 
     <div class="form-group ">
-      <label for="example-text-input"  >Mã số thuế</label>
+      <label for="example-text-input">Ngày cấp</label>
       <div class="form-group">
-        <input [(ngModel)]="taxCode" class="form-control" type="text" formControlName="taxCode">
+        <p-calendar [(ngModel)]="taxDate" type="Date" formControlName="taxDate" [placeholder]="tDate"></p-calendar>
       </div>
     </div>
     <div class="form-group" role="alert"
-         *ngIf="rfContact.get('taxCode')?.errors?.required && rfContact.get('taxCode')?.touched">
-      taxCode is required!
+         *ngIf="rfContact.get('taxDate')?.errors?.required && rfContact.get('taxDate')?.touched">
+      taxDate is required!
+    </div>
+
+    <div class="form-group ">
+      <label for="example-text-input"  >Nơi cấp</label>
+      <div class="form-group">
+        <input [(ngModel)]="taxPlace" class="form-control" type="text" formControlName="taxPlace">
+      </div>
+    </div>
+    <div class="form-group" role="alert"
+         *ngIf="rfContact.get('taxPlace')?.errors?.required && rfContact.get('taxPlace')?.touched">
+      taxPlace is required!
     </div>
 
     <div class="form-group ">
@@ -65,17 +76,6 @@
     <div class="form-group" role="alert"
          *ngIf="rfContact.get('headOffice')?.errors?.required && rfContact.get('headOffice')?.touched">
       headOffice is required!
-    </div>
-
-    <div class="form-group ">
-      <label for="example-text-input"  >Số lượng nhân viên</label>
-      <div class="form-group">
-        <input [(ngModel)]="numberStaff" class="form-control" type="text" formControlName="numberStaff">
-      </div>
-    </div>
-    <div class="form-group" role="alert"
-         *ngIf="rfContact.get('numberStaff')?.errors?.required && rfContact.get('numberStaff')?.touched">
-      numberStaff is required!
     </div>
 
     <div class="form-group ">
@@ -114,7 +114,7 @@
     <div class="form-group ">
       <label for="example-text-input"  >Ngày thành lập</label>
       <div class="form-group">
-        <input [(ngModel)]="dateIncoporation" class="form-control" type="text" formControlName="dateIncoporation">
+        <p-calendar [(ngModel)]="dateIncoporation" type="text" formControlName="dateIncoporation" [placeholder]="dateIn"></p-calendar>
       </div>
     </div>
     <div class="form-group" role="alert"
@@ -126,7 +126,7 @@
 
     <div class="form-group row">
       <div class="col-md-10 offset-md-2">
-        <button  class="btn btn-primary" type="submit" routerLink="/home/job" [disabled]=!this.rfContact.valid>Submit</button>
+        <button  class="btn btn-primary" type="submit">Submit</button>
       </div>
     </div>
   </div>

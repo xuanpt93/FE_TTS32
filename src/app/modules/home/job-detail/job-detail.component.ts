@@ -93,7 +93,6 @@ this.getUser();
       updateDate: undefined,
       statusJobId: 0,
       views: 0,
-      reason: '',
     };
       this.jobDTO.id = this.job.id;
       this.jobDTO.name = this.job.name;

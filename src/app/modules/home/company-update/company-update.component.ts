@@ -29,16 +29,18 @@ export class CompanyUpdateComponent implements OnInit {
   avatar: string;
   backdropImg: string;
 
+  dateIn: string;
+  tDate: string;
+
   rfContact: FormGroup;
 
   constructor(private fb: FormBuilder,    public route: ActivatedRoute,
               private companyService: CompanyService,
-              private readonly router: Router) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.rfContact = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      jobPositionId: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.minLength(3)]],
       hotLine: ['', [Validators.required, Validators.minLength(3)]],
       dateIncoporation: ['', [Validators.required, Validators.minLength(3)]],
@@ -50,6 +52,7 @@ export class CompanyUpdateComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(3)]],
       linkWeb: ['', [Validators.required, Validators.minLength(3)]],
     });
+    this.getCompany();
   }
 
   public getinnitData(){
@@ -65,6 +68,8 @@ export class CompanyUpdateComponent implements OnInit {
     this.numberStaff = this.company.numberStaff;
     this.description = this.company.description;
     this.linkWeb = this.company.linkWeb;
+    this.dateIn = `${new Date(this.dateIncoporation).getDate()}/${new Date(this.dateIncoporation).getMonth()}/${new Date(this.dateIncoporation).getFullYear()} ${new Date(this.dateIncoporation).getHours()}:${new Date(this.dateIncoporation).getMinutes()}`;
+    this.tDate =  `${new Date(this.taxDate).getDate()}/${new Date(this.taxDate).getMonth()}/${new Date(this.taxDate).getFullYear()} ${new Date(this.taxDate).getHours()}:${new Date(this.taxDate).getMinutes()}`;
   }
 
   public getCompany(): void {
@@ -78,21 +83,19 @@ export class CompanyUpdateComponent implements OnInit {
   }
 
   private updateCompany() {
-    console.log('contact'+this.rfContact.value);
     this.company = this.rfContact.value;
-    this.backdropImg = "khong co";
-    this.avatar = 'khong co'
+    this.company.backdropImg = 'khong co';
+    this.company.avatar = 'khong co';
     this.companyService.updateCompany(this.company).subscribe(
       (data: any) => {
         alert('cập nhật thành công');
+        this.router.navigate(["admin/company"]);
       },
     );
   }
 
   onSubmit(){
     this.updateCompany();
-    // Do something awesome
-    // this.router.navigate(['/home/job']).then(r => console.log(r));
   }
 
 }

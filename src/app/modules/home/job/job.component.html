@@ -25,8 +25,8 @@
         formControlName="statusId"
       >
         <option value="">chọn trạng thái công việc</option>
-        <option *ngFor="let rank of statusJobs" [ngValue]="rank.id">
-          {{ rank.name }}
+        <option *ngFor="let status of statusJobs" [ngValue]="status.id">
+          {{ status.description }}
         </option>
       </select>
     </div>

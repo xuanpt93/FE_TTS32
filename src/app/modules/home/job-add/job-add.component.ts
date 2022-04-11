@@ -11,6 +11,7 @@ import {User} from '../../../@core/models/user';
 import {UserService} from '../../../@core/services/user.service';
 import {Job} from '../../../@core/models/job';
 import {Router} from '@angular/router';
+import {SelectItem} from "primeng/api";
 
 @Component({
   selector: 'ngx-job-add',
@@ -40,13 +41,13 @@ export class JobAddComponent implements OnInit {
   ngOnInit() {
     this.rfContact = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      jobPositionId: ['', [Validators.required, Validators.minLength(3)]],
-      numberExperience: ['', [Validators.required, Validators.minLength(3)]],
-      workingFormId: ['', [Validators.required, Validators.minLength(3)]],
+      jobPositionId: ['', [Validators.required]],
+      numberExperience: ['', [Validators.required]],
+      workingFormId: ['', [Validators.required]],
       addressWork: ['', [Validators.required, Validators.minLength(3)]],
-      academicLevelId: ['', [Validators.required, Validators.minLength(3)]],
-      rankId: ['', [Validators.required, Validators.minLength(3)]],
-      qtyPerson: ['', [Validators.required, Validators.pattern('([0-9]{1,2})')]],
+      academicLevelId: ['', [Validators.required]],
+      rankId: ['', [Validators.required]],
+      qtyPerson: ['', [Validators.required, Validators.pattern('([1-9]{1,2})')]],
       startRecruitmentDate: ['', [Validators.required, Validators.minLength(3)]],
       dueDate: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
@@ -54,7 +55,8 @@ export class JobAddComponent implements OnInit {
       jobRequirement: ['', [Validators.required, Validators.minLength(3)]],
       salaryMin: ['', [Validators.required,Validators.pattern('([1-9]{1}[0-9]{1,2})')]],
       salaryMax: ['', [Validators.required, Validators.pattern('([1-9]{1}[0-9]{1,2})')]],
-      contactId: ['', [Validators.required, Validators.minLength(3)]],
+      contactId: ['', [Validators.required]],
+      skills: ['', [Validators.required, Validators.minLength(3)]],
     });
     this.getJobPosition();
     this.getAcademicLevel();
@@ -62,6 +64,9 @@ export class JobAddComponent implements OnInit {
     this.getRank();
     this.getJe();
   }
+
+  minDate = new Date();
+
   public addJob(){
     console.log('contact'+this.rfContact.value);
     this.jobDto = this.rfContact.value;
@@ -71,16 +76,8 @@ export class JobAddComponent implements OnInit {
     this.jobDto.updateUserId = 1;
     this.jobDto.updateDate = new Date();
     this.jobDto.statusJobId =1;
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    this.jobDto.skills ='java';
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    // for (let i=0 ;i<this.rfContact.value.skills.length;i++){
-    //   this.jobDto.skills += this.rfContact.value.skills[i]+',';
-    // }
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     this.jobDto.views =0;
     this.jobDto.interrest= 'khong';
-    // eslint-disable-next-line max-len
     this.jobService.addJob(this.jobDto).subscribe(
       (data: any) => {
         alert('Add thành công');
