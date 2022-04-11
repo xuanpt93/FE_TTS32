@@ -44,6 +44,10 @@ export class JobUpdateComponent implements OnInit {
   salaryMin: any;
   salaryMax: any;
   contact: any;
+  skills: any;
+  startDate: string;
+  dDate: string;
+
 
   rfContact: FormGroup;
 
@@ -51,9 +55,10 @@ export class JobUpdateComponent implements OnInit {
     private fb: FormBuilder,
     private jobService: JobService,
     private userService: UserService,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
+  }
 
   ngOnInit(): void {
     this.rfContact = this.fb.group({
@@ -73,9 +78,7 @@ export class JobUpdateComponent implements OnInit {
       salaryMin: ['', [Validators.required, Validators.pattern('([1-9]{1}[0-9]{1,2})')]],
       salaryMax: ['', [Validators.required, Validators.pattern('([1-9]{1}[0-9]{1,2})')]],
       contactId: ['', [Validators.required, Validators.minLength(3)]],
-      skills: this.fb.array([
-        this.fb.control(''),
-      ]),
+      skills: ['', [Validators.required, Validators.minLength(3)]],
     });
     this.getJobPosition();
     this.getAcademicLevel();
@@ -84,7 +87,8 @@ export class JobUpdateComponent implements OnInit {
     this.getJe();
     this.getJobById();
   }
-  public getInitData(){
+
+  public getInitData() {
     this.name = this.job.name;
     this.jobPosition = this.job.jobPosition;
     this.numberExperience = this.job.numberExperience;
@@ -101,6 +105,11 @@ export class JobUpdateComponent implements OnInit {
     this.salaryMin = this.job.salaryMin;
     this.salaryMax = this.job.salaryMax;
     this.contact = this.job.contact;
+    this.skills = this.job.skills;
+    // eslint-disable-next-line max-len
+    this.startDate = `${new Date(this.startRequirement).getDate()}/${new Date(this.startRequirement).getMonth()}/${new Date(this.startRequirement).getFullYear()} ${new Date(this.startRequirement).getHours()}:${new Date(this.startRequirement).getMinutes()}`;
+    // eslint-disable-next-line max-len
+    this.dDate =  `${new Date(this.dueDate).getDate()}/${new Date(this.dueDate).getMonth()}/${new Date(this.dueDate).getFullYear()} ${new Date(this.dueDate).getHours()}:${new Date(this.dueDate).getMinutes()}`;
   }
 
   public getJobPosition() {
@@ -147,7 +156,7 @@ export class JobUpdateComponent implements OnInit {
     );
   }
 
-  public getJe(){
+  public getJe() {
     this.userService.getJe().subscribe(
       (data: any) => {
         this.jes = data;
@@ -160,7 +169,7 @@ export class JobUpdateComponent implements OnInit {
     this.jobService.getJobById(this.route.snapshot.params.id).subscribe(
       (data: Job) => {
         this.job = data;
-        console.log('Day la update',this.job);
+        console.log('Day la update', this.job);
         this.getInitData();
       },
       (error: HttpErrorResponse) => {
@@ -169,48 +178,26 @@ export class JobUpdateComponent implements OnInit {
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  get skills(): FormArray {
-    return this.rfContact.get('skills') as FormArray;
-  }
-
-
-  addSkill() {
-    this.skills.push(this.fb.control(''));
-  }
-
-  removeSkill(index: number) {
-    this.skills.removeAt(index);
-  }
-
-  onSubmit(){
+  onSubmit() {
     this.updateJob();
-  // Do something awesome
-  // this.router.navigate(['/home/job']).then(r => console.log(r));
   }
 
   private updateJob() {
-    console.log('contact'+this.rfContact.value);
+    console.log('contact' + this.rfContact.value);
     this.jobDto = this.rfContact.value;
-    console.log('jobDto',this.jobDto);
+    console.log('jobDto', this.jobDto);
     this.jobDto.creatorId = 1;
     this.jobDto.createDate = new Date();
     this.jobDto.updateUserId = 1;
     this.jobDto.updateDate = new Date();
-    this.jobDto.statusJobId =1;
+    this.jobDto.statusJobId = 1;
     this.jobDto.id = this.route.snapshot.params.id;
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    this.jobDto.skills ='';
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let i=0 ;i<this.rfContact.value.skills.length;i++){
-      this.jobDto.skills += this.rfContact.value.skills[i]+',';
-    }
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    this.jobDto.views =0;
+    this.jobDto.views = 0;
     // eslint-disable-next-line max-len
     this.jobService.updateJob(this.jobDto).subscribe(
       (data: any) => {
         alert('cập nhật thành công');
+        this.router.navigate(["admin/job"]);
       },
     );
   }

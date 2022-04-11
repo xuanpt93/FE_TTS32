@@ -9,6 +9,10 @@
          *ngIf="rfContact.get('name')?.errors?.required && rfContact.get('name')?.touched">
       Name is required!
     </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('name')?.errors?.minlength && rfContact.get('name')?.touched">
+      Name không được nhỏ hơn 3!
+    </div>
 
     <div class="form-group">
       <label for="example-text-input">Vị Trí Công Việc</label>
@@ -57,6 +61,10 @@
          *ngIf="rfContact.get('addressWork')?.errors?.required && rfContact.get('addressWork')?.touched">
       AddressWork is required!
     </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('addressWork')?.errors?.minlength && rfContact.get('addressWork')?.touched">
+      addressWork không được nhỏ hơn 3!
+    </div>
 
     <div class="form-group">
       <label for="example-text-input">Trình Độ Học Vấn</label>
@@ -68,7 +76,7 @@
       >
         <option value="">Chọn trình độ học vấn</option>
         <option *ngFor="let academicLevel of academicLevels" [ngValue]="academicLevel.id">
-          {{ academicLevel.name }}
+          {{ academicLevel.description }}
         </option>
       </select>
     </div>
@@ -103,7 +111,7 @@
 
     <div class="form-group">
       <label for="example-text-input">Ngày Yêu Cầu</label> <br>
-      <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time" formControlName="startRecruitmentDate"></p-calendar>
+      <p-calendar [(ngModel)]="date7" [minDate]="minDate" [showTime]="true" inputId="time" formControlName="startRecruitmentDate"></p-calendar>
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('startRecruitmentDate')?.errors?.required && rfContact.get('startRecruitmentDate')?.touched">
@@ -113,7 +121,7 @@
 
     <div class="form-group">
       <label for="example-text-input">Hạn Nộp Hồ Sơ</label> <br>
-      <p-calendar [(ngModel)]="date8" [showTime]="true" inputId="time" formControlName="dueDate"></p-calendar>
+      <p-calendar [(ngModel)]="date8" [showTime]="true" [minDate]="this.rfContact.value.startRecruitmentDate" inputId="time" formControlName="dueDate"></p-calendar>
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('dueDate')?.errors?.required && rfContact.get('dueDate')?.touched">
@@ -129,14 +137,22 @@
          *ngIf="rfContact.get('description')?.errors?.required && rfContact.get('description')?.touched">
       Description is required!
     </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('description')?.errors?.minlength && rfContact.get('description')?.touched">
+      description không được nhỏ hơn 3!
+    </div>
 
     <div class="form-group">
       <label for="example-text-input">Quyền Lợi</label>
-      <textarea class="form-control" formControlName="benefits" type="text" placeholder="Nhập quyền lợi"></textarea>
+      <textarea class="form-control" formControlName="interrest" type="text" placeholder="Nhập quyền lợi"></textarea>
     </div>
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('interrest')?.errors?.required && rfContact.get('interrest')?.touched">
-      Benefits is required!
+      interrest is required!
+    </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('interrest')?.errors?.minlength && rfContact.get('interrest')?.touched">
+      interrest không được nhỏ hơn 3!
     </div>
 
     <div class="form-group">
@@ -146,6 +162,10 @@
     <div class="col alert alert-danger" role="alert"
          *ngIf="rfContact.get('jobRequirement')?.errors?.required && rfContact.get('jobRequirement')?.touched">
       JobRequirement is required!
+    </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('jobRequirement')?.errors?.minlength && rfContact.get('jobRequirement')?.touched">
+      jobRequirement không được nhỏ hơn 3!
     </div>
 
     <div class="form-group">
@@ -175,10 +195,21 @@
       salaryMax không đúng định dạng!
     </div>
 
-
+    <div class="form-group">
+      <label for="example-text-input">Nhập kĩ năng </label>
+      <input class="form-control" formControlName="skills" type="text" placeholder="Nhập kĩ năng">
+    </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('skills')?.errors?.required && rfContact.get('skills')?.touched">
+      skills is required!
+    </div>
+    <div class="col alert alert-danger" role="alert"
+         *ngIf="rfContact.get('skills')?.errors?.minlength && rfContact.get('skills')?.touched">
+      skills không được nhỏ hơn 3!
+    </div>
 
     <div class="form-group">
-      <label for="example-text-input" class="col-md-2 col-form-label">Người liên hệ</label>
+      <label for="example-text-input" >Người liên hệ</label>
       <div class="form-group">
         <select
           class="custom-select mb-3"
@@ -197,10 +228,9 @@
     </div>
 
 
-
     <div class="form-group row">
       <div class="col-md-10 offset-md-2">
-        <button class="btn btn-primary" type="submit" >Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!this.rfContact.valid">Submit</button>
       </div>
     </div>
   </div>
