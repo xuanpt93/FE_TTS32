@@ -6,7 +6,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../../@core/models/user';
 import {UserService} from '../../../@core/services/user.service';
 import {JobDTO} from '../../../@core/models/jobDTO';
+import {TokenService} from "../../../@core/services/token.service";
 import {ReasonDto} from '../../../@core/models/reasonDTO';
+
 
 @Component({
   selector: 'ngx-job-detail',
@@ -26,6 +28,7 @@ export class JobDetailComponent implements OnInit {
 
 
   constructor(
+    private tokenService: TokenService,
     public jobService: JobService,
     public route: ActivatedRoute,
     private userService: UserService,
@@ -63,8 +66,8 @@ this.getUser();
   }
 
   public getUser(): void {
-    const token = this.userService.getDecodedAccessToken();
-    this.getUserByUserName(token.sub);
+    // const token = this.userService.getDecodedAccessToken();
+    this.getUserByUserName(this.tokenService.getUser().userName);
   }
 
   convertData(){

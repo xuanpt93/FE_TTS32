@@ -18,9 +18,12 @@ export class CvService {
     });
   }
 
-  upload(file: File): Observable<HttpEvent<any>> {
+  upload(file: File, user_id, job_id): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
+    formData.append('user_id',user_id);
+    formData.append('job_id', job_id);
+    console.log(formData);
     const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
       reportProgress: true,
       responseType: 'json',

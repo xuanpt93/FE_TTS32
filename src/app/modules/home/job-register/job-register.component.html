@@ -33,25 +33,26 @@
     <th>Thời gian ứng tuyển</th>
     <th>Phương thức phỏng vấn</th>
     <th>Địa điểm</th>
+    <th>Trạng thái</th>
     <th>Action</th>
   </tr>
   </thead>
   <tbody>
 
   <tr *ngFor="let items of datas">
-    <td >{{items.userName}}</td>
-<!--    <td routerLink="/home/jobRegister/{{items.id}}">{{items.jobPosition}}</td>-->
-    <td >{{items.jobName}}</td>
+    <td >{{items.user.name}}</td>
+    <td >{{items.job.jobPosition.code}}</td>
     <td >{{items.dateInterview| date:'dd-MM-yyyy'}}</td>
     <td >{{items.methodInterview}}</td>
     <td >{{items.addressInterview}}</td>
+    <td>{{items.statusJobRegister.description}}</td>
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-danger" style="margin-right: 1px;"
               routerLink="/admin/jobRegister/{{items.id}}">Chi tiết</button>
 
       <button type="button" (click)="downloadCV(items.cv)" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
 
-      <div *ngIf="items.statusJobRegisterName === 'ứng viên bị từ chối' || items.statusJobRegisterName === 'ứng viê đã hủy ứng tuyển'">
+      <div *ngIf="items.statusJobRegister.code === 'P_REJECT' || items.statusJobRegister.code === 'P_REJECT_INTERVIEW'">
         <button  type="button" data-bs-toggle="modal" data-bs-target="#modalReason" class="btn btn-dark" style="margin-right: 1px;">Xem lý do</button>
 
         <div class="modal" id="modalReason">
@@ -79,7 +80,7 @@
       </div>
 
 
-      <div *ngIf="items.statusJobRegisterName === 'chờ phỏng vấn'">
+      <div *ngIf="items.statusJobRegister.code === 'P_APPROVED'">
         <button type="button" (click)="openPopup1(items)" class="btn btn-info" style="margin-right: 1px;">Đặt lịch phỏng vấn</button>
 
         <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle1}">
@@ -90,7 +91,7 @@
               </div>
               <div class="modal-body">
                 <form  [formGroup]="formInterview">
-                  <input type="hidden" formControlName="userId" value="{{items.user_id}}" />
+                  <input type="hidden" formControlName="userId" value="{{items.user.id}}" />
                   <input type="hidden" formControlName="jobRegisterId" value="{{items.id}}" />
                   <div class="col-md-12">
                     <label >Thời gian phỏng vấn:</label>

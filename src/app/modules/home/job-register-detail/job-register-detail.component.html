@@ -1,26 +1,22 @@
 <div class="container">
   <div class="d-flex my-3">
 
-<!--    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">-->
-<!--      Upload-->
-<!--    </button>-->
-
     <button type="button" (click)="downloadCV(data.cv)" class="btn btn-success" style="margin-right: 1px;">Tải CV</button>
 
-    <div *ngIf="data.statusJobRegisterName === 'chờ duyệt'">
+    <div *ngIf="data.statusJobRegister.code === 'P_WAITING'">
       <form (ngSubmit)="onChangeStatus(data.id, $event)" [formGroup]="formChangeStatus">
-        <input type="hidden" name="status" value="chờ phỏng vấn" />
+        <input type="hidden" name="status" value="P_APPROVED" />
         <input type="hidden" value="" name="reason"/>
         <button type="submit" class="btn btn-success" style="margin-right: 1px;">Xét duyệt</button>
       </form>
     </div>
 
-    <div *ngIf="data.statusJobRegisterName === 'chờ duyệt' || data.statusJobRegisterName === 'chờ phỏng vấn' || data.statusJobRegisterName === 'đang phỏng vấn'">
+    <div *ngIf="data.statusJobRegister.code === 'P_WAITING' || data.statusJobRegister.code === 'P_APPROVED' || data.statusJobRegister.code === 'P_INTERVIEW'">
         <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-success" style="margin-right: 1px;">Từ chối ứng viên</button>
 
       <form (ngSubmit)="onChangeStatus(data.id, $event)" [formGroup]="formChangeStatus">
 
-        <input type="hidden" name="status" value="ứng viên bị từ chối" />
+        <input type="hidden" name="status" value="P_REJECT" />
         <div class="modal" id="myModal">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -54,7 +50,7 @@
       </form>
     </div>
 
-    <div *ngIf="data.statusJobRegisterName === 'ứng viên bị từ chối' || data.statusJobRegisterName === 'ứng viên đã hủy ứng tuyển'">
+    <div *ngIf="data.statusJobRegister.code === 'P_REJECT' || data.statusJobRegister.code === 'P_REJECT_INTERVIEW'">
       <button  type="button" (click)="openPopup()" class="btn btn-success" style="margin-right: 1px;">Xem lý do</button>
 
       <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
@@ -77,7 +73,7 @@
 
     </div>
 
-    <div *ngIf="data.statusJobRegisterName === 'chờ phỏng vấn'">
+    <div *ngIf="data.statusJobRegister.code === 'P_APPROVED'">
       <button type="button" (click)="openPopup1(data)" class="btn btn-success" style="margin-right: 1px;">Đặt lịch phỏng vấn</button>
 
       <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle1}">
@@ -88,7 +84,7 @@
             </div>
             <div class="modal-body">
               <form [formGroup]="formInterview">
-                <input type="hidden" formControlName="userId" value="{{data.user_id}}" />
+                <input type="hidden" formControlName="userId" value="{{data.user.id}}" />
                 <input type="hidden" formControlName="jobRegisterId" value="{{data.id}}" />
                 <div class="col-md-12">
                   <label >Thời gian phỏng vấn:</label>
@@ -130,14 +126,29 @@
 
     </div>
 
-    <div *ngIf="data.statusJobRegisterName === 'đang phỏng vấn'">
+    <div *ngIf="data.statusJobRegister.code === 'P_INTERVIEW'">
       <form (ngSubmit)="onChangeStatus(data.id, $event)" [formGroup]="formChangeStatus">
-        <input type="hidden" name="status" value="đã tuyển" />
+        <input type="hidden" name="status" value="P_SUCCESS" />
         <input type="hidden" value="" name="reason"/>
         <button type="submit" (click)="openPopup1(data)" class="btn btn-success" style="margin-right: 1px;">Tuyển thành công</button>
       </form>
     </div>
 
+    <div *ngIf="data.statusJobRegister.code === 'P_INTERVIEW'">
+      <form (ngSubmit)="onChangeStatus(data.id, $event)" [formGroup]="formChangeStatus">
+        <input type="hidden" name="status" value="P_REJECT_INTERVIEW" />
+        <input type="hidden" value="" name="reason"/>
+        <button type="submit"  class="btn btn-success" style="margin-right: 1px;">Từ chối phỏng vấn</button>
+      </form>
+    </div>
+
+    <div *ngIf="data.statusJobRegister.code === 'P_INTERVIEW'">
+      <form (ngSubmit)="onChangeStatus(data.id, $event)" [formGroup]="formChangeStatus">
+        <input type="hidden" name="status" value="P_LOST" />
+        <input type="hidden" value="" name="reason"/>
+        <button type="submit" class="btn btn-success" style="margin-right: 1px;">Từ chối tuyển dụng</button>
+      </form>
+    </div>
 
   </div>
 
@@ -148,14 +159,14 @@
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/1.svg" alt="">
         <div>
           <strong>Mức lương </strong> <br>
-          <span>{{data.minSalary}}-{{data.maxSalary}} triệu</span>
+          <span>{{data.job.salaryMin}}-{{data.job.salaryMax}} triệu</span>
         </div>
       </div>
       <div class="box-item d-flex mt-3">
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/5.svg" alt="">
         <div>
           <strong>Số lượng tuyển </strong> <br>
-          <span>{{data.qtyPerson}} người</span>
+          <span>{{data.job.qtyPerson}} người</span>
         </div>
       </div>
       <div class="box-item d-flex mt-3">
@@ -169,7 +180,7 @@
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/2.svg" alt="">
         <div>
           <strong>Tên công việc </strong> <br>
-          <span>{{data.jobName}}</span>
+          <span>{{data.job.name}}</span>
         </div>
       </div>
     </div>
@@ -178,14 +189,14 @@
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/6.svg" alt="">
         <div>
           <strong>Tên người ứng tuyển </strong> <br>
-          <span>{{data.userName}}</span>
+          <span>{{data.user.name}}</span>
         </div>
       </div>
       <div class="box-item d-flex mt-3">
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/6.svg" alt="">
         <div>
           <strong>Cấp bậc </strong> <br>
-          <span>{{data.rankName}}</span>
+          <span>{{data.job.rank.code}}</span>
         </div>
       </div>
       <div class="box-item d-flex mt-3">
@@ -199,7 +210,7 @@
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/7.svg" alt="">
         <div>
           <strong>Kinh nghiệm </strong> <br>
-          <span>Không yêu cầu kinh nghiệm</span>
+          <span>{{data.job.numberExperience}} năm</span>
         </div>
       </div>
     </div>

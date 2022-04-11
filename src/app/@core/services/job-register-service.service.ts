@@ -3,6 +3,7 @@ import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {jobRegisterModel} from '../models/jobRegister.model';
+import {jobRegisterDTOModel} from "../models/jobRegisterDTO.model";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class JobRegisterServiceService {
   search(form: any, page, size): Observable<jobRegisterModel>{
     return this.http.post<jobRegisterModel>(`${this.baseUrl}` + 'search?pageIndex='+page+'&pageSize='+size
       ,form).pipe();
+  }
+
+  create(form: any):Observable<any>{
+    return this.http.post(`${this.baseUrl}create`, form).pipe();
   }
 }

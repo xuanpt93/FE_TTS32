@@ -24,6 +24,7 @@ import { CompanyComponent } from './company/company.component';
 import {AvatarModule} from "primeng/avatar";
 import { CompanyUpdateComponent } from './company-update/company-update.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 const routes: Routes = [{
   path: '',
@@ -74,6 +75,11 @@ const routes: Routes = [{
     {path: 'jobRegister', component:JobRegisterComponent},
     {path: 'jobRegister/:id', component:JobRegisterDetailComponent},
 
+    {
+      path: 'user-profile',
+      component:UserProfileComponent,
+    },
+
   ],
 }];
 
@@ -112,6 +118,10 @@ const routes: Routes = [{
     CompanyComponent,
     CompanyUpdateComponent,
     DashboardComponent,
+
+
+    UserProfileComponent,
+
   ],
   imports: [
     CommonModule,
