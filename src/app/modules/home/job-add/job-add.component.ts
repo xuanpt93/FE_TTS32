@@ -10,6 +10,7 @@ import {AcademicLevel} from '../../../@core/models/academicLevel';
 import {User} from '../../../@core/models/user';
 import {UserService} from '../../../@core/services/user.service';
 import {Job} from '../../../@core/models/job';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-job-add',
@@ -33,6 +34,7 @@ export class JobAddComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private jobService: JobService,
               private userService: UserService,
+              private router: Router,
   ) { }
 
   ngOnInit() {
@@ -44,14 +46,14 @@ export class JobAddComponent implements OnInit {
       addressWork: ['', [Validators.required, Validators.minLength(3)]],
       academicLevelId: ['', [Validators.required, Validators.minLength(3)]],
       rankId: ['', [Validators.required, Validators.minLength(3)]],
-      qtyPerson: ['', [Validators.required, Validators.minLength(3)]],
+      qtyPerson: ['', [Validators.required, Validators.pattern('([0-9]{1,2})')]],
       startRecruitmentDate: ['', [Validators.required, Validators.minLength(3)]],
       dueDate: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
       interrest: ['', [Validators.required, Validators.minLength(3)]],
       jobRequirement: ['', [Validators.required, Validators.minLength(3)]],
-      salaryMin: ['', [Validators.required, Validators.minLength(3)]],
-      salaryMax: ['', [Validators.required, Validators.minLength(3)]],
+      salaryMin: ['', [Validators.required,Validators.pattern('([1-9]{1}[0-9]{1,2})')]],
+      salaryMax: ['', [Validators.required, Validators.pattern('([1-9]{1}[0-9]{1,2})')]],
       contactId: ['', [Validators.required, Validators.minLength(3)]],
     });
     this.getJobPosition();
@@ -82,6 +84,7 @@ export class JobAddComponent implements OnInit {
     this.jobService.addJob(this.jobDto).subscribe(
       (data: any) => {
         alert('Add thành công');
+        this.router.navigate(["admin/job"]);
       },
     );
   }

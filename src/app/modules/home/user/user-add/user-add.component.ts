@@ -89,7 +89,7 @@ export class UserAddComponent implements OnInit {
         }
 
       }
-      this.route.navigate(['/home/user']);
+      this.route.navigate(['/admin/user']);
     },(error: HttpErrorResponse)=>{
       alert(error.message);
     });

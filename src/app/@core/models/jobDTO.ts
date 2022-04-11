@@ -24,4 +24,5 @@ export interface JobDTO{
   statusJobId: number;
   views: number;
   isDelete?: number;
+  reason: string;
 }

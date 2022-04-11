@@ -7,6 +7,8 @@ import {User} from '../../../@core/models/user';
 import {UserService} from '../../../@core/services/user.service';
 import {JobDTO} from '../../../@core/models/jobDTO';
 import {TokenService} from "../../../@core/services/token.service";
+import {ReasonDto} from '../../../@core/models/reasonDTO';
+
 
 @Component({
   selector: 'ngx-job-detail',
@@ -17,6 +19,13 @@ export class JobDetailComponent implements OnInit {
   public  job: Job;
   user: User;
   jobDTO: JobDTO;
+  reasonDto: ReasonDto;
+  displayPosition: boolean;
+  position: string;
+  displayPositionReason: boolean;
+  positionReason: string;
+  reason: string;
+
 
   constructor(
     private tokenService: TokenService,
@@ -87,6 +96,7 @@ this.getUser();
       updateDate: undefined,
       statusJobId: 0,
       views: 0,
+      reason: '',
     };
       this.jobDTO.id = this.job.id;
       this.jobDTO.name = this.job.name;
@@ -114,7 +124,7 @@ this.getUser();
   }
 
   onUpdate(id: number) {
-    this.router.navigate(['/home/job-update',id]);
+    this.router.navigate(['/admin/job-update',id]);
   }
 
   public updateStatusJob(jobDto: JobDTO){
@@ -153,9 +163,17 @@ this.getUser();
     this.updateStatusJob(this.jobDTO);
   }
 
+  onReason(){
+    this.convertData();
+    this.jobDTO.statusJobId= 4;
+    this.updateStatusJob(this.jobDTO);
+  }
+
   onDelete(id: number) {
     this.jobService.getDeleteJob(id).subscribe(() =>{
     });
     alert('Đã xóa công việc');
   }
+
+
 }
