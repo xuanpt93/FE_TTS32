@@ -79,7 +79,7 @@ export class UserAddComponent implements OnInit {
 
   addUser(user: any){
     this.userService.addUser(user).subscribe((data)=>{
-      if(data === false){
+      if(data == false){
         alert('Thêm user không thành công');
       }else{
         if(this.id == 0){

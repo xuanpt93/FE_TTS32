@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   userPictureOnly = false;
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  user: User;
+  user = JSON.parse(localStorage.getItem('user'));
   // eslint-disable-next-line @typescript-eslint/member-ordering
   userlog = JSON.parse(localStorage.getItem('token'));
 
@@ -81,12 +81,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       this.menuService.onItemClick().subscribe((event)=>{
         if(event.item.title==='Log out'){
-          this.sessionService.removeItem('auth-token');
-          this.sessionService.removeItem('auth-user');
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
           this.router.navigate(['/auth/']).then(r => console.log(r));
         }
         if(event.item.title==='Profile'){
-          this.router.navigate(['/home/profile']).then(r => console.log(r));
+          this.router.navigate(['/admin/user-profile']).then(r => console.log(r));
         }
       });
   }
@@ -111,4 +111,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
+
+
 }
