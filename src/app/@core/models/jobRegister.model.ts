@@ -1,24 +1,18 @@
+import {Job} from "./job";
+import {User} from "./user";
+import {statusJobRegisterModel} from "./statusJobRegister.model";
+
 export interface jobRegisterModel {
   id: number;
-  job_id: number;
-  user_id: number;
-  userName: string;
+  job: Job;
+  user: User;
   dateRegister: Date;
   dateInterview: Date;
   methodInterview: string;
   addressInterview: string;
-  statusJobRegister_id: number;
+  statusJobRegister: statusJobRegisterModel
   cv: string;
   mediaType: string;
   reason: string;
-  // jobPosition: string;
-  jobName: string;
-  statusJob: string;
-
-  qtyPerson: number;
-  minSalary: number;
-  maxSalary: number;
-  rankName: string;
-  statusJobName: string;
-  statusJobRegisterName: string;
+  isDelete: number;
 }

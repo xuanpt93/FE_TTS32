@@ -32,6 +32,7 @@ import { JobRegisterComponent } from './modules/home/job-register/job-register.c
 import {CommonModule} from '@angular/common';
 import { UserRegisterComponent } from './modules/public/user-register/user-register.component';
 
+
 const configToast: any = {
   timeOut: 3000,
   positionClass: 'toast-top-right',

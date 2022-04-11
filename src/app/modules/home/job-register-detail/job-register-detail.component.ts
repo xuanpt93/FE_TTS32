@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {JobRegisterServiceService} from '../../../@core/services/job-register-service.service';
 import {jobRegisterModel} from '../../../@core/models/jobRegister.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {saveAs} from 'file-saver';
 import {CvService} from '../../../@core/services/cv.service';
@@ -15,10 +15,6 @@ import {HttpEventType, HttpResponse} from "@angular/common/http";
 })
 
 export class JobRegisterDetailComponent implements OnInit {
-  selectedFiles: FileList;
-  currentFile: File;
-  progress = 0;
-  message = '';
   fileInfos: Observable<any>;
   data: jobRegisterModel;
   formInterview: FormGroup;
@@ -29,6 +25,7 @@ export class JobRegisterDetailComponent implements OnInit {
     private jobRegisterService: JobRegisterServiceService,
     private fb: FormBuilder,
     private cv: CvService,
+    private routers: Router,
   ) { }
 
   ngOnInit(): void {
@@ -78,7 +75,7 @@ export class JobRegisterDetailComponent implements OnInit {
   openPopup1(item: jobRegisterModel) {
     this.formInterview = this.fb.group({
       jobRegisterId: [item.id],
-      userId: [item.user_id],
+      userId: [item.user.id],
       date: ['', Validators.required],
       method:['', Validators.required],
       tools:['', Validators.required],
@@ -109,24 +106,5 @@ export class JobRegisterDetailComponent implements OnInit {
     this.cv.download(fileName).subscribe(
       data => saveAs(data, fileName),
     );
-  }
-
-  upload() {
-    this.progress = 0;
-    this.currentFile = this.selectedFiles.item(0);
-    this.cv.upload(this.currentFile).subscribe(
-      event => {
-        if(event.type === HttpEventType.UploadProgress){
-          this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-        }
-      },
-      err => {
-        this.progress = 0;
-        this.message = 'Could not upload the file!';
-        this.currentFile = undefined;
-      });
-    this.selectedFiles = undefined;
   }
 }

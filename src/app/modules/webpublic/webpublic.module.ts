@@ -18,7 +18,7 @@ const routes: Routes = [{
       component: ListJobHomepageComponent,
     },
     {
-      path: 'detail',
+      path: 'detail/:id',
       component: DetailJobComponent,
     },
     {
