@@ -74,7 +74,8 @@ export class DetailJobComponent implements OnInit {
 
         this.cv.upload(this.currentFile, this.user.id, this.router.snapshot.params['id']).subscribe(
           data => {
-            console.log("thành công");
+            alert("ứng tuyển thành công");
+            this.closePopup();
           },
           (err: any) => {
             console.log(err);

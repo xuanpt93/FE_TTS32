@@ -28,19 +28,16 @@
               <!-- Modal body -->
               <div class="modal-body">
                 <div class="col-auto">
-                  <label  class="col-form-label">Lý do</label>
-                </div>
-                <div class="col-auto">
                   <textarea name="reason" [rows]="5" [cols]="50" pInputTextarea autoResize="autoResize"></textarea>
                 </div>
               </div>
               <div class="col alert alert-danger" role="alert"
-                   *ngIf="formChangeStatus.get('reason')?.errors?.required">
-                reason is required!
+                   *ngIf="formChangeStatus.get('reason')?.errors?.required && formChangeStatus.get('reason')?.touched">
+                Reason is required!
               </div>
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" style="margin-right: 1px;">submit</button>
+                <button type="submit"  class="btn btn-success" data-bs-dismiss="modal" style="margin-right: 1px;">submit</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
               </div>
             </div>
@@ -88,8 +85,7 @@
                 <input type="hidden" formControlName="jobRegisterId" value="{{data.id}}" />
                 <div class="col-md-12">
                   <label >Thời gian phỏng vấn:</label>
-                  <input type="datetime-local" class="form-control" id="dateinterview"
-                         formControlName="date" >
+                  <p-calendar formControlName="date" [showTime]="true" [showIcon]="true" [minDate]="currentDate" inputId="time"></p-calendar>
                 </div>
 
                 <div class="col alert alert-danger" role="alert"
@@ -156,6 +152,13 @@
   <div class="box-main d-flex justify-content-between p-5">
     <div>
       <div class="box-item d-flex mt-3">
+        <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/2.svg" alt="">
+        <div>
+          <strong>Tên công việc </strong> <br>
+          <span>{{data.job.name}}</span>
+        </div>
+      </div>
+      <div class="box-item d-flex mt-3">
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/1.svg" alt="">
         <div>
           <strong>Mức lương </strong> <br>
@@ -173,14 +176,7 @@
         <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/2.svg" alt="">
         <div>
           <strong>Hình thức làm việc </strong> <br>
-          <span>{{data.methodInterview}}</span>
-        </div>
-      </div>
-      <div class="box-item d-flex mt-3">
-        <img class="mr-3" src="https://www.topcv.vn/v4/image/job-detail/icon/2.svg" alt="">
-        <div>
-          <strong>Tên công việc </strong> <br>
-          <span>{{data.job.name}}</span>
+          <span>{{data.job.jobPosition.code}}</span>
         </div>
       </div>
     </div>
