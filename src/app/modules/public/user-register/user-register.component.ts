@@ -42,6 +42,7 @@ export class UserRegisterComponent implements OnInit {
       password: this.fb.control('',[Validators.required,
         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
       phoneNumber: this.fb.control('',[Validators.pattern('(84|0[3|5|7|8|9])+([0-9]{8})')]),
+      avatarName: this.fb.control(''),
     });
   }
 
@@ -55,7 +56,7 @@ export class UserRegisterComponent implements OnInit {
       phoneNumber: this.registerForm.controls.phoneNumber.value,
       homeTown: this.registerForm.controls.hometown.value,
       gender: this.registerForm.controls.gender.value,
-      avatarName: '',
+      avatarName: this.registerForm.controls.avatarName.value,
     };
   console.log(user);
     this.userService.register(user).subscribe((data)=>{
@@ -97,10 +98,11 @@ export class UserRegisterComponent implements OnInit {
         }
       },
       );
+      this.viewImage();
     }
 
   viewImage() {
-    this.httpClient.get('http://localhost:9090/get/image/info/' + this.image)
+    this.httpClient.get('http://localhost:9090/get/image/info/' + this.fileToUpload)
       .subscribe(
         res => {
           this.postResponse = res;

@@ -33,7 +33,8 @@ export class TokenService {
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    // const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
     }

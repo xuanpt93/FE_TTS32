@@ -19,14 +19,12 @@ import {MaterialModule} from '../../shared/material.module';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserAddComponent } from './user/user-add/user-add.component';
-
 import {DialogModule} from "primeng/dialog";
 import { CompanyComponent } from './company/company.component';
 import {AvatarModule} from "primeng/avatar";
 import { CompanyUpdateComponent } from './company-update/company-update.component';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 const routes: Routes = [{
   path: '',
@@ -77,6 +75,11 @@ const routes: Routes = [{
     {path: 'jobRegister', component:JobRegisterComponent},
     {path: 'jobRegister/:id', component:JobRegisterDetailComponent},
 
+    {
+      path: 'user-profile',
+      component:UserProfileComponent,
+    },
+
   ],
 }];
 
@@ -112,11 +115,12 @@ const routes: Routes = [{
     UserAddComponent,
     JobRegisterDetailComponent,
     JobUpdateComponent,
-
     CompanyComponent,
     CompanyUpdateComponent,
-
     DashboardComponent,
+
+
+    UserProfileComponent,
 
   ],
   imports: [
