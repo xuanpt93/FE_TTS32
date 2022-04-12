@@ -14,11 +14,12 @@
       <label >Trạng thái</label>
       <select formControlName="idStatusJobRegister" class="form-select" aria-label="Default select example">
         <option value="1">Chờ duyệt</option>
-        <option value="2">Chờ phỏng vấn</option>
-        <option value="3">Đang phỏng vấn</option>
-        <option value="4">Đã tuyển</option>
-        <option value="5">Ứng viên bị từ chối</option>
-        <option value="6">Ứng viên đã hủy ứng tuyển</option>
+          <option value="2">Ứng viên bị từ chối</option>
+        <option value="3">Chờ phỏng vấn</option>
+        <option value="4">Đang phỏng vấn</option>
+        <option value="5">Ứng viên đã hủy ứng tuyển</option>
+        <option value="6">Trượt phỏng vấn</option>
+        <option value="7">Đã tuyển</option>
       </select>
     </div>
   </div>
@@ -31,8 +32,6 @@
     <th>Tên ứng viên</th>
     <th>Vị trí tuyển dụng</th>
     <th>Thời gian ứng tuyển</th>
-    <th>Phương thức phỏng vấn</th>
-    <th>Địa điểm</th>
     <th>Trạng thái</th>
     <th>Action</th>
   </tr>
@@ -41,10 +40,8 @@
 
   <tr *ngFor="let items of datas">
     <td >{{items.user.name}}</td>
-    <td >{{items.job.jobPosition.code}}</td>
-    <td >{{items.dateInterview| date:'dd-MM-yyyy'}}</td>
-    <td >{{items.methodInterview}}</td>
-    <td >{{items.addressInterview}}</td>
+    <td routerLink="/admin/job-detail/{{items.job.id}}">{{items.job.name}}</td>
+    <td >{{items.dateRegister| date:'dd-MM-yyyy'}}</td>
     <td>{{items.statusJobRegister.description}}</td>
     <td class="text-nowrap" style="width: 1px;">
       <button type="button" class="btn btn-danger" style="margin-right: 1px;"

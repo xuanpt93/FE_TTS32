@@ -102,7 +102,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button  class="btn btn-primary" (click)="createJobRegister()" type="button">Gửi thông tin</button>
+                  <button  class="btn btn-primary"  [disabled]="!selectedFiles" (click)="createJobRegister()" type="button">Gửi thông tin</button>
                   <button type="button" class="btn btn-danger" (click)="closePopup()">
                     Close
                   </button>
@@ -115,14 +115,12 @@
         <div class="post-details4  mb-50">
           <!-- Small Section Tittle -->
           <div class="small-section-tittle">
-            <h4>Company Information</h4>
+            <h4>Thông tin Công Ty</h4>
           </div>
-          <span>Colorlib</span>
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
           <ul>
-            <li>Name: <span>Colorlib </span></li>
-            <li>Web : <span> colorlib.com</span></li>
-            <li>Email: <span>carrier.colorlib@gmail.com</span></li>
+            <li>Tên  :    <span>  ITSol </span></li>
+            <li>Web  : <span>itsol.com</span></li>
+            <li>Email: <span>itsol@gmail.com</span></li>
           </ul>
         </div>
       </div>

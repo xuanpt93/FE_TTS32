@@ -20,6 +20,10 @@ export class JobService {
     return this.http.get<Job[]>(`${this.apiServerUrl}public/user/job/getall`).pipe();
   }
 
+  getAll(): Observable<Job[]> {
+    return this.http.get<Job[]>(`${this.apiServerUrl}public/user/job/home`).pipe();
+  }
+
   public getJobById(id: number): Observable<any> {
     const url = `${this.apiServerUrl}` + 'public/user/job/' + `${id}`;
     return this.http.get<any>(url).pipe(

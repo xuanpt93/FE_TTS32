@@ -9,7 +9,7 @@
       <div class="row p-2 bg-white border rounded">
         <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGhUZN3tdeDf1LXByYgERK6XfpNTVauL8KatXem-Jt4QYp6MkI_nbSMQFvHwYoIJYiQHk&usqp=CAU"></div>
         <div class="col-md-6 mt-1">
-          <h5>{{job.name}}</h5>
+          <h2>{{job.name}}</h2>
           <div class="d-flex flex-row">
             <div class="ratings mr-2"> View</div><span>{{job.views}}</span>
           </div>
@@ -27,57 +27,7 @@
 </div>
 
 <!-- search form  -->
-<div class="container mb-5 mt-5">
-  <form>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputEmail4">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputAddress">Address</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-      <label for="inputAddress2">Address 2</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputCity">City</label>
-        <input type="text" class="form-control" id="inputCity">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="inputState">State</label>
-        <select id="inputState" class="form-control">
-          <option selected>Choose...</option>
-          <option>...</option>
-        </select>
-      </div>
-      <div class="form-group col-md-2">
-        <label for="inputZip">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck">
-        <label class="form-check-label" for="gridCheck">
-          Check me out
-        </label>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
-</div>
-<div class="container mt-5 mb-5">
-<hr>
-</div>
+
 
 <div class="container mt-5 mb-5">
   <mat-tab-group mat-align-tabs="start" (selectedIndexChange)="onSelectedIndexChange($event)">
@@ -87,7 +37,7 @@
             <div class="row p-2 bg-white border rounded">
                 <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGhUZN3tdeDf1LXByYgERK6XfpNTVauL8KatXem-Jt4QYp6MkI_nbSMQFvHwYoIJYiQHk&usqp=CAU"></div>
                 <div class="col-md-6 mt-1">
-                    <h5>{{job.name}}</h5>
+                  <h2>{{job.name}}</h2>
                     <div class="d-flex flex-row">
                         <div class="ratings mr-2"> View</div><span>{{job.views}}</span>
                     </div>
@@ -95,7 +45,7 @@
                 </div>
                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                     <div class="d-flex flex-row align-items-center">
-                        <h4 class="mr-1">{{job.salaryMin}} VNĐ</h4><span class="strike-text">{{job.salaryMax}} VNĐ</span>
+                        <h4 class="mr-1">{{job.salaryMin}} Triệu</h4><span class="strike-text">{{job.salaryMax}} Triệu</span>
                     </div>
                     <div class="d-flex flex-column mt-4"><button routerLink="/home/detail/{{job.id}}" class="btn btn-primary btn-sm" type="button">Details</button></div>
                 </div>
@@ -110,7 +60,7 @@
           <div class="row p-2 bg-white border rounded">
             <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGhUZN3tdeDf1LXByYgERK6XfpNTVauL8KatXem-Jt4QYp6MkI_nbSMQFvHwYoIJYiQHk&usqp=CAU"></div>
             <div class="col-md-6 mt-1">
-              <h5>{{job.name}}</h5>
+              <h2>{{job.name}}</h2>
               <div class="d-flex flex-row">
                 <div class="ratings mr-2"> View</div><span>{{job.views}}</span>
               </div>
@@ -118,7 +68,7 @@
             </div>
             <div class="align-items-center align-content-center col-md-3 border-left mt-1">
               <div class="d-flex flex-row align-items-center">
-                <h4 class="mr-1">{{job.salaryMin}} VNĐ</h4><span class="strike-text">{{job.salaryMax}} VNĐ</span>
+                <h4 class="mr-1">{{job.salaryMin}} Triệu</h4><span class="strike-text">{{job.salaryMax}} Triệu</span>
               </div>
               <div class="d-flex flex-column mt-4"><button routerLink="/home/detail/{{job.id}}" class="btn btn-primary btn-sm" type="button">Details</button></div>
             </div>
@@ -132,7 +82,7 @@
         <div class="row p-2 bg-white border rounded">
           <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGhUZN3tdeDf1LXByYgERK6XfpNTVauL8KatXem-Jt4QYp6MkI_nbSMQFvHwYoIJYiQHk&usqp=CAU"></div>
           <div class="col-md-6 mt-1">
-            <h5>{{job.name}}</h5>
+            <h2>{{job.name}}</h2>
             <div class="d-flex flex-row">
               <div class="ratings mr-2"> View</div><span>{{job.views}}</span>
             </div>
@@ -140,7 +90,7 @@
           </div>
           <div class="align-items-center align-content-center col-md-3 border-left mt-1">
             <div class="d-flex flex-row align-items-center">
-              <h4 class="mr-1">{{job.salaryMin}} VNĐ</h4><span class="strike-text">{{job.salaryMax}} VNĐ</span>
+              <h4 class="mr-1">{{job.salaryMin}} Triệu</h4><span class="strike-text">{{job.salaryMax}} Triệu</span>
             </div>
             <div class="d-flex flex-column mt-4"><button  routerLink="/home/detail/{{job.id}}" class="btn btn-primary btn-sm" type="button">Details</button></div>
           </div>

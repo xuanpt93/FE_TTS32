@@ -51,7 +51,7 @@ export class HomewebComponent implements OnInit {
   }
 
   getAll(){
-    this.jobService.getJob().subscribe((res: any) => {
+    this.jobService.getAll().subscribe((res: any) => {
       this.dataAll = res;
     })
   }

@@ -12,6 +12,8 @@ export class CvService {
 
   constructor(private http: HttpClient) {}
 
+  public formData = new FormData();
+
   download(file: string | undefined): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/download/${file}`, {
       responseType: 'blob',
@@ -19,12 +21,12 @@ export class CvService {
   }
 
   upload(file: File, user_id, job_id): Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
-    formData.append('file', file);
-    formData.append('user_id',user_id);
-    formData.append('job_id', job_id);
-    console.log(formData);
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    this.resetForm();
+    this.formData.append('file', file);
+    this.formData.append('user_id',user_id);
+    this.formData.append('job_id', job_id);
+    console.log(this.formData);
+    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, this.formData, {
       reportProgress: true,
       responseType: 'json',
     });
@@ -32,5 +34,8 @@ export class CvService {
   }
   getFile(): Observable<any>{
     return this.http.get(`${this.baseUrl}/upload`);
+  }
+  resetForm() {
+    this.formData = new FormData();
   }
 }

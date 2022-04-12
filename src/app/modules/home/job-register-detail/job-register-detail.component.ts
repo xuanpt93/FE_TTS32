@@ -72,6 +72,8 @@ export class JobRegisterDetailComponent implements OnInit {
     this.displayStyle = "none";
   }
   displayStyle1 = "none";
+
+  currentDate= new Date();
   openPopup1(item: jobRegisterModel) {
     this.formInterview = this.fb.group({
       jobRegisterId: [item.id],
@@ -94,11 +96,15 @@ export class JobRegisterDetailComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.formInterview.value);
     this.jobRegisterService.sendEmailInterview(this.formInterview.value).subscribe(
       data => {
-        console.log(data);
+        alert("Đặt lịch phỏng vấn thành công");
+        this.closePopup1();
+        this.getById(this.router.snapshot.params['id']);
       },
+      error => {
+        alert("đặt lịch phỏng vấn thất bại");
+      }
     );
   }
 
