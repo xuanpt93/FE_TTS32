@@ -21,21 +21,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   icon: 'globe-2-outline',
   //   link: '/admin/product',
   // },
-  {
-    title: 'Tin tuyen dung',
-    icon: 'globe-2-outline',
-    link: '/admin/job',
-  },
-  {
-    title: 'Công việc ứng tuyển',
-    icon: 'globe-2-outline',
-    link: '/admin/jobRegister',
-  },
-  {
-    title: 'Thông tin công ty',
-    icon: 'globe-2-outline',
-    link: '/admin/company',
-  },
+
   // {
   //   title: 'Auth',
   //   icon: 'lock-outline',

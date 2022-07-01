@@ -23,14 +23,9 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 
-import { AuthInterceptor } from './@core/interceptor/auth.interceptor';
-
-import { ConfirmMailComponent } from './modules/forgot-pass/confirm-mail/confirm-mail.component';
-import { ChangePassComponent } from './modules/forgot-pass/change-pass/change-pass.component';
-
-import { JobRegisterComponent } from './modules/home/job-register/job-register.component';
+// import { AuthInterceptor } from './@core/interceptor/auth.interceptor';
 import {CommonModule} from '@angular/common';
-import { UserRegisterComponent } from './modules/public/user-register/user-register.component';
+
 
 
 const configToast: any = {
@@ -42,7 +37,7 @@ const configToast: any = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ConfirmMailComponent, ChangePassComponent, UserRegisterComponent],
+  declarations: [AppComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -66,11 +61,11 @@ const configToast: any = {
   ],
   bootstrap: [AppComponent],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
+  //   {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: AuthInterceptor,
+  //     multi: true,
+  //   },
   ],
 })
 export class AppModule {

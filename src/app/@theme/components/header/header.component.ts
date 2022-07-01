@@ -5,7 +5,7 @@ import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SessionService } from '../../../@core/services/session.service';
-import { TokenService } from '../../../@core/services/token.service';
+// import { TokenService } from '../../../@core/services/token.service';
 import { UserService } from '../../../@core/services/user.service';
 import { User } from '../../../@core/models/user';
 import { Router } from '@angular/router';
@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
               private sessionService: SessionService,
-              private tokenService: TokenService,
+              // private tokenService: TokenService,
               private userService: UserService,
               private router: Router) {
   }
